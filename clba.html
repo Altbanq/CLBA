@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CLBA Conference – Ltbanq</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mu:#5d6675;--bd:#dfe3ea;--ac:#1f5fd1;--acbg:#e6eefc;--g:#1e9e57;--gbg:#e2f6ea;--y:#d9a400;--ybg:#fff6d6;--r:#d6394a;--rbg:#fde4e7;--hi:#b45309}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1217;--card:#181d25;--tx:#eceff4;--mu:#9aa4b5;--bd:#2a313c;--ac:#6ea1ff;--acbg:#1b2a47;--g:#3fcf85;--gbg:#10301f;--y:#f0c23b;--ybg:#352c0a;--r:#ff6b7a;--rbg:#3a141a;--hi:#f0a64b}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1217;--card:#181d25;--tx:#eceff4;--mu:#9aa4b5;--bd:#2a313c;--ac:#6ea1ff;--acbg:#1b2a47;--g:#3fcf85;--gbg:#10301f;--y:#f0c23b;--ybg:#352c0a;--r:#ff6b7a;--rbg:#3a141a;--hi:#f0a64b}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 12px 8px;border-bottom:1px solid var(--bd);z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h1{font-size:17px;margin:0 0 8px}
+#q{width:100%;padding:12px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx)}
+.tabs{display:flex;gap:6px;margin-top:8px;overflow-x:auto}
+.tabs button{flex:none;padding:8px 12px;border:1px solid var(--bd);border-radius:20px;background:var(--card);color:var(--tx);font-size:14px}
+.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tabs button b{opacity:.75;font-weight:600}
+main{padding:10px 12px 40px;max-width:720px;margin:auto}
+.sub{color:var(--mu);font-size:13px;margin:4px 0 8px}
+details{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin-bottom:8px}
+details{border-left-width:6px}
+details.top{border-color:var(--g);background:var(--gbg)}
+details.fit{border-color:var(--y);background:var(--ybg)}
+details.low{border-color:var(--r);background:var(--rbg)}
+details.met{opacity:.55}
+.top .lst{color:var(--g)}.fit .lst{color:var(--y)}.low .lst{color:var(--r)}
+.lst{font-weight:600}
+.web{flex:1;text-align:center;padding:11px;color:var(--mu);font-size:14px;border:1px dashed var(--bd);border-radius:10px}
+.tabs button.top{border-color:var(--g);background:var(--gbg)}.tabs button.fit{border-color:var(--y);background:var(--ybg)}.tabs button.low{border-color:var(--r);background:var(--rbg)}
+.tabs button.top.on{background:var(--g);color:#fff}.tabs button.fit.on{background:var(--y);color:#222}.tabs button.low.on{background:var(--r);color:#fff}
+summary{list-style:none;padding:12px;cursor:pointer;display:flex;gap:8px;align-items:flex-start}
+summary::-webkit-details-marker{display:none}
+.nm{font-weight:650;flex:1}
+.tag{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--acbg);color:var(--ac);white-space:nowrap}
+.tag.i{background:transparent;color:var(--hi);border:1px solid var(--hi)}
+.tag.m{background:var(--mu);color:var(--bg)}
+.body{padding:0 12px 12px}
+.note{padding:10px;border-radius:8px;background:var(--card);border:1px solid var(--bd);margin-bottom:10px;white-space:pre-wrap}
+.none{color:var(--mu);font-style:italic;margin-bottom:10px}
+.row{display:flex;gap:8px;margin-bottom:8px}
+.row a,.row button{flex:1;text-align:center;padding:11px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--ac);font-size:15px;text-decoration:none}
+.row button.mm{color:var(--tx)}
+textarea{width:100%;min-height:70px;padding:10px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-family:inherit}
+.chips{display:flex;gap:6px;margin:8px 0}
+.chips button{padding:6px 10px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);font-size:13px}
+.chips button.on{background:var(--acbg);color:var(--ac);border-color:var(--ac)}
+.lst{font-size:12px;color:var(--mu)}
+</style></head><body>
+<header>
+<h1>CLBA Conference · Ltbanq</h1>
+<input id="q" type="search" placeholder="Search company, contact, keyword…" autocomplete="off">
+<div class="tabs" id="tabs"></div>
+</header>
+<main>
+<div class="chips"><button id="fi">Has info</button><button id="fm">Not met yet</button></div>
+<div class="sub" id="cnt"></div>
+<div id="list"></div>
+</main>
+<script>
+var L={
+top:"Top 25",
+fit:"Possible fit",
+low:"Low interested"
+};
+var D=[
+["top","Leading Edge Commercial Capital, LLC","https://leadingedgecc.com/","Broker, in salesforce, 2 declined deals, contact Amy Berk"],
+["top","LMC Alternative Business Capital","https://lmcalternativecapital.com/","Broker, contact Luciano and Francesca Cuneo"],
+["top","Rainstar Capital Group","https://rainstarcapitalgroup.com/","Broker, prior contact, in salesforce, account owner Desiree Durant, contacts at CLBA Josiah lambers and Kurt Nederveld"],
+["top","Home Trust bank","https://htb.com/mortgage/refinance/","Lender, more then 200 employees, looking for lenders, contact Josiah Lambers and Kurt Nederveld"],
+["top","Mccoy Brokerage service","https://www.mccoybrokerageservice.com/","Lender, 25+ employees, mostly health care clients, business loan brokerage, contact Danyell Samuels"],
+["top","Capital Bridge Brokers","https://www.capital-bridge-brokers.com/","Broker, contact Zachariah Forsting"],
+["top","DAL Commercial Capital","https://dalcomcapital.com/","Broker,  2-10 employees, small and large loans, contact Carol Cajahuaringa and Dario Lopez"],
+["top","Elevate Capital Consulting","https://www.elevatecapitalconsulting.com/","Broker, contact Bethany Smith"],
+["top","K2 Capital","https://k2capital.com/","Broker, one deal funded, decline and lost deals. Talk more to them to align credit box and more quality submissions, contact Chris Peebles"],
+["top","LCG Advisors","https://lcgadvisors.com/","Broker, contact Ross McClellan"],
+["top","Relationship Management Solutions Inc","https://www.rmsifundings.com/","Broker, contact Glenda Walker"],
+["top","Capital Bank","https://capitalbankmd.com/business/lending/business-loans/","Lender, contact Jeremy Baird"],
+["top","Climate first Bank","https://www.climatefirstbank.com/","Lender, contact Travis Padilla"],
+["top","eCapital","https://www.climatefirstbank.com/","Lender, Previous conversations and deals but not onboarded officially, contact James Poston"],
+["top","Goodman Capital finance","https://www.goodmancapitalfinance.com/","Lender, contact Matthew Gedaro"],
+["top","Harvest","https://www.harvestsbf.com/","Lender, contact Jeff Girling"],
+["top","Huntington Bank","https://www.huntington.com/","lender, contact Kyle Cline"],
+["top","Milestone bank","https://www.milestonebank.com/","lender, contact Mike stone and Ryan Kroge"],
+["top","Southstar Capital","https://www.southstarcapital.com/our-approach/","Lender, contact Harrison Burke"],
+["top","The Bancorp","https://www.thebancorp.com/","Lender, contact Brian Kuntz and Tony Lis"],
+["top","Aspen","https://aspencapitalsolutions.com/","Broker, contact Nicholas Zuchegno"],
+["fit","Bridgeworks Capital Group","https://www.bridgeworkscapitalgroup.com","Broker, contact David Staton"],
+["fit","Cardinal Business Financing","https://cardinalbusinessfinancing.com/","Broker, in salesforce – 1 deal declined – contact is Daniel Casanta"],
+["fit","Marina advisory","https://marinaadvisory.com/","Broker, contact Anthony Reitano"],
+["fit","Nextlink capital","https://www.nextlinkcapital.com/","broker, contact Anthony Reitano, CPA"],
+["fit","Private client capital partners","https://privateclientcapital.com/","Broker, contact Michael Cannon"],
+["fit","Strategies for Small Business","http://strategiesforsmallbusiness.com/","Broker, contact Suzanne Malone"],
+["fit","Wild elm","https://wildelmadvisors.com/our-firm/","Broker, contact Autumn Perry"],
+["fit","Bull market Capital","https://bullmarketcapital.com/referral-broker-program/","Business Loan broker, submitted applications with heavy MCA exposure not align with what we do, contact Vernon Lesser"],
+["fit","Capital funding Opportunities","https://capitalfundingopportunities.com/","Broker, contact Pierre Djunga"],
+["fit","Elan capital Inc.","https://funding.elancapital.ai/","Broker, contact Bethany Smith"],
+["fit","Fusion Alternative Funding","https://fusionalternativefunding.net/","broker, contact Gary Benedix"],
+["fit","SBA Loan Consultants","https://www.sbaloanconsultants.net/","Broker, contact Rocio Vallejo"],
+["fit","Spectrum Capital","https://spectrumcapitalsolutions.com/","Broker, contact David Griffith"],
+["fit","The Capital vine","https://www.thecapitalvine.com/","Broker, contact Melissa Vine, onboarded but no submissions"],
+["fit","Founding for you","https://funding4you.com/",""],
+["fit","Apex commercial capital","https://www.apexcommercial.com/",""],
+["fit","Mission valley bank","https://www.missionvalleybank.com/","Lender, contact Mike Stone, Ryan Kroge and Philip Demings"],
+["fit","Oxford Commercial finance","https://www.oxfordcommercialfinance.com/","Lender, contact Robbie Faucett"],
+["fit","Port 51 Lending","https://port51.com/","Lender, contact Raymond Cantwell and Pattie Ehsaei"],
+["fit","Servbank","https://servbank.com/","Lender, contact Oscar Gonzalez"],
+["fit","Boathouse","https://boathousecfg.com/","Broker, contact Frederic SaintAmour"],
+["fit","Rich Port Capital","https://richportcapital.com/","Broker, contact Miguel Planas"],
+["fit","Sawtooth value advisory","https://www.sawtoothvalue.com/","Broker, contact Jeremy Burnstein"],
+["fit","Storehouse","http://storehousecapitalfs.com/","Broker, contact Michael Pilet"],
+["fit","Middle Creek Capital","https://www.middlecreekcapital.com/","Broker, contact Evan Cannon, Kyle Wicker and Lee J. Carney"],
+["fit","Fora Financial","https://www.forafinancial.com","lender, contact Jason Solomon, Jim Magrath and Kevin May"],
+["fit","New Day Commercial capital","https://newdaycommercial.com/","lender, contact Christopher Boardman"],
+["fit","One source business capital","https://osbcapital.com/contact/","broker, contact David Marcantonio and Victoria Pelka"],
+["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran"],
+["low","First Horizon","https://www.firsthorizon.com/","Lender, contact Harley Gorter"],
+["low","Total Bank","https://www.totalbank.com/","lender, contact Tooney Thepsoumane"],
+["low","Travelers","https://www.travelerscapital.com/investment","lender, contact Sean Pisarski"],
+["low","MoneyThumb","https://www.moneythumb.com/","service provider, contact Don Campbell"],
+["low","Paynada","https://youpaynada.com/","service provider, contact Amanda Knowles"],
+["low","Boardwalk Capital LLC","https://boardwalk-cap.com/","broker, contact Matthew Mesick"],
+["low","Household Mortgage Solutions USA, Inc.","","Broker, contact Mario Jackson","no website found"],
+["low","Vista Commercial Capital Corp","","Broker, contact Steven Baritz","no website found"],
+["low","WTA Solutions","","broker, contact Tim Allred","no website found"],
+["low","Equal Fund","","Broker, contact Jagbir S Chahal and Lakhvir Singh","website not found"],
+["low","Magnolia Business Group","","Broker, contact Tamika Stafford","website not found."],
+["low","Patton Holding Group","","Broker,contact Philip Patton","website not found."],
+["low","IAI Mortgage","https://www.iaimortgage.com/","Broker, contact James Olawaye"],
+["low","KBA Financial Group","https://www.kbagroupllc.com/","Broker, contact Kenneth Benitez-Aulet"],
+["low","Klea RE","https://www.klea-re.com/","broker, Lamar Barnes"],
+["low","Mobile Home Park (MHP) Funding","https://mhp-funding.org/","Broker, contact Brett Hulsebus"],
+["low","Mountain Capital","https://mountaincapital-llc.com/","Broker, contact Lee J. Carney"],
+["low","Oasis Mortgage","https://www.oasismtgaz.com/","broker, contact Malcolm Toussaint"],
+["low","Palmwood Home Loans","https://www.palmwoodhomeloans.com/","Broker, contact Janine Marlatt and Jeffrey M Yearwood"],
+["low","Red Heart Capital Loans","https://www.redheartcapitalloans.com/","Broker, contact Terence Green"],
+["low","Bloom field capital","https://bloomfieldcapital.com/","Lender, contact Brent Truscott"],
+["low","Blue Stone commercial capital","https://bluestoneloans.com/","Lender, contact Dan Hampton"],
+["low","Cashflow IT","https://cashfloit.com/","lender, contact Matthew Washington"],
+["low","Libertas funding","https://libertasfunding.com/our-solutions","lender, contact David Goldberg"],
+["low","MM Lending","https://mmlending.com/","lender, contact Patrick Yost"],
+["low","Trius lending partners","https://triuslending.com/","lender, contact Patrick Yost"],
+["low","US small business administration","https://www.sba.gov/","leder, contact J. Eric Armacost"],
+["low","ACQUIS","https://www.acquisinsurance.com/","service provider, contact Olayinka Sanusi and Peter Austin"],
+["low","Life ease","https://www.lifeease.com/","service provide, contact Ryan Goodson"],
+["low","Stewart","https://www.lifeease.com/","service provider, contact Rob Silva"],
+["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran"]
+];
+var st={tab:"all",q:"",info:false,unmet:false},S={};
+function ld(){try{S=JSON.parse(localStorage.getItem("clba")||"{}")}catch(e){S={}}}
+function sv(){try{localStorage.setItem("clba",JSON.stringify(S))}catch(e){}}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+function key(i){return D[i][0]+"|"+D[i][1]}
+function tabs(){
+  var h='<button data-t="all" class="'+(st.tab=="all"?"on":"")+'">All <b>'+D.length+'</b></button>';
+  for(var k in L){var n=D.filter(function(d){return d[0]==k}).length;
+    h+='<button data-t="'+k+'" class="'+k+' '+(st.tab==k?"on":"")+'">'+L[k]+' <b>'+n+'</b></button>'}
+  document.getElementById("tabs").innerHTML=h;
+}
+function render(){
+  var q=st.q.toLowerCase(),h="",n=0;
+  D.forEach(function(d,i){
+    if(st.tab!="all"&&d[0]!=st.tab)return;
+    var s=S[key(i)]||{};
+    if(st.info&&!d[3])return;
+    if(st.unmet&&s.met)return;
+    if(q&&(d[1]+" "+d[3]+" "+(s.n||"")).toLowerCase().indexOf(q)<0)return;
+    n++;
+    h+='<details data-i="'+i+'" class="'+d[0]+(s.met?" met":"")+'"'+(q&&n==1&&0?" open":"")+'><summary><span class="nm">'+esc(d[1])+
+      '<div class="lst">'+L[d[0]]+'</div></span>'+(s.met?'<span class="tag m">Met</span>':'')+(d[3]?'<span class="tag i">info</span>':'')+
+      '</summary><div class="body">'+(d[3]?'<div class="note">'+esc(d[3])+'</div>':'<div class="none">No details in list</div>')+
+      '<div class="row">'+(d[2]?'<a href="'+esc(d[2])+'" target="_blank" rel="noopener">Open website</a>':'<div class="web">'+esc(d[4]||"no website")+'</div>')+
+      '<button class="mm" data-m="'+i+'">'+(s.met?"Unmark met":"Mark as met")+'</button></div>'+
+      '<textarea data-n="'+i+'" placeholder="My notes from the conversation…">'+esc(s.n||"")+'</textarea></div></details>';
+  });
+  document.getElementById("list").innerHTML=h||'<div class="none">No matches</div>';
+  document.getElementById("cnt").textContent=n+" companies";
+  document.getElementById("fi").className=st.info?"on":"";
+  document.getElementById("fm").className=st.unmet?"on":"";
+}
+document.getElementById("q").oninput=function(e){st.q=e.target.value;render()};
+document.getElementById("tabs").onclick=function(e){var t=e.target.closest("button");if(t){st.tab=t.dataset.t;tabs();render()}};
+document.getElementById("fi").onclick=function(){st.info=!st.info;render()};
+document.getElementById("fm").onclick=function(){st.unmet=!st.unmet;render()};
+document.getElementById("list").onclick=function(e){
+  var b=e.target.closest("button[data-m]");if(!b)return;
+  var i=+b.dataset.m,k=key(i);S[k]=S[k]||{};S[k].met=!S[k].met;sv();
+  var o=document.querySelector('details[data-i="'+i+'"]').open;render();
+  var d=document.querySelector('details[data-i="'+i+'"]');if(d)d.open=o;
+};
+document.getElementById("list").oninput=function(e){
+  var t=e.target;if(t.dataset.n===undefined)return;
+  var k=key(+t.dataset.n);S[k]=S[k]||{};S[k].n=t.value;sv();
+};
+ld();tabs();render();
+</script></body></html>
