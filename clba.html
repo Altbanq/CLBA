@@ -112,11 +112,23 @@ textarea{width:100%;min-height:70px;padding:10px;font-size:16px;border:1px solid
 #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
 #toast.on{opacity:1}
 #sync{font-size:12px;font-weight:500;margin-left:4px;color:var(--mu)}#sync.ok{color:var(--g)}#sync.bad{color:var(--r)}
+#bell{position:relative;flex:none;font-size:17px;line-height:1;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:5px 9px}
+#bdg{position:absolute;top:-7px;right:-7px;background:var(--r);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:1px 6px;display:none}
+#bdg.on{display:block}
+#act{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:30;display:flex;align-items:flex-end;justify-content:center}
+#act[hidden]{display:none}
+.ap{background:var(--bg);width:100%;max-width:720px;max-height:82vh;overflow:auto;border-radius:16px 16px 0 0;padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px))}
+.ah{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:17px}
+.ah button,#alerts{padding:7px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--ac);font-size:14px}
+#alerts{width:100%;margin-bottom:10px}
+.ai{padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--card);margin-bottom:6px;font-size:14px;cursor:pointer;white-space:pre-wrap;word-break:break-word}
+.ai.new{border-color:var(--ac);border-left-width:4px}
+.ai small{color:var(--mu);display:block;margin-bottom:2px}
 #sl{font-size:12px;font-weight:500;color:var(--sp);margin-left:4px}
 button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 </style></head><body>
 <header>
-<div class="hd"><h1>CLBA Conference · Altbanq <span id="sync"></span><span id="sl"></span></h1><button id="me"></button></div>
+<div class="hd"><h1>CLBA Conference · Altbanq <span id="sync"></span><span id="sl"></span></h1><button id="bell" aria-label="Recent changes">🔔<span id="bdg"></span></button><button id="me"></button></div>
 <input id="q" type="search" placeholder="Search company, person, title, keyword…" autocomplete="off">
 <div class="tabs" id="tabs"></div>
 </header>
@@ -129,6 +141,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 <div class="sub" id="cnt"></div>
 <div id="list"></div>
 </main>
+<div id="act" hidden><div class="ap"><div class="ah"><b>Recent changes</b><button id="actx">Close</button></div>
+<button id="alerts">Turn on phone alerts</button><div id="al"></div></div></div>
 <div id="toast"></div>
 <script>
 var L={top:"Top 25",fit:"Possible fit",low:"Low interested"};
@@ -273,7 +287,7 @@ var DB="https://clba-conferance-default-rtdb.firebaseio.com";
 // The Slack webhook is read from the database (config/slack), not stored in this file.
 // ===========================
 DB=DB.replace(/\/+$/,"");
-var HOOK="";
+var HOOK="",MENTION="";
 var st={tab:"all",q:"",info:false,unmet:false,edit:null,dr:null},S={},K=[],RK={top:0,fit:1,low:2,spo:3},seen={},pend=false,tmr={},nt={},sent={};
 D.forEach(function(d,i){var k=(d[0]+"|"+d[1]).replace(/[.$#\[\]\/]/g,"_");seen[k]=(seen[k]||0)+1;K[i]=seen[k]>1?k+"#"+seen[k]:k});
 
@@ -303,14 +317,79 @@ function status(t,c){var e=document.getElementById("sync");e.textContent=t;e.cla
 function myName(){try{return localStorage.getItem("clbaName")||""}catch(e){return ""}}
 function setName(n){try{localStorage.setItem("clbaName",n)}catch(e){}meBtn()}
 function meBtn(){var n=myName();document.getElementById("me").textContent=n?"You: "+n:"Set your name"}
-function who(ask){var n=myName();if(!n&&ask&&HOOK){n=(prompt("Your name (shown in Slack updates):")||"").trim();if(n)setName(n)}return n||"Someone"}
+function who(ask){var n=myName();if(!n&&ask){n=(prompt("Your name (shown in Slack updates):")||"").trim();if(n)setName(n)}return n||"Someone"}
 
 // ----- Slack -----
 function slack(text){
+  logAct(text);
   if(!HOOK)return;
-  fetch(HOOK,{method:"POST",mode:"no-cors",body:new URLSearchParams({payload:JSON.stringify({text:text})})}).catch(function(){});
+  fetch(HOOK,{method:"POST",mode:"no-cors",body:new URLSearchParams({payload:JSON.stringify({text:(MENTION?MENTION+" ":"")+text})})}).catch(function(){});
 }
+// ----- activity log (bell) -----
+var ACT=[],maxT=0,firstAct=true,seenAtOpen=0,actBusy=false;
+function getSeen(){try{return +localStorage.getItem("clbaSeen")||0}catch(e){return 0}}
+function setSeen(t){try{localStorage.setItem("clbaSeen",String(t))}catch(e){}}
+function plain(s){return s.replace(/\*/g,"").replace(/^>/gm,"  ").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&amp;/g,"&")}
+function logAct(text){
+  if(!DB)return;
+  var m=text.match(/^\*[^*]*\*[^*]*\*([^*]+)\*/),c=m?plain(m[1]):"";
+  fetch(DB+"/activity.json",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({m:plain(text),w:myName()||"Someone",c:c,t:{".sv":"timestamp"}})}).catch(function(){});
+}
+function others(a){return a.w!==(myName()||"Someone")}
+function badge(){var s=getSeen(),n=ACT.filter(function(a){return a.t>s&&others(a)}).length,b=document.getElementById("bdg");
+  b.textContent=n>99?"99+":n;b.className=n?"on":""}
+function ago(t){var m=Math.round((Date.now()-t)/60000);if(m<1)return "just now";if(m<60)return m+" min ago";var hr=Math.round(m/60);if(hr<24)return hr+" h ago";
+  return new Date(t).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}
+function renderAct(){
+  document.getElementById("al").innerHTML=ACT.length?ACT.map(function(a){
+    return '<div class="ai'+(a.t>seenAtOpen&&others(a)?" new":"")+'" data-c="'+esc(a.c)+'"><small>'+ago(a.t)+'</small>'+esc(a.m)+'</div>'}).join("")
+    :'<div class="none">No changes yet.</div>';
+}
+function alertNew(a){
+  toast(a.m.split("\n")[0]);
+  try{if(navigator.vibrate)navigator.vibrate(150)}catch(e){}
+  try{if(window.Notification&&Notification.permission=="granted"&&document.hidden)new Notification("CLBA update",{body:a.m})}catch(e){}
+}
+function pullAct(){
+  if(actBusy)return;actBusy=true;
+  fetch(DB+"/activity.json?orderBy=%22%24key%22&limitToLast=60").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(o){
+    actBusy=false;
+    ACT=Object.keys(o||{}).map(function(k){return o[k]}).filter(function(a){return a&&typeof a.t=="number"}).sort(function(a,b){return b.t-a.t});
+    var mt=ACT.length?ACT[0].t:0;
+    if(firstAct){firstAct=false;if(!getSeen())setSeen(mt||Date.now())}
+    else{var nw=ACT.filter(function(a){return a.t>maxT&&others(a)});if(nw.length)alertNew(nw[0])}
+    maxT=Math.max(maxT,mt);badge();
+    if(!document.getElementById("act").hidden)renderAct();
+  }).catch(function(){actBusy=false});
+}
+function liveAct(){
+  pullAct();
+  try{var es=new EventSource(DB+"/activity.json?orderBy=%22%24key%22&limitToLast=1");
+    es.addEventListener("put",pullAct);es.addEventListener("patch",pullAct);}catch(e){setInterval(pullAct,8000)}
+}
+document.getElementById("bell").onclick=function(){
+  seenAtOpen=getSeen();renderAct();document.getElementById("act").hidden=false;
+  if(maxT)setSeen(maxT);badge();pullAct();
+};
+function closeAct(){document.getElementById("act").hidden=true}
+document.getElementById("actx").onclick=closeAct;
+document.getElementById("act").onclick=function(e){
+  if(e.target.id=="act"){closeAct();return}
+  var it=e.target.closest(".ai");if(!it||!it.dataset.c)return;
+  closeAct();st.q=it.dataset.c;st.tab="all";document.getElementById("q").value=it.dataset.c;tabs();render();
+  var c=[].find.call(document.querySelectorAll("details.c"),function(d){return d.querySelector(".nm").firstChild.textContent==it.dataset.c});
+  if(c){c.open=true;c.scrollIntoView({block:"start"})}
+};
+document.getElementById("alerts").onclick=function(){
+  if(!window.Notification){toast("Alerts aren't available here. On iPhone, add this page to your Home Screen first.");return}
+  Notification.requestPermission().then(function(p){toast(p=="granted"?"Phone alerts on while the page is open":"Alerts were blocked in your settings")});
+};
+setInterval(function(){if(!document.getElementById("act").hidden)renderAct()},60000);
 function loadHook(){
+  fetch(DB+"/config/mention.json").then(function(r){return r.ok?r.json():null}).then(function(v){
+    if(typeof v=="string"&&v.trim())MENTION=v.trim();
+  }).catch(function(){});
   fetch(DB+"/config/slack.json").then(function(r){return r.ok?r.json():null}).then(function(v){
     if(typeof v=="string"&&/^https:\/\/hooks\.slack\.com\//.test(v.trim())){HOOK=v.trim();document.getElementById("sl").textContent="· Slack on"}
   }).catch(function(){});
@@ -444,7 +523,7 @@ function pull(){
 }
 function live(){
   if(!DB){status("○ Local only","bad");return}
-  status("… connecting");pull();loadHook();
+  status("… connecting");pull();loadHook();liveAct();
   try{
     var es=new EventSource(DB+"/clba.json");
     es.addEventListener("put",pull);es.addEventListener("patch",pull);
