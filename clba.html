@@ -1,177 +1,328 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CLBA Conference – Ltbanq</title>
+<title>CLBA Conference · Altbanq</title>
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mu:#5d6675;--bd:#dfe3ea;--ac:#1f5fd1;--acbg:#e6eefc;--g:#1e9e57;--gbg:#e2f6ea;--y:#d9a400;--ybg:#fff6d6;--r:#d6394a;--rbg:#fde4e7;--hi:#b45309}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1217;--card:#181d25;--tx:#eceff4;--mu:#9aa4b5;--bd:#2a313c;--ac:#6ea1ff;--acbg:#1b2a47;--g:#3fcf85;--gbg:#10301f;--y:#f0c23b;--ybg:#352c0a;--r:#ff6b7a;--rbg:#3a141a;--hi:#f0a64b}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1217;--card:#181d25;--tx:#eceff4;--mu:#9aa4b5;--bd:#2a313c;--ac:#6ea1ff;--acbg:#1b2a47;--g:#3fcf85;--gbg:#10301f;--y:#f0c23b;--ybg:#352c0a;--r:#ff6b7a;--rbg:#3a141a;--hi:#f0a64b}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mu:#5d6675;--bd:#dfe3ea;--ac:#1f5fd1;--acbg:#e6eefc;
+--g:#1e9e57;--gbg:#e2f6ea;--y:#d9a400;--ybg:#fff6d6;--r:#d6394a;--rbg:#fde4e7;--hi:#b45309;
+--sp:#7c3aed;--spbg:#f1e9ff;
+--t1:#1f5fd1;--t1b:#e6eefc;--t2:#0e7c7b;--t2b:#dcf3f2;--t3:#c2410c;--t3b:#ffeadd;--t4:#be185d;--t4b:#fde4f0;--t5:#5d6675;--t5b:#eceff3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1217;--card:#181d25;--tx:#eceff4;--mu:#9aa4b5;--bd:#2a313c;--ac:#6ea1ff;--acbg:#1b2a47;--g:#3fcf85;--gbg:#10301f;--y:#f0c23b;--ybg:#352c0a;--r:#ff6b7a;--rbg:#3a141a;--hi:#f0a64b;--sp:#b794ff;--spbg:#2a1d47;--t1:#6ea1ff;--t1b:#1b2a47;--t2:#3fc9c6;--t2b:#0f3333;--t3:#ff9a5c;--t3b:#3a2010;--t4:#ff7fb5;--t4b:#3a1428;--t5:#9aa4b5;--t5b:#232933}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1217;--card:#181d25;--tx:#eceff4;--mu:#9aa4b5;--bd:#2a313c;--ac:#6ea1ff;--acbg:#1b2a47;--g:#3fcf85;--gbg:#10301f;--y:#f0c23b;--ybg:#352c0a;--r:#ff6b7a;--rbg:#3a141a;--hi:#f0a64b;--sp:#b794ff;--spbg:#2a1d47;--t1:#6ea1ff;--t1b:#1b2a47;--t2:#3fc9c6;--t2b:#0f3333;--t3:#ff9a5c;--t3b:#3a2010;--t4:#ff7fb5;--t4b:#3a1428;--t5:#9aa4b5;--t5b:#232933}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 -apple-system,system-ui,Segoe UI,Roboto,sans-serif}
 header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:10px 12px 8px;border-bottom:1px solid var(--bd);z-index:5}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-h1{font-size:17px;margin:0 0 8px}
+.hd{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+h1{font-size:17px;margin:0;flex:1}
+#me{flex:none;font-size:12px;padding:5px 9px;border-radius:14px;border:1px solid var(--bd);background:var(--card);color:var(--tx)}
 #q{width:100%;padding:12px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx)}
 .tabs{display:flex;gap:6px;margin-top:8px;overflow-x:auto}
 .tabs button{flex:none;padding:8px 12px;border:1px solid var(--bd);border-radius:20px;background:var(--card);color:var(--tx);font-size:14px}
 .tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 .tabs button b{opacity:.75;font-weight:600}
+.tabs button.top{border-color:var(--g);background:var(--gbg)}.tabs button.fit{border-color:var(--y);background:var(--ybg)}.tabs button.low{border-color:var(--r);background:var(--rbg)}.tabs button.sp{border-color:var(--sp);background:var(--spbg)}
+.tabs button.top.on{background:var(--g);color:#fff}.tabs button.fit.on{background:var(--y);color:#222}.tabs button.low.on{background:var(--r);color:#fff}.tabs button.sp.on{background:var(--sp);color:#fff}
 main{padding:10px 12px 40px;max-width:720px;margin:auto}
 .sub{color:var(--mu);font-size:13px;margin:4px 0 8px}
-details{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin-bottom:8px}
-details{border-left-width:6px}
-details.top{border-color:var(--g);background:var(--gbg)}
-details.fit{border-color:var(--y);background:var(--ybg)}
-details.low{border-color:var(--r);background:var(--rbg)}
-details.met{opacity:.55}
-.top .lst{color:var(--g)}.fit .lst{color:var(--y)}.low .lst{color:var(--r)}
-.lst{font-weight:600}
-.web{flex:1;text-align:center;padding:11px;color:var(--mu);font-size:14px;border:1px dashed var(--bd);border-radius:10px}
-.tabs button.top{border-color:var(--g);background:var(--gbg)}.tabs button.fit{border-color:var(--y);background:var(--ybg)}.tabs button.low{border-color:var(--r);background:var(--rbg)}
-.tabs button.top.on{background:var(--g);color:#fff}.tabs button.fit.on{background:var(--y);color:#222}.tabs button.low.on{background:var(--r);color:#fff}
-summary{list-style:none;padding:12px;cursor:pointer;display:flex;gap:8px;align-items:flex-start}
-summary::-webkit-details-marker{display:none}
-.nm{font-weight:650;flex:1}
+.chips{display:flex;gap:6px;margin:0 0 8px;flex-wrap:wrap}
+.chips button{padding:6px 10px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);font-size:13px}
+.chips button.on{background:var(--acbg);color:var(--ac);border-color:var(--ac)}
+details.leg{margin-bottom:8px;font-size:13px}
+details.leg summary{color:var(--ac);cursor:pointer;padding:4px 0}
+.lg{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.lg span{padding:3px 8px;border-radius:10px;font-size:12px;font-weight:600}
+.lg .top{background:var(--gbg);color:var(--g);border:1px solid var(--g)}.lg .fit{background:var(--ybg);color:var(--hi);border:1px solid var(--y)}.lg .low{background:var(--rbg);color:var(--r);border:1px solid var(--r)}.lg .sp{background:var(--sp);color:#fff}
+details.c{background:var(--card);border:1px solid var(--bd);border-left-width:6px;border-radius:12px;margin-bottom:8px}
+details.c.top{border-color:var(--g);background:var(--gbg)}
+details.c.fit{border-color:var(--y);background:var(--ybg)}
+details.c.low{border-color:var(--r);background:var(--rbg)}
+details.c.spo{border-color:var(--sp);background:var(--spbg)}
+.spo .lst{color:var(--sp)}
+details.c.spx{box-shadow:0 0 0 2px var(--sp)}
+details.c.met{opacity:.55}
+details.c > summary{list-style:none;padding:12px;cursor:pointer;display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap}
+details.c > summary::-webkit-details-marker{display:none}
+.nm{font-weight:650;flex:1;min-width:55%}
+.lst{font-size:12px;font-weight:600;color:var(--mu)}
+.wh{font-size:13px;font-weight:400;color:var(--tx);margin-top:2px}
+.top .lst{color:var(--g)}.fit .lst{color:var(--hi)}.low .lst{color:var(--r)}
 .tag{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--acbg);color:var(--ac);white-space:nowrap}
 .tag.i{background:transparent;color:var(--hi);border:1px solid var(--hi)}
 .tag.m{background:var(--mu);color:var(--bg)}
+.tag.mv2{background:var(--ac);color:#fff}
+.tag.sf{background:#00a1e0;color:#fff}.tag.hs{background:transparent;color:#00a1e0;border:1px solid #00a1e0}
+.tag.sp{background:var(--sp);color:#fff}
 .body{padding:0 12px 12px}
-.note{padding:10px;border-radius:8px;background:var(--card);border:1px solid var(--bd);margin-bottom:10px;white-space:pre-wrap}
-.none{color:var(--mu);font-style:italic;margin-bottom:10px}
+.box{padding:10px;border-radius:8px;background:var(--card);border:1px solid var(--bd);margin-bottom:10px}
+.note{white-space:pre-wrap}
+.box.fit.fS{border-color:var(--g)}.box.fit.fS .h{color:var(--g);font-weight:600}.box.fit.fP{border-color:var(--y)}.box.fit.fP .h{color:var(--hi);font-weight:600}.box.fit.fN{border-color:var(--r)}.box.fit.fN .h{color:var(--r);font-weight:600}
+.sfb{border-color:#00a1e0}.sfb .h b.on{color:var(--g)}.sfb .h b.off{color:var(--r)}
+.deal{padding:7px 0;border-top:1px solid var(--bd);display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.dn{font-weight:600;flex:1}.do{font-size:12px;font-weight:600;padding:2px 8px;border-radius:10px}
+.dg{background:var(--gbg);color:var(--g)}.dr{background:var(--rbg);color:var(--r)}.dm{background:var(--t5b);color:var(--t5)}
+.dd{width:100%;font-size:13px;color:var(--mu)}.sfc{font-size:14px;padding:3px 0}.sfc a{color:var(--ac)}
+.box.warn{border-color:var(--hi);color:var(--hi);font-size:14px}
+.note .h{white-space:normal}
+
+.none{color:var(--mu);font-style:italic;margin-bottom:10px;font-size:14px}
+.h{font-size:13px;color:var(--mu);margin:0 0 4px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0}
+.kv dt{color:var(--mu)}.kv dd{margin:0;font-weight:600}
+.ty{display:flex;flex-wrap:wrap;gap:5px}
+.ty span{font-size:12px;padding:3px 8px;border-radius:10px;background:var(--acbg);color:var(--ac);font-weight:600}
+.ty .tn{background:none;color:var(--tx);font-weight:400;padding:3px 0}
+.pp{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--bd)}
+.pp:first-of-type{border-top:none}
+.pn{flex:1;font-weight:600;min-width:0}
+.pn .tt{display:inline-block;margin-top:3px}
+.tt{font-size:12px;padding:2px 8px;border-radius:10px;font-weight:600}
+.tt.exec{background:var(--t1b);color:var(--t1)}.tt.vp{background:var(--t2b);color:var(--t2)}.tt.sales{background:var(--t3b);color:var(--t3)}.tt.credit{background:var(--t4b);color:var(--t4)}.tt.other{background:var(--t5b);color:var(--t5)}.cf{font-size:11px;color:var(--mu);font-style:italic}
+.tt.none{background:none;color:var(--mu);font-weight:400;font-style:italic;padding-left:0}
+.li{flex:none;padding:7px 10px;border-radius:8px;background:#0a66c2;color:#fff;text-decoration:none;font-weight:700;font-size:13px;border:1px solid #0a66c2;white-space:nowrap}
+.li.s{background:var(--card);color:#0a66c2}
 .row{display:flex;gap:8px;margin-bottom:8px}
 .row a,.row button{flex:1;text-align:center;padding:11px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--ac);font-size:15px;text-decoration:none}
 .row button.mm{color:var(--tx)}
-textarea{width:100%;min-height:70px;padding:10px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-family:inherit}
-.chips{display:flex;gap:6px;margin:8px 0}
-.chips button{padding:6px 10px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);font-size:13px}
-.chips button.on{background:var(--acbg);color:var(--ac);border-color:var(--ac)}
-.lst{font-size:12px;color:var(--mu)}
-.mv{display:flex;gap:6px;margin-bottom:8px;align-items:stretch}
+.row button.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+.web{flex:1;text-align:center;padding:11px;color:var(--mu);font-size:14px;border:1px dashed var(--bd);border-radius:10px}
 .mvl{font-size:13px;color:var(--mu);margin:2px 0 4px}
+.mv{display:flex;gap:6px;margin-bottom:8px}
 .mv button{flex:1;padding:10px 4px;border-radius:10px;border:2px solid var(--bd);font-size:14px;background:var(--card);color:var(--tx)}
 .mv button.top{border-color:var(--g)}.mv button.fit{border-color:var(--y)}.mv button.low{border-color:var(--r)}
 .mv button.top.cur{background:var(--g);color:#fff}.mv button.fit.cur{background:var(--y);color:#222}.mv button.low.cur{background:var(--r);color:#fff}
 .rv{background:none;border:none;color:var(--ac);font-size:13px;padding:2px 0 8px;text-decoration:underline}
-.tag.mv2{background:var(--ac);color:#fff}
-#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none}
+.edb{width:100%;padding:11px;border-radius:10px;border:1px dashed var(--ac);background:var(--card);color:var(--ac);font-size:15px;margin-bottom:8px}
+textarea{width:100%;min-height:70px;padding:10px;font-size:16px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font-family:inherit}
+.ed{background:var(--card);border:2px solid var(--ac);border-radius:12px;padding:12px;margin-bottom:8px}
+.ed label{display:block;font-size:13px;color:var(--mu);margin-bottom:10px}
+.ed input,.ed select{display:block;width:100%;margin-top:3px;padding:10px;font-size:16px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-family:inherit}
+.ed label.ck{display:flex;align-items:center;gap:10px;color:var(--tx);font-size:15px;font-weight:600}
+.ed label.ck input{width:22px;height:22px;margin:0;flex:none;accent-color:var(--sp)}
+.ed .grp{font-size:13px;color:var(--mu);margin:4px 0 6px}
+.tch{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tch button{padding:7px 10px;border:1px solid var(--bd);border-radius:16px;background:var(--bg);color:var(--tx);font-size:13px}
+.tch button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.pr{border:1px solid var(--bd);border-radius:10px;padding:8px;margin-bottom:8px;background:var(--bg)}
+.pr input{margin:0 0 6px;background:var(--card)}
+.pr .del{background:none;border:none;color:var(--r);font-size:13px;padding:2px 0;text-decoration:underline}
+.add{width:100%;padding:10px;border-radius:10px;border:1px dashed var(--bd);background:var(--bg);color:var(--ac);font-size:14px;margin-bottom:10px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
 #toast.on{opacity:1}
-#sync{font-size:12px;font-weight:500;margin-left:6px;color:var(--mu)}#sync.ok{color:var(--g)}#sync.bad{color:var(--r)}
+#sync{font-size:12px;font-weight:500;margin-left:4px;color:var(--mu)}#sync.ok{color:var(--g)}#sync.bad{color:var(--r)}
+#sl{font-size:12px;font-weight:500;color:var(--sp);margin-left:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 </style></head><body>
 <header>
-<h1>CLBA Conference · Ltbanq <span id="sync"></span></h1>
-<input id="q" type="search" placeholder="Search company, contact, keyword…" autocomplete="off">
+<div class="hd"><h1>CLBA Conference · Altbanq <span id="sync"></span><span id="sl"></span></h1><button id="me"></button></div>
+<input id="q" type="search" placeholder="Search company, person, title, keyword…" autocomplete="off">
 <div class="tabs" id="tabs"></div>
 </header>
 <main>
-<div class="chips"><button id="fi">Has info</button><button id="fm">Not met yet</button></div>
+<details class="leg"><summary>Color key</summary>
+<div class="lg"><span class="top">Top 25</span><span class="fit">Possible fit</span><span class="low">Low interested</span><span class="sp">★ Sponsor</span></div>
+<div class="lg"><span class="tt exec">Executive / Owner</span><span class="tt vp">VP / Director</span><span class="tt sales">Sales / BD</span><span class="tt credit">Credit / Ops</span><span class="tt other">Other title</span></div>
+</details>
+<div class="chips"><button id="fi">Has our notes</button><button id="fm">Not met yet</button></div>
 <div class="sub" id="cnt"></div>
 <div id="list"></div>
 </main>
 <div id="toast"></div>
 <script>
-var L={
-top:"Top 25",
-fit:"Possible fit",
-low:"Low interested"
-};
+var L={top:"Top 25",fit:"Possible fit",low:"Low interested"};
+function lab(k){return L[k]||"Sponsor (not on our lists)"}
+// [list, company, website, notes, no-website note, people attending]
 var D=[
-["top","Leading Edge Commercial Capital, LLC","https://leadingedgecc.com/","Broker, in salesforce, 2 declined deals, contact Amy Berk"],
-["top","LMC Alternative Business Capital","https://lmcalternativecapital.com/","Broker, contact Luciano and Francesca Cuneo"],
-["top","Rainstar Capital Group","https://rainstarcapitalgroup.com/","Broker, prior contact, in salesforce, account owner Desiree Durant, contacts at CLBA Josiah lambers and Kurt Nederveld"],
-["top","Home Trust bank","https://htb.com/mortgage/refinance/","Lender, more then 200 employees, looking for lenders, contact Josiah Lambers and Kurt Nederveld"],
-["top","Mccoy Brokerage service","https://www.mccoybrokerageservice.com/","Lender, 25+ employees, mostly health care clients, business loan brokerage, contact Danyell Samuels"],
-["top","Capital Bridge Brokers","https://www.capital-bridge-brokers.com/","Broker, contact Zachariah Forsting"],
-["top","DAL Commercial Capital","https://dalcomcapital.com/","Broker,  2-10 employees, small and large loans, contact Carol Cajahuaringa and Dario Lopez"],
-["top","Elevate Capital Consulting","https://www.elevatecapitalconsulting.com/","Broker, contact Bethany Smith"],
-["top","K2 Capital","https://k2capital.com/","Broker, one deal funded, decline and lost deals. Talk more to them to align credit box and more quality submissions, contact Chris Peebles"],
-["top","LCG Advisors","https://lcgadvisors.com/","Broker, contact Ross McClellan"],
-["top","Relationship Management Solutions Inc","https://www.rmsifundings.com/","Broker, contact Glenda Walker"],
-["top","Capital Bank","https://capitalbankmd.com/business/lending/business-loans/","Lender, contact Jeremy Baird"],
-["top","Climate first Bank","https://www.climatefirstbank.com/","Lender, contact Travis Padilla"],
-["top","eCapital","https://www.climatefirstbank.com/","Lender, Previous conversations and deals but not onboarded officially, contact James Poston"],
-["top","Goodman Capital finance","https://www.goodmancapitalfinance.com/","Lender, contact Matthew Gedaro"],
-["top","Harvest","https://www.harvestsbf.com/","Lender, contact Jeff Girling"],
-["top","Huntington Bank","https://www.huntington.com/","lender, contact Kyle Cline"],
-["top","Milestone bank","https://www.milestonebank.com/","lender, contact Mike stone and Ryan Kroge"],
-["top","Southstar Capital","https://www.southstarcapital.com/our-approach/","Lender, contact Harrison Burke"],
-["top","The Bancorp","https://www.thebancorp.com/","Lender, contact Brian Kuntz and Tony Lis"],
-["top","Aspen","https://aspencapitalsolutions.com/","Broker, contact Nicholas Zuchegno"],
-["fit","Bridgeworks Capital Group","https://www.bridgeworkscapitalgroup.com","Broker, contact David Staton"],
-["fit","Cardinal Business Financing","https://cardinalbusinessfinancing.com/","Broker, in salesforce – 1 deal declined – contact is Daniel Casanta"],
-["fit","Marina advisory","https://marinaadvisory.com/","Broker, contact Anthony Reitano"],
-["fit","Nextlink capital","https://www.nextlinkcapital.com/","broker, contact Anthony Reitano, CPA"],
-["fit","Private client capital partners","https://privateclientcapital.com/","Broker, contact Michael Cannon"],
-["fit","Strategies for Small Business","http://strategiesforsmallbusiness.com/","Broker, contact Suzanne Malone"],
-["fit","Wild elm","https://wildelmadvisors.com/our-firm/","Broker, contact Autumn Perry"],
-["fit","Bull market Capital","https://bullmarketcapital.com/referral-broker-program/","Business Loan broker, submitted applications with heavy MCA exposure not align with what we do, contact Vernon Lesser"],
-["fit","Capital funding Opportunities","https://capitalfundingopportunities.com/","Broker, contact Pierre Djunga"],
-["fit","Elan capital Inc.","https://funding.elancapital.ai/","Broker, contact Bethany Smith"],
-["fit","Fusion Alternative Funding","https://fusionalternativefunding.net/","broker, contact Gary Benedix"],
-["fit","SBA Loan Consultants","https://www.sbaloanconsultants.net/","Broker, contact Rocio Vallejo"],
-["fit","Spectrum Capital","https://spectrumcapitalsolutions.com/","Broker, contact David Griffith"],
-["fit","The Capital vine","https://www.thecapitalvine.com/","Broker, contact Melissa Vine, onboarded but no submissions"],
-["fit","Founding for you","https://funding4you.com/",""],
-["fit","Apex commercial capital","https://www.apexcommercial.com/",""],
-["fit","Mission valley bank","https://www.missionvalleybank.com/","Lender, contact Mike Stone, Ryan Kroge and Philip Demings"],
-["fit","Oxford Commercial finance","https://www.oxfordcommercialfinance.com/","Lender, contact Robbie Faucett"],
-["fit","Port 51 Lending","https://port51.com/","Lender, contact Raymond Cantwell and Pattie Ehsaei"],
-["fit","Servbank","https://servbank.com/","Lender, contact Oscar Gonzalez"],
-["fit","Boathouse","https://boathousecfg.com/","Broker, contact Frederic SaintAmour"],
-["fit","Rich Port Capital","https://richportcapital.com/","Broker, contact Miguel Planas"],
-["fit","Sawtooth value advisory","https://www.sawtoothvalue.com/","Broker, contact Jeremy Burnstein"],
-["fit","Storehouse","http://storehousecapitalfs.com/","Broker, contact Michael Pilet"],
-["fit","Middle Creek Capital","https://www.middlecreekcapital.com/","Broker, contact Evan Cannon, Kyle Wicker and Lee J. Carney"],
-["fit","Fora Financial","https://www.forafinancial.com","lender, contact Jason Solomon, Jim Magrath and Kevin May"],
-["fit","New Day Commercial capital","https://newdaycommercial.com/","lender, contact Christopher Boardman"],
-["fit","One source business capital","https://osbcapital.com/contact/","broker, contact David Marcantonio and Victoria Pelka"],
-["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran"],
-["low","First Horizon","https://www.firsthorizon.com/","Lender, contact Harley Gorter"],
-["low","Total Bank","https://www.totalbank.com/","lender, contact Tooney Thepsoumane"],
-["low","Travelers","https://www.travelerscapital.com/investment","lender, contact Sean Pisarski"],
-["low","MoneyThumb","https://www.moneythumb.com/","service provider, contact Don Campbell"],
-["low","Paynada","https://youpaynada.com/","service provider, contact Amanda Knowles"],
-["low","Boardwalk Capital LLC","https://boardwalk-cap.com/","broker, contact Matthew Mesick"],
-["low","Household Mortgage Solutions USA, Inc.","","Broker, contact Mario Jackson","no website found"],
-["low","Vista Commercial Capital Corp","","Broker, contact Steven Baritz","no website found"],
-["low","WTA Solutions","","broker, contact Tim Allred","no website found"],
-["low","Equal Fund","","Broker, contact Jagbir S Chahal and Lakhvir Singh","website not found"],
-["low","Magnolia Business Group","","Broker, contact Tamika Stafford","website not found."],
-["low","Patton Holding Group","","Broker,contact Philip Patton","website not found."],
-["low","IAI Mortgage","https://www.iaimortgage.com/","Broker, contact James Olawaye"],
-["low","KBA Financial Group","https://www.kbagroupllc.com/","Broker, contact Kenneth Benitez-Aulet"],
-["low","Klea RE","https://www.klea-re.com/","broker, Lamar Barnes"],
-["low","Mobile Home Park (MHP) Funding","https://mhp-funding.org/","Broker, contact Brett Hulsebus"],
-["low","Mountain Capital","https://mountaincapital-llc.com/","Broker, contact Lee J. Carney"],
-["low","Oasis Mortgage","https://www.oasismtgaz.com/","broker, contact Malcolm Toussaint"],
-["low","Palmwood Home Loans","https://www.palmwoodhomeloans.com/","Broker, contact Janine Marlatt and Jeffrey M Yearwood"],
-["low","Red Heart Capital Loans","https://www.redheartcapitalloans.com/","Broker, contact Terence Green"],
-["low","Bloom field capital","https://bloomfieldcapital.com/","Lender, contact Brent Truscott"],
-["low","Blue Stone commercial capital","https://bluestoneloans.com/","Lender, contact Dan Hampton"],
-["low","Cashflow IT","https://cashfloit.com/","lender, contact Matthew Washington"],
-["low","Libertas funding","https://libertasfunding.com/our-solutions","lender, contact David Goldberg"],
-["low","MM Lending","https://mmlending.com/","lender, contact Patrick Yost"],
-["low","Trius lending partners","https://triuslending.com/","lender, contact Patrick Yost"],
-["low","US small business administration","https://www.sba.gov/","leder, contact J. Eric Armacost"],
-["low","ACQUIS","https://www.acquisinsurance.com/","service provider, contact Olayinka Sanusi and Peter Austin"],
-["low","Life ease","https://www.lifeease.com/","service provide, contact Ryan Goodson"],
-["low","Stewart","https://www.lifeease.com/","service provider, contact Rob Silva"],
-["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran"]
+["top","Leading Edge Commercial Capital, LLC","https://leadingedgecc.com/","Broker, in Salesforce, 2 declined deals, contact Amy Berk","",["Amy Berk"]],
+["top","LMC Alternative Business Capital","https://lmcalternativecapital.com/","Broker, contact Luciano and Francesca Cuneo","",["Luciano","Francesca Cuneo"]],
+["top","Rainstar Capital Group","https://rainstarcapitalgroup.com/","Broker, prior contact, in Salesforce, contacts at CLBA Josiah Lambers and Kurt Nederveld","",["Josiah Lambers","Kurt Nederveld"]],
+["top","Home Trust bank","https://htb.com/mortgage/refinance/","Lender, more then 200 employees, looking for lenders, contact Josiah Lambers and Kurt Nederveld","",["Josiah Lambers","Kurt Nederveld"]],
+["top","Mccoy Brokerage service","https://www.mccoybrokerageservice.com/","Lender, 25+ employees, mostly health care clients, business loan brokerage, contact Danyell Samuels","",["Danyell Samuels"]],
+["top","Capital Bridge Brokers","https://www.capital-bridge-brokers.com/","Broker, contact Zachariah Forsting","",["Zachariah Forsting"]],
+["top","DAL Commercial Capital","https://dalcomcapital.com/","Broker, 2-10 employees, small and large loans, contact Carol Cajahuaringa and Dario Lopez","",["Carol Cajahuaringa","Dario Lopez"]],
+["top","Elevate Capital Consulting","https://www.elevatecapitalconsulting.com/","Broker, contact Bethany Smith","",["Bethany Smith"]],
+["top","K2 Capital","https://k2capital.com/","Broker, one deal funded, decline and lost deals. Talk more to them to align credit box and more quality submissions, contact Chris Peebles","",["Chris Peebles"]],
+["top","LCG Advisors","https://lcgadvisors.com/","Broker, contact Ross McClellan","",["Ross McClellan"]],
+["top","Relationship Management Solutions Inc","https://www.rmsifundings.com/","Broker, contact Glenda Walker","",["Glenda Walker"]],
+["top","Capital Bank","https://capitalbankmd.com/business/lending/business-loans/","Lender, contact Jeremy Baird","",["Jeremy Baird"]],
+["top","Climate first Bank","https://www.climatefirstbank.com/","Lender, contact Travis Padilla","",["Travis Padilla"]],
+["top","eCapital","https://www.climatefirstbank.com/","Lender, previous conversations and deals but not onboarded officially, contact James Poston","",["James Poston"]],
+["top","Goodman Capital finance","https://www.goodmancapitalfinance.com/","Lender, contact Matthew Gedaro","",["Matthew Gedaro"]],
+["top","Harvest","https://www.harvestsbf.com/","Lender, contact Jeff Girling","",["Jeff Girling"]],
+["top","Huntington Bank","https://www.huntington.com/","Lender, contact Kyle Cline","",["Kyle Cline"]],
+["top","Milestone bank","https://www.milestonebank.com/","Lender, contact Mike Stone and Ryan Kroge","",["Mike Stone","Ryan Kroge"]],
+["top","Southstar Capital","https://www.southstarcapital.com/our-approach/","Lender, contact Harrison Burke","",["Harrison Burke"]],
+["top","The Bancorp","https://www.thebancorp.com/","Lender, contact Brian Kuntz and Tony Lis","",["Brian Kuntz","Tony Lis"]],
+["top","Aspen","https://aspencapitalsolutions.com/","Broker, contact Nicholas Zuchegno","",["Nicholas Zuchegno"]],
+["fit","Bridgeworks Capital Group","https://www.bridgeworkscapitalgroup.com","Broker, contact David Staton","",["David Staton"]],
+["fit","Cardinal Business Financing","https://cardinalbusinessfinancing.com/","Broker, in Salesforce – 1 deal declined – contact is Daniel Casanta","",["Daniel Casanta"]],
+["fit","Marina advisory","https://marinaadvisory.com/","Broker, contact Anthony Reitano","",["Anthony Reitano"]],
+["fit","Nextlink capital","https://www.nextlinkcapital.com/","Broker, contact Anthony Reitano, CPA","",["Anthony Reitano"]],
+["fit","Private client capital partners","https://privateclientcapital.com/","Broker, contact Michael Cannon","",["Michael Cannon"]],
+["fit","Strategies for Small Business","http://strategiesforsmallbusiness.com/","Broker, contact Suzanne Malone","",["Suzanne Malone"]],
+["fit","Wild elm","https://wildelmadvisors.com/our-firm/","Broker, contact Autumn Perry","",["Autumn Perry"]],
+["fit","Bull market Capital","https://bullmarketcapital.com/referral-broker-program/","Business loan broker, submitted applications with heavy MCA exposure not align with what we do, contact Vernon Lesser","",["Vernon Lesser"]],
+["fit","Capital funding Opportunities","https://capitalfundingopportunities.com/","Broker, contact Pierre Djunga","",["Pierre Djunga"]],
+["fit","Elan capital Inc.","https://funding.elancapital.ai/","Broker, contact Bethany Smith","",["Bethany Smith"]],
+["fit","Fusion Alternative Funding","https://fusionalternativefunding.net/","Broker, contact Gary Benedix","",["Gary Benedix"]],
+["fit","SBA Loan Consultants","https://www.sbaloanconsultants.net/","Broker, contact Rocio Vallejo","",["Rocio Vallejo"]],
+["fit","Spectrum Capital","https://spectrumcapitalsolutions.com/","Broker, contact David Griffith","",["David Griffith"]],
+["fit","The Capital vine","https://www.thecapitalvine.com/","Broker, contact Melissa Vine, onboarded but no submissions","",["Melissa Vine"]],
+["fit","Founding for you","https://funding4you.com/","","",[]],
+["fit","Apex commercial capital","https://www.apexcommercial.com/","","",[]],
+["fit","Mission valley bank","https://www.missionvalleybank.com/","Lender, contact Mike Stone, Ryan Kroge and Philip Demings","",["Mike Stone","Ryan Kroge","Philip Demings"]],
+["fit","Oxford Commercial finance","https://www.oxfordcommercialfinance.com/","Lender, contact Robbie Faucett","",["Robbie Faucett"]],
+["fit","Port 51 Lending","https://port51.com/","Lender, contact Raymond Cantwell and Pattie Ehsaei","",["Raymond Cantwell","Pattie Ehsaei"]],
+["fit","Servbank","https://servbank.com/","Lender, contact Oscar Gonzalez","",["Oscar Gonzalez"]],
+["fit","Boathouse","https://boathousecfg.com/","Broker, contact Frederic SaintAmour","",["Frederic SaintAmour"]],
+["fit","Rich Port Capital","https://richportcapital.com/","Broker, contact Miguel Planas","",["Miguel Planas"]],
+["fit","Sawtooth value advisory","https://www.sawtoothvalue.com/","Broker, contact Jeremy Burnstein","",["Jeremy Burnstein"]],
+["fit","Storehouse","http://storehousecapitalfs.com/","Broker, contact Michael Pilet","",["Michael Pilet"]],
+["fit","Middle Creek Capital","https://www.middlecreekcapital.com/","Broker, contact Evan Cannon, Kyle Wicker and Lee J. Carney","",["Evan Cannon","Kyle Wicker","Lee J. Carney"]],
+["fit","Fora Financial","https://www.forafinancial.com","Lender, contact Jason Solomon, Jim Magrath and Kevin May","",["Jason Solomon","Jim Magrath","Kevin May"]],
+["fit","New Day Commercial capital","https://newdaycommercial.com/","Lender, contact Christopher Boardman","",["Christopher Boardman"]],
+["fit","One source business capital","https://osbcapital.com/contact/","Broker, contact David Marcantonio and Victoria Pelka","",["David Marcantonio","Victoria Pelka"]],
+["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran","",["Danny Tran"]],
+["low","First Horizon","https://www.firsthorizon.com/","Lender, contact Harley Gorter","",["Harley Gorter"]],
+["low","Total Bank","https://www.totalbank.com/","Lender, contact Tooney Thepsoumane","",["Tooney Thepsoumane"]],
+["low","Travelers","https://www.travelerscapital.com/investment","Lender, contact Sean Pisarski","",["Sean Pisarski"]],
+["low","MoneyThumb","https://www.moneythumb.com/","Service provider, contact Don Campbell","",["Don Campbell"]],
+["low","Paynada","https://youpaynada.com/","Service provider, contact Amanda Knowles","",["Amanda Knowles"]],
+["low","Boardwalk Capital LLC","https://boardwalk-cap.com/","Broker, contact Matthew Mesick","",["Matthew Mesick"]],
+["low","Household Mortgage Solutions USA, Inc.","","Broker, contact Mario Jackson","No website found",["Mario Jackson"]],
+["low","Vista Commercial Capital Corp","","Broker, contact Steven Baritz","No website found",["Steven Baritz"]],
+["low","WTA Solutions","","Broker, contact Tim Allred","No website found",["Tim Allred"]],
+["low","Equal Fund","","Broker, contact Jagbir S Chahal and Lakhvir Singh","Website not found",["Jagbir S Chahal","Lakhvir Singh"]],
+["low","Magnolia Business Group","","Broker, contact Tamika Stafford","Website not found.",["Tamika Stafford"]],
+["low","Patton Holding Group","","Broker, contact Philip Patton","Website not found.",["Philip Patton"]],
+["low","IAI Mortgage","https://www.iaimortgage.com/","Broker, contact James Olawaye","",["James Olawaye"]],
+["low","KBA Financial Group","https://www.kbagroupllc.com/","Broker, contact Kenneth Benitez-Aulet","",["Kenneth Benitez-Aulet"]],
+["low","Klea RE","https://www.klea-re.com/","Broker, Lamar Barnes","",["Lamar Barnes"]],
+["low","Mobile Home Park (MHP) Funding","https://mhp-funding.org/","Broker, contact Brett Hulsebus","",["Brett Hulsebus"]],
+["low","Mountain Capital","https://mountaincapital-llc.com/","Broker, contact Lee J. Carney","",["Lee J. Carney"]],
+["low","Oasis Mortgage","https://www.oasismtgaz.com/","Broker, contact Malcolm Toussaint","",["Malcolm Toussaint"]],
+["low","Palmwood Home Loans","https://www.palmwoodhomeloans.com/","Broker, contact Janine Marlatt and Jeffrey M Yearwood","",["Janine Marlatt","Jeffrey M Yearwood"]],
+["low","Red Heart Capital Loans","https://www.redheartcapitalloans.com/","Broker, contact Terence Green","",["Terence Green"]],
+["low","Bloom field capital","https://bloomfieldcapital.com/","Lender, contact Brent Truscott","",["Brent Truscott"]],
+["low","Blue Stone commercial capital","https://bluestoneloans.com/","Lender, contact Dan Hampton","",["Dan Hampton"]],
+["low","Cashflow IT","https://cashfloit.com/","Lender, contact Matthew Washington","",["Matthew Washington"]],
+["low","Libertas funding","https://libertasfunding.com/our-solutions","Lender, contact David Goldberg","",["David Goldberg"]],
+["low","MM Lending","https://mmlending.com/","Lender, contact Patrick Yost","",["Patrick Yost"]],
+["low","Trius lending partners","https://triuslending.com/","Lender, contact Patrick Yost","",["Patrick Yost"]],
+["low","US small business administration","https://www.sba.gov/","Lender, contact J. Eric Armacost","",["J. Eric Armacost"]],
+["low","ACQUIS","https://www.acquisinsurance.com/","Service provider, contact Olayinka Sanusi and Peter Austin","",["Olayinka Sanusi","Peter Austin"]],
+["low","Life ease","https://www.lifeease.com/","Service provider, contact Ryan Goodson","",["Ryan Goodson"]],
+["low","Stewart","https://www.lifeease.com/","Service provider, contact Rob Silva","",["Rob Silva"]],
+["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran","",["Danny Tran"]],
+// ----- CLBA sponsors not on our original lists, placed by fit -----
+["fit", "ACSTN", "", "", "", ["Cristina"]],
+["low", "Leverage Companies", "", "", "", []],
+["low", "RCN Capital", "", "", "", ["E. Sikorski"]],
+["low", "ARF Financial", "", "", "", ["Steve Glenn"]],
+["top", "Leasecorp", "", "", "", ["S. Schwandt"]],
+["top", "Banesco USA", "", "", "", ["V. Garcia"]],
+["top", "Baker Garrington", "", "", "", ["B. Baker"]],
+["top", "ROK Financial", "", "", "", ["Shannon"]],
+["low", "Res/Title", "", "", "", ["R. Braga"]],
+["fit", "Tenet Financial Group", "", "", "", ["J. Martin"]],
+["top", "National", "", "", "", ["S. Robinson"]],
+["top", "DML Capital Group", "", "", "", ["John F."]],
+["low", "IceCap Group", "", "", "", ["E. Ohana"]],
+["top", "Celtic Bank", "", "", "", ["L. Apple"]],
+["low", "Express Capital Financing", "", "", "", ["Max"]],
+["low", "Kirkland Capital Group", "", "", "", ["Brock Freeman"]],
+["low", "FACo Lending", "", "", "", ["Jacklyn Davin"]],
+["low", "Gradient MC", "", "", "", ["Maddie Hisaw"]],
+["top", "Gulf Bank", "", "", "", []],
+["top", "Voyager Lending", "", "", "", ["Matthew McElveen"]],
+["top", "Colony Bank", "", "", "", ["Ali Schwandt"]],
+["fit", "CIBC", "", "", "", ["Juli Tatar"]],
+["fit", "Berkeley Capital Partners", "", "", "", ["Mike Eddy"]],
+["top", "Lexicon Bank", "", "", "", ["Z. Balmer"]],
+["top", "Technology Credit Union", "", "", "", ["J. Ogdahl"]],
+["top", "Stone Bank", "", "", "", ["M. Edmonds"]],
+["low", "Kennedy Funding", "", "", "", ["Mark Falzone"]],
+["low", "Silver Hill Capital", "", "", "", ["Alexa Almirall"]],
+["fit", "ACC Capital", "", "", "", ["I. Barnello"]],
+["top", "Byline Bank", "", "", "", ["T. Kim"]],
+["top", "Dogwood State Bank", "", "", "", ["M. A. Johnson"]],
+["fit", "Centrex Software", "", "", "", ["T. Markel"]],
+["low", "Yieldi", "", "", "", ["Chris A."]],
+["top", "First Merchants Bank", "", "", "", ["S. James"]],
+["fit", "NEWITY", "", "", "", ["M. Beyatli"]],
+["fit", "KAAJ", "", "", "", ["Timothy Donovan"]],
+["top", "Commercial Funding", "", "", "", ["Megan Jenson"]],
+["top", "SmartBiz Bank", "", "", "", ["Matt Grotzinger"]],
+["top", "Lendesca", "", "", "", ["M. Craig"]],
+["fit", "CLB Association", "", "", "", ["Jenna Seidel"]]
 ];
-// ===== SHARED DATABASE: paste your Firebase Realtime Database URL between the quotes =====
+// ===== SALESFORCE DATA (filled in from your export) =====
+// Keyed by company name exactly as above. Fields: sp (sponsor true/false), role, types ("Bank|SBA"), tnote,
+// our (Altbanq contact), signup, lead, sub (dates as YYYY-MM-DD), ppl ([{n:"Name",t:"Title",li:"LinkedIn URL"}])
+var X={"ACSTN": {"sp": true, "what": "CLBA's affiliate: CRE, SBA, equipment, acquisition loans", "fit": "Possible fit", "why": "Mostly CRE and construction deals, but Cristina runs CLBA itself. Worth a relationship for visibility and introductions.", "blurb": "Commercial finance firm (CRE, bridge, construction, SBA, equipment and acquisition loans) led by Terry Luker; the affiliated company behind CLBA.", "ptype": "Broker / lending marketplace", "loc": "Franklin, TN", "spn": "Alternative Capital Solutions", "web": "https://alternativecapitalsolutions.com/", "ppl": [{"n": "Cristina Darr", "c": "Alternative Capital Solutions", "t": "Executive Director, CLBA", "e": "Cristina@acstn.net"}]}, "Leverage Companies": {"sp": true, "what": "Real estate private equity & developer lending", "fit": "Not a fit", "whynot": "Real estate only, a restricted industry for Altbanq. Generic mailbox, no named attendee.", "blurb": "Newark real estate private equity firm with a private lending arm for developers (Brick City Capital) and an opportunity debt fund.", "ptype": "Asset manager / private credit", "loc": "Newark, NJ", "spn": "Leverage Companies", "web": "https://leveragecompanies.com", "ppl": [], "ppl0": true}, "RCN Capital": {"sp": true, "what": "Private lender to real estate investors", "fit": "Not a fit", "whynot": "Real estate investor lending only; attendee is in marketing.", "blurb": "Nationwide private lender to real estate investors (fix and flip, rental, construction) with broker programs; owns lending software company BLN.", "ptype": "Real estate lender", "loc": "South Windsor, CT (also Los Angeles, Charlotte)", "spn": "RCN Capital", "web": "https://rcncapital.com", "ppl": [{"n": "Erica Sikoski", "c": "RCN Capital", "t": "Senior Marketing Manager, BLN Software", "e": "ESikoski@rcncapital.com"}]}, "ARF Financial": {"sp": true, "what": "Small business loans $5K–$1.5M, up to 36 months", "fit": "Not a fit", "whynot": "Competes for the same broker deal flow and small business borrowers. Market intel only.", "blurb": "Small business lender ($5K to $1.5M, terms up to 36 months) strong in restaurants, retail and manufacturing, with a broker referral program.", "ptype": "Business lender", "loc": "Beverly Hills, CA / Sunrise, FL", "spn": "ARF Financial", "web": "https://arffinancial.com", "ppl": [{"n": "Steve Glenn", "c": "ARF Financial", "t": "Chief Executive Officer", "e": "sglenn@arffinancial.com"}]}, "Leasecorp": {"sp": true, "what": "Equipment leasing; affiliate of Milestone Bank (SBA)", "fit": "Good fit", "why": "Equipment and SBA bank clients need working capital alongside. Two-way referrals; ties to Milestone Bank, already a Good fit.", "blurb": "Equipment leasing company with $1B+ in lease volume; its affiliated bank, now Milestone Bank, is an SBA Preferred Lender.", "ptype": "Equipment finance", "loc": "Troy, MI", "spn": "Lease Corporation of America (LCA)", "web": "https://leasecorp.com", "ppl": [{"n": "Stephanie Schwandt", "c": "Lease Corporation of America", "t": "Senior Business Development Officer, Milestone Bank (formerly LCA Bank)", "tc": true, "e": "sschwandt@leasecorp.com"}]}, "Banesco USA": {"sp": true, "what": "Miami bank with a national SBA lending team", "fit": "Good fit", "why": "Just bought BayFirst's national SBA business; SBA declines and slow deals need a non-SBA option. Attendee is in marketing, so ask for the SBA team.", "blurb": "Miami community bank (about $5.4B in assets) that bought BayFirst's national SBA lending business in December 2025.", "ptype": "Bank", "loc": "Miami, FL", "spn": "Banesco USA", "web": "https://banescousa.com", "ppl": [{"n": "Valentina Garcia", "c": "Banesco USA", "t": "Manager, Marketing Operations", "tc": true, "e": "vgarcia@banescousa.com"}], "warn": ["Attendee name not fully confirmed; check the badge."]}, "Baker Garrington": {"sp": true, "what": "Factoring for trucking and staffing", "fit": "Good fit", "why": "Factoring clients that outgrow invoices need term loans. Two-way referral partner.", "blurb": "Factoring company for trucking fleets, carriers and staffing firms, with fuel cards, credit insurance and back-office support.", "ptype": "Factoring / ABL", "loc": "Aberdeen, SD (offices in TX, ND, WI, Toronto)", "spn": "Baker Garrington Capital Corp.", "web": "https://bakergarrington.com", "ppl": [{"n": "Bob Baker", "c": "Baker Garrington Capital Corp.", "t": "Founder", "e": "bbaker@bakergarrington.com"}]}, "ROK Financial": {"sp": true, "what": "Small business lending marketplace (broker)", "fit": "Good fit", "why": "Broker marketplace with term loans, LOCs and SBA and partner programs; COO attending. Qualify deal quality and MCA exposure.", "blurb": "Long Island small business lending marketplace (term, SBA, equipment, AR, CRE and franchise funding) with partner and affiliate programs.", "ptype": "Broker / lending marketplace", "loc": "Great River, NY", "spn": "ROK Financial", "web": "https://rok.biz", "ppl": [{"n": "Shannon Treadwell", "c": "ROK Financial", "t": "Chief Operating Officer", "e": "shannon@rok.biz"}]}, "Res/Title": {"sp": true, "what": "Title & settlement services", "fit": "Not a fit", "whynot": "Unrelated service provider; no lending referral flow.", "blurb": "National title and settlement company for lenders and attorneys, handling residential, commercial, construction and SBA closings.", "ptype": "Title & settlement", "loc": "Nationwide", "spn": "Res/Title", "web": "https://res-title.com", "ppl": [{"n": "Regina Braga, MBA", "c": "Res/Title", "t": "President", "e": "rbraga@res-title.com"}]}, "Tenet Financial Group": {"sp": true, "what": "Franchise funding: ROBS, SBA, term loans", "fit": "Possible fit", "why": "Mostly business buyers and new franchises, which fall short of Altbanq's 1+ year, $1M+ revenue rule. Some established owners may fit.", "blurb": "Texas franchise and small business funding firm specializing in 401(k) rollovers (ROBS), plus SBA and term loans.", "ptype": "Broker / lending marketplace", "loc": "Aledo, TX", "spn": "Tenet Financial Group", "web": "https://www.tenetfinancialgroup.com/", "ppl": [{"n": "J. Martin", "c": "Tenet Financial Group", "e": "jmartin@tenetfinancial.com"}]}, "National": {"sp": true, "what": "Business financing marketplace (broker)", "fit": "Good fit", "why": "Matches small and mid-size businesses with lenders across term, SBA and LOC products; Partner Success Manager attending.", "blurb": "Long Island financing marketplace matching small and mid-size businesses with lenders for SBA, term loans, credit lines and equipment.", "ptype": "Broker / lending marketplace", "loc": "Long Island, NY", "spn": "National Business Capital", "web": "https://national.biz", "ppl": [{"n": "Stephanie Robinson", "c": "National Business Capital", "t": "Partner Success Manager", "e": "srobinson@national.biz"}]}, "New Day Business Finance": {"sp": true, "what": "Business financing; offerings to verify"}, "DML Capital Group": {"sp": true, "what": "Healthcare receivables financing, $1M–$25M+", "fit": "Good fit", "why": "Healthcare focus is Altbanq's top industry. Providers financing insurance receivables often need term capital too.", "blurb": "Healthcare receivables lender providing $1M to $25M+ facilities against providers' insurance receivables.", "ptype": "Factoring / ABL", "loc": "Not stated", "spn": "DML Capital Group", "web": "https://dmlcapitalgroup.com", "ppl": [{"n": "John Ferguson", "c": "DML Capital Group", "t": "President & Founder", "e": "johnf@dmlcapitalgroup.com"}]}, "IceCap Group": {"sp": true, "what": "Private RE lender: bridge, fix & flip, DSCR", "fit": "Not a fit", "whynot": "Real estate investor lending only.", "blurb": "New York private real estate lender since 2000 (bridge, fix and flip, DSCR, construction); reports $1.1B funded in 2025.", "ptype": "Real estate lender", "loc": "New York, NY", "spn": "IceCap Group", "web": "https://icecapgroup.com", "ppl": [{"n": "Esther Ohana", "c": "IceCap Group", "t": "CEO", "tc": true, "e": "eohana@icecapgroup.com"}]}, "Celtic Bank": {"sp": true, "what": "Top-10 SBA lender; equipment & ABL", "fit": "Good fit", "why": "Large SBA pipeline means deals that don't fit SBA or can't wait. Bank referral partner.", "blurb": "Salt Lake City small business bank and a top ten SBA lender every year since 2013; also equipment finance, ABL and fintech partnerships.", "ptype": "Bank", "loc": "Salt Lake City, UT", "spn": "Celtic Bank", "web": "https://www.celticbank.com", "ppl": [{"n": "L. Apple", "c": "Celtic Bank", "e": "lapple@celticbank.com"}]}, "Express Capital Financing": {"sp": true, "what": "Hard money real estate lender", "fit": "Not a fit", "whynot": "Real estate investor lending only.", "blurb": "Brooklyn and New Jersey hard money lender for real estate investors ($150K to $10M) that works with brokers and referral partners.", "ptype": "Real estate lender", "loc": "Brooklyn, NY / West Long Branch, NJ", "spn": "Express Capital Financing", "web": "https://expresscapitalfinancing.com", "ppl": [{"n": "Max Chera", "c": "Express Capital Financing", "t": "Loan Officer", "e": "max@expresscapitalfinancing.com"}]}, "Kirkland Capital Group": {"sp": true, "what": "Private credit fund: small CRE loans", "fit": "Not a fit", "whynot": "Commercial real estate only.", "blurb": "Wyoming private credit manager whose income fund makes first-lien CRE loans up to $1.5M in secondary and tertiary markets.", "ptype": "Asset manager / private credit", "loc": "Cheyenne, WY", "spn": "Kirkland Capital Group", "web": "https://kirklandcapitalgroup.com", "ppl": [{"n": "Brock Freeman", "c": "Kirkland Capital Group", "t": "Chief Operating Officer & Managing Partner", "e": "brockfreeman@kirklandcapitalgroup.com"}]}, "FACo Lending": {"sp": true, "what": "Real estate investor loans (Roc360)", "fit": "Not a fit", "whynot": "Residential real estate investor lending only.", "blurb": "Roc360 brand lending to residential real estate investors nationwide (fix and flip, construction, rental); reports $8B+ funded.", "ptype": "Real estate lender", "loc": "Nationwide", "spn": "FACo Lending (Finance of America Commercial)", "web": "https://facolending.com", "ppl": [{"n": "Jacklyn Davin", "c": "FACo Lending", "e": "jacklyn.davin@facolending.com"}]}, "Gradient MC": {"sp": true, "what": "RE investor & small-balance commercial loans", "fit": "Not a fit", "whynot": "Real estate lending through mortgage brokers; attendee is in marketing.", "blurb": "Fort Lauderdale private lender for 1 to 4 unit investor and small-balance commercial loans ($100K to $5M) through brokers.", "ptype": "Real estate lender", "loc": "Fort Lauderdale, FL", "spn": "Gradient Mortgage Capital", "web": "https://gradientmortgagecapital.com/", "ppl": [{"n": "Maddie Hisaw", "c": "Gradient Mortgage Capital", "t": "SVP, Marketing", "e": "maddie.hisaw@gradientmc.com"}]}, "Gulf Bank": {"sp": true, "what": "Gulf Coast bank: business & specialty lending", "fit": "Good fit", "why": "Growing business lending, PO finance and national lending; bank referral partner. Generic mailbox, so find the commercial lenders at their booth.", "blurb": "New Orleans bank with about $3.6B in assets across the Gulf Coast, adding national commercial lenders and growing purchase order finance.", "ptype": "Bank", "loc": "New Orleans, LA", "spn": "Gulf Coast Bank & Trust", "web": "https://gulfbank.com", "ppl": [], "ppl0": true}, "Voyager Lending": {"sp": true, "what": "Bank SBA 7(a)/Express & USDA division", "fit": "Good fit", "why": "Nationwide SBA and USDA lender; declined or slow SBA deals can come to Altbanq.", "blurb": "Government-guaranteed lending arm of Merchants & Marine Bank: SBA 7(a), SBA Express and USDA loans nationwide.", "ptype": "Non-bank SBA lender / originator", "loc": "Pascagoula, MS", "spn": "Voyager Lending (Merchants & Marine Bank)", "web": "https://voyagerlending.com", "ppl": [{"n": "Matthew McElveen", "c": "Voyager Lending", "t": "President", "e": "matthew.mcelveen@voyagerlending.com"}]}, "Colony Bank": {"sp": true, "what": "Georgia bank: SBA/USDA, healthcare, equipment", "fit": "Good fit", "why": "SBA Business Development Officer attending; healthcare lending matches Altbanq's industries.", "blurb": "Georgia community bank (about $3.6B in assets) with a Small Business Specialty Lending unit for SBA and USDA loans; merging with First Reliance.", "ptype": "Bank", "loc": "Fitzgerald, GA", "spn": "Colony Bank", "web": "https://colony.bank", "ppl": [{"n": "Alexandria (Ali) Schwandt", "c": "Colony Bank", "t": "AVP, SBA Business Development Officer", "e": "ali.schwandt@colonybank.com"}]}, "CIBC": {"sp": true, "what": "U.S. commercial & private banking (CIBC)", "fit": "Possible fit", "why": "Clients are mostly larger than Altbanq's range, and the attendee is in sales and marketing. Worth a contact, not a priority.", "blurb": "Chicago-based U.S. arm of Canadian bank CIBC, providing commercial, private and personal banking.", "ptype": "Bank", "loc": "Chicago, IL", "spn": "CIBC US", "web": "https://us.cibc.com", "ppl": [{"n": "Juli Tatar", "c": "CIBC US", "t": "Sales & Marketing Director", "tc": true, "e": "juli.tatar@cibc.com"}], "warn": ["Attendee name not fully confirmed; check the badge."]}, "Berkeley Capital Partners": {"sp": true, "what": "Asset manager; affiliate funds SBA 504 loans", "fit": "Possible fit", "why": "Strategic capital contact more than a deal source. Affiliate fund makes small business and SBA 504 loans.", "blurb": "Atlanta-area asset manager ($1B+ AUM) in private alternatives; an affiliated income fund originates small business and SBA 504 loans.", "ptype": "Asset manager / private credit", "loc": "Atlanta, GA area", "spn": "Berkeley Capital Partners / Access Private Capital", "web": "https://berkeleyaccess.com/", "ppl": [{"n": "Michael (Mike) C. Eddy", "c": "Berkeley Capital Partners / Access Private Capital", "t": "Founder & Managing Partner", "tc": true, "e": "mike.eddy@berkeleycp.com"}]}, "Lexicon Bank": {"sp": true, "what": "Nevada SBA Preferred Lender", "fit": "Good fit", "why": "Award-winning SBA BDO attending; SBA deals that don't fit are natural referrals.", "blurb": "Las Vegas bank and SBA Preferred Lender that recently launched a government-guaranteed lending division.", "ptype": "Bank", "loc": "Las Vegas, NV", "spn": "Lexicon Bank", "web": "https://lexiconbank.com", "ppl": [{"n": "Zach Balmer", "c": "Lexicon Bank", "t": "SBA Business Development Officer", "e": "zbalmer@lexiconbank.com"}]}, "Southstar Capital": {"sp": true, "what": "Factoring, PO & payroll funding; government contractors", "spn": "SouthStar", "addp": [{"n": "Becca Ripley", "c": "SouthStar Capital", "t": "VP of Marketing", "e": "becca@southstar.com"}], "fit": "Good fit", "loc": "Mount Pleasant, SC (Atlanta, Charlotte)", "blurb": "Private direct lender providing invoice factoring, AR financing, purchase order financing and payroll funding to B2B companies and government contractors; facilities from about $50K to $14M.", "ptype": "Cross-referral: factoring / ABL lender", "why": "Government contractor clients are an Altbanq preferred industry. Two-way referrals.", "warn": ["Harrison Burke's registered email is @iconcabinetryllc.com, not SouthStar. Confirm the right contact."], "ppl": [{"n": "Harrison Burke", "e": "harrison@iconcabinetryllc.com"}]}, "Technology Credit Union": {"sp": true, "what": "Silicon Valley credit union: business & SBA, ABL", "fit": "Good fit", "why": "Business, SBA and ABL lending; ABL head attending. California-based, so confirm CFL licensing for referral fees.", "blurb": "Silicon Valley credit union with business, commercial and SBA lending (SBA loans as large as $22.4M); recently entered Texas.", "ptype": "Credit union", "loc": "San Jose, CA", "spn": "Technology Credit Union (Tech CU)", "web": "https://www.techcu.com", "ppl": [{"n": "Jakob Ogdahl", "c": "Technology Credit Union", "t": "VP, Head of ABL Underwriting & Originations (Tech Capital, LLC)", "tc": true, "e": "jogdahl@techcu.com"}], "warn": ["Attendee name not fully confirmed; check the badge."]}, "Stone Bank": {"sp": true, "what": "Arkansas SBA Preferred Lender, nationwide", "fit": "Good fit", "why": "Nationwide government-guaranteed lender; bank referral partner. Attendee is in marketing, so ask for the SBA team.", "blurb": "Little Rock community bank and SBA Preferred Lender that makes government-guaranteed loans (SBA, USDA, FSA) nationwide.", "ptype": "Bank", "loc": "Little Rock, AR", "spn": "Stone Bank", "web": "https://www.stonebank.com", "ppl": [{"n": "Michelle Edmonds", "c": "Stone Bank", "t": "Marketing & Digital Media Manager", "e": "medmonds@stonebank.com"}]}, "Kennedy Funding": {"sp": true, "what": "Land & bridge real estate loans", "fit": "Not a fit", "whynot": "Real estate lending only.", "blurb": "New Jersey direct private lender known for land and bridge loans across the U.S. and internationally.", "ptype": "Real estate lender", "loc": "Englewood Cliffs, NJ", "spn": "Kennedy Funding", "web": "https://www.kennedyfunding.com", "ppl": [{"n": "Mark Falzone", "c": "Kennedy Funding", "t": "Executive Loan Officer", "e": "markfalzone@kennedyfunding.com"}]}, "Harvest": {"sp": true, "what": "Non-bank SBA 7(a)/504 lender, nationwide", "spn": "Harvest Small Business Finance", "addp": [{"n": "Dana Thomas Malley", "c": "Harvest Small Business Finance", "t": "SVP", "tc": true, "e": "dmalley@harvestsbf.com"}], "fit": "Good fit", "loc": "Laguna Hills, CA", "blurb": "Non-bank SBA lender offering SBA 7(a), SBA 504 and conventional CRE loans nationwide to small businesses that banks often overlook; reports $3B+ funded since 2016.", "ptype": "Referral partner: non-bank SBA lender", "why": "Serves the same underbanked SMB segment. Deals that don't fit SBA can come to Altbanq.", "warn": ["California-based. Altbanq's partner terms require a CA CFL license to receive referral fees; confirm licensing."], "ppl": [{"n": "Jeff Girling", "e": "jgirling@harvestcref.com", "t": "SVP, Business Development"}]}, "Silver Hill Capital": {"sp": true, "what": "RE bridge & small-balance commercial loans", "fit": "Not a fit", "whynot": "Real estate lending; attendee is in marketing.", "blurb": "Coral Gables real estate finance company (small-balance commercial, residential bridge and non-agency loans) that also services commercial loans.", "ptype": "Real estate lender", "loc": "Coral Gables, FL", "spn": "Silver Hill Capital", "web": "https://silverhillcap.com", "ppl": [{"n": "Alexa Almirall", "c": "Silver Hill Capital", "t": "AVP, Digital Marketing", "tc": true, "e": "alexaalmirall@silverhillcap.com"}]}, "Port 51 Lending": {"sp": true, "what": "Direct SBA 7(a) lender, up to $5M", "spn": "Port 51", "addp": [{"n": "Michael Hershaft", "c": "Port 51 Lending", "t": "SBA National Sales Manager", "e": "Michael.hershaft@port51.com"}], "fit": "Good fit", "loc": "New York, NY / Zionsville, IN", "blurb": "Nationwide direct SBA 7(a) lender funding acquisitions, owner-occupied real estate, working capital, equipment and build-outs; SBA loans up to $5M with companion loans to $6.5M.", "ptype": "Referral partner: non-bank SBA lender", "why": "NYC-based SBA lender. Deals that need speed or don't meet SBA rules can come to Altbanq. Two attendees.", "ppl": [{"n": "Raymond Cantwell", "e": "ray.cantwell@port51.com", "t": "Chief Credit Officer"}, {"n": "Pattie Ehsaei", "e": "pattie.ehsaei@port51.com"}]}, "ACC Capital": {"sp": true, "what": "Arkansas small business lender", "fit": "Possible fit", "why": "Small business lender expanding its program; possible two-way referrals. Attendee is a marketing coordinator.", "blurb": "Little Rock small business and SBA lender (formerly Arkansas Capital Corporation), rebranded in 2025 as it expanded lending.", "ptype": "Business lender", "loc": "Little Rock, AR", "spn": "ACC Capital", "web": "https://acccapital.com", "ppl": [{"n": "Isabella Barnello", "c": "ACC Capital", "t": "Marketing Coordinator", "tc": true, "e": "ibarnello@acccapital.com"}]}, "Byline Bank": {"sp": true, "what": "Chicago bank; top Illinois SBA lender", "fit": "Good fit", "why": "High SBA volume means deals that need a faster or non-SBA option. Bank referral partner.", "blurb": "Chicago commercial bank and national SBA lender; SBA Illinois 7(a) Lender of the Year 17 years running.", "ptype": "Bank", "loc": "Chicago, IL", "spn": "Byline Bank", "web": "https://www.bylinebank.com", "ppl": [{"n": "Tony Kim", "c": "Byline Bank", "t": "Small Business Capital team", "e": "tkim@bylinebank.com"}]}, "Dogwood State Bank": {"sp": true, "what": "NC bank (TowneBank) with national SBA team", "fit": "Good fit", "why": "National SBA team; business lending specialist attending. Bank referral partner.", "blurb": "Raleigh bank, now a TowneBank division, with a national SBA lending team ranked among the top U.S. SBA lenders.", "ptype": "Bank", "loc": "Raleigh, NC", "spn": "Dogwood State Bank (a division of TowneBank)", "web": "https://www.dogwoodstatesbl.com", "ppl": [{"n": "Michael Johnson", "c": "Dogwood State Bank", "t": "Business Lending Specialist", "tc": true, "e": "majohnson@dogwoodstate.bank"}], "warn": ["Attendee name not fully confirmed; check the badge."]}, "Trius lending partners": {"sp": true, "what": "Hard money: fix & flip, bridge, DSCR", "spn": "Trius Lending", "addp": [{"n": "Joshua Sadowsky", "c": "Trius Lending Partners", "t": "Head of Marketing", "tc": true, "e": "jsadowsky@triuslending.com"}], "fit": "Not a fit", "loc": "Towson, MD", "blurb": "Direct private and hard money lender: fix and flip, rehab and bridge loans in the Mid-Atlantic and DSCR rental loans nationwide.", "whynot": "Real estate investor lending.", "ppl": [{"n": "Michael Parker", "e": "mparker@triuslending.com", "t": "Account Executive"}]}, "Centrex Software": {"sp": true, "what": "CRM & loan software for funders and brokers", "fit": "Possible fit", "why": "Technology vendor. Strategic: its clients are brokers and funders Altbanq wants to reach.", "blurb": "CRM and loan management software for business lenders, funders and brokers.", "ptype": "Software / technology", "loc": "Not stated", "spn": "Centrex Software", "web": "https://centrexsoftware.com", "ppl": [{"n": "Trey Markel", "c": "Centrex Software", "t": "VP Sales & Marketing", "e": "tmarkel@centrexsoftware.com"}]}, "Capital Bank": {"sp": true, "what": "Bank: SBA and USDA business lending", "spn": "Capital Bank", "addp": [{"n": "Heidi Whitesell", "c": "Capital Bank", "t": "SVP, SBA Sales Executive", "tc": true, "e": "HWhitesell@capitalbankmd.com"}], "fit": "Good fit", "loc": "Rockville, MD", "blurb": "Capital Bank, N.A. offers business banking with a focus on SBA and USDA lending; calls itself one of the nation's top USDA business lenders and expanded its SBA team in late 2025.", "ptype": "Bank referral partner", "why": "Expanding SBA team means more deals that need a non-SBA option.", "ppl": [{"n": "Jeremy Baird", "e": "jbaird@capitalbankmd.com"}]}, "Yieldi": {"sp": true, "what": "Hard money real estate lender", "fit": "Not a fit", "whynot": "Real estate lending only.", "blurb": "Atlanta hard money and asset-based real estate lender working with borrowers and brokers; also lets investors earn income from its loans.", "ptype": "Real estate lender", "loc": "Atlanta, GA", "spn": "Yieldi", "web": "https://yieldi.com", "ppl": [{"n": "Chris Ashkouti", "c": "Yieldi", "t": "Principal, Head of Originations", "e": "chrisa@yieldi.com"}]}, "First Merchants Bank": {"sp": true, "what": "Midwest bank; SBA loans $500K–$5M", "fit": "Good fit", "why": "SBA deal sizes overlap Altbanq's range; bank referral partner.", "blurb": "Midwest commercial bank whose SBA division lends $500K to $5M for CRE, equipment, acquisitions and franchise financing.", "ptype": "Bank", "loc": "Muncie, IN", "spn": "First Merchants Bank", "web": "https://www.firstmerchants.com", "ppl": [{"n": "S. James", "c": "First Merchants Bank", "e": "sjames@FirstMerchants.com"}]}, "NEWITY": {"sp": true, "what": "SBA & term loan platform up to $1M", "fit": "Possible fit", "why": "Has a referral program, but its own term loans overlap with Altbanq. Possible two-way partner.", "blurb": "Chicago small business lending platform (SBA 7(a) as a lender service provider, term loans up to $1M) with a referral partner program.", "ptype": "Non-bank SBA lender / originator", "loc": "Chicago, IL", "spn": "NEWITY", "web": "https://newitymarket.com", "ppl": [{"n": "Merve Beyatli", "c": "NEWITY", "t": "Director, Partner Success", "tc": true, "e": "Mbeyatli@newitymarket.com"}]}, "KAAJ": {"sp": true, "what": "AI underwriting software for small business lenders", "fit": "Possible fit", "why": "Technology vendor; strategic, not a deal source.", "blurb": "AI underwriting platform for small business lenders: document parsing, bank statement analysis and draft credit memos.", "ptype": "Software / technology", "loc": "Not stated", "spn": "Kaaj", "web": "https://kaaj.ai", "ppl": [{"n": "Timothy Donovan", "c": "Kaaj", "e": "Timothy.donovan@kaaj.ai"}]}, "Commercial Funding": {"sp": true, "what": "Direct equipment lender, $250K–$300M", "fit": "Good fit", "why": "Equipment lender serving manufacturing and medical; two-way referral partner.", "blurb": "Utah direct equipment lender for $250K to $300M projects, including bank overflow financing and sale-leasebacks.", "ptype": "Equipment finance", "loc": "Draper, UT", "spn": "Commercial Funding Partners", "web": "https://commercialfundingpartners.com/", "ppl": [{"n": "Megan Jenson", "c": "Commercial Funding Partners", "e": "mjenson@com-funding.com"}]}, "SmartBiz Bank": {"sp": true, "what": "Online SBA lender, now a bank", "fit": "Good fit", "why": "Large SBA flow; deals that don't qualify for SBA need an alternative. Partner Success manager attending.", "blurb": "Online small business lender known for SBA loans; approved in 2025 to acquire a bank and now operates as SmartBiz Bank.", "ptype": "Bank", "loc": "Not confirmed", "spn": "SmartBiz Bank", "web": "https://www.smartbizbank.com", "ppl": [{"n": "Matthew (Matt) Grotzinger", "c": "SmartBiz Bank", "t": "Senior Manager, Partner Success", "tc": true, "e": "matt.grotzinger@smartbizbank.com"}]}, "Lendesca": {"sp": true, "what": "Originates SBA, USDA and term loans for banks", "fit": "Good fit", "why": "Originator with business-loan deal flow from $25K to $5M; deals outside its bank partners' box can come to Altbanq.", "blurb": "Originates SBA 7(a), USDA B&I and commercial term loans on behalf of SBA-approved bank partners.", "ptype": "Non-bank SBA lender / originator", "loc": "Not stated", "spn": "Lendesca", "web": "https://lendesca.com", "ppl": [{"n": "Matt Craig", "c": "Lendesca", "t": "Founder & Chief Growth Officer", "e": "mcraig@lendesca.com"}]}, "CLB Association": {"sp": true, "what": "CLBA association; conference organizer", "fit": "Possible fit", "why": "Not a deal source, but the organizer. Good for visibility and introductions.", "blurb": "Association for commercial loan brokers, lenders and vendors, and organizer of the CLBA conference.", "ptype": "Association", "loc": "Not stated", "spn": "Commercial Loan Broker Association (CLBA)", "web": "https://clbassociation.com", "ppl": [{"n": "Jenna Seidel", "c": "Commercial Loan Broker Association", "t": "Integrated Operations & Experience Manager", "e": "Jenna@clbassociation.com"}]}, "Home Trust bank": {"what": "Community bank: SBA 7(a)/USDA, healthcare banking group", "fit": "Strong fit", "loc": "Asheville, NC (Sanjay Dave is based in Tampa, FL)", "blurb": "Community bank with commercial lending, treasury, merchant services and a dedicated healthcare banking group. Sanjay Dave is VP and SBA Business Development Officer focused on 7(a) and USDA loans.", "ptype": "Bank referral partner", "why": "Healthcare banking group plus an SBA BDO: a direct fit for Altbanq's healthcare banker referral program.", "ppl": [{"n": "Sanjay Dave", "t": "VP, SBA Business Development Officer", "e": "sanjay.dave@htb.com"}]}, "Mccoy Brokerage service": {"what": "Business loan broker; mostly doctors, dentists, pharmacists", "fit": "Strong fit", "loc": "Atlanta / Douglasville, GA", "blurb": "Business loan brokerage founded in 2006 by CEO Elijah McCoy. Reported securing $150M in business loans for about 100 clients in 2022, including SBA and bridge loans; much of its clientele are healthcare professionals such as doctors, dentists and pharmacists.", "ptype": "Referral partner: business loan broker", "why": "Healthcare-heavy client base (medical, dental, pharmacy) matches Altbanq's preferred industries and healthcare referral program.", "warn": ["Listed as 'Lender' on the CLBA list, but operates as a broker."], "ppl": [{"n": "Danyell Samuels", "e": "danyell@mccoybrokerageservice.com"}]}, "Climate first Bank": {"what": "Community bank: SBA (Preferred Lender), business loans, factoring, ABL", "fit": "Good fit", "loc": "St. Petersburg, FL", "blurb": "FDIC-insured community bank dedicated to sustainability. Offers SBA lending (Preferred Lender status), business loans, factoring and asset-based lending.", "ptype": "Bank referral partner", "why": "Growing SBA team; bank referral for deals outside SBA criteria or timelines.", "ppl": [{"n": "Travis Padilla", "e": "travis.padilla@climatefirstbank.com", "t": "VP, Business Development Officer, Structured Finance"}]}, "eCapital": {"what": "Factoring & ABL, $5M–$250M facilities", "fit": "Good fit", "loc": "North America and UK", "blurb": "Specialty finance lender offering asset-based lending, AR factoring, supply chain, inventory and payroll funding, with facilities from $5M to $250M across 80+ industries; runs referral partner programs.", "ptype": "Cross-referral: factoring / ABL lender", "why": "Larger facilities than Altbanq. Clients below their minimum, or needing a term loan alongside ABL, can go both ways.", "web": "https://ecapital.com", "ppl": [{"n": "James Poston", "e": "james.poston@ecapital.com", "t": "Chief Sales Officer"}], "hist": true}, "Goodman Capital finance": {"what": "Factoring & ABL; staffing, manufacturing, distribution", "fit": "Good fit", "loc": "Dallas, TX (Austin, Chicago, Charlotte)", "blurb": "Direct alternative lender providing invoice factoring and asset-based lending to businesses generating $10K to $10M per month in staffing, manufacturing, distribution, transportation, oilfield services and apparel.", "ptype": "Cross-referral: factoring / ABL lender", "why": "Manufacturing and distribution clients overlap with Altbanq's preferred industries. Transportation is restricted for Altbanq.", "ppl": [{"n": "Matthew Gedaro", "e": "mgedaro@goodmancf.com", "t": "Vice President, ABL & Factoring", "tc": true}]}, "Huntington Bank": {"what": "Large regional bank; top SBA 7(a) lender", "fit": "Good fit", "loc": "Columbus, OH", "blurb": "Large regional bank and one of the most active SBA 7(a) lenders in the U.S. Kyle Cline is VP and Senior USDA Business Development Officer.", "ptype": "Bank referral partner", "why": "High SBA and USDA volume means a steady stream of deals that need a faster or non-government option.", "ppl": [{"n": "Kyle Cline", "t": "VP, Senior USDA Business Development Officer", "e": "kyle.cline@huntington.com"}]}, "The Bancorp": {"what": "National bank: SBA 7(a) & Express, referral program", "fit": "Good fit", "loc": "Wilmington, DE", "blurb": "National bank with a small business lending division (SBA 7(a), SBA Express) and an SBAlliance program for referral partners. Tony Lis is a Business Development Officer in Small Business Lending.", "ptype": "Bank referral partner", "why": "National SBA lender already set up to work with referral partners. Altbanq can be the option for deals SBA can't do. Two attendees.", "ppl": [{"n": "Brian Kuntz", "e": "bkuntz@thebancorp.com", "t": "VP, SBA Business Development Officer", "tc": true}, {"n": "Tony Lis", "t": "Business Development Officer, Small Business Lending", "e": "tonylis@thebancorp.com"}]}, "Bull market Capital": {"what": "SMB broker: loans, factoring, revenue-based, LOCs", "fit": "Good fit", "loc": "High Point / Greensboro, NC", "blurb": "Commercial finance firm offering business loans, CRE financing, factoring, equipment financing, revenue-based funding and unsecured lines of credit for small and midsize businesses; runs a referral and broker program.", "ptype": "Referral partner: business loan broker", "why": "SMB-focused with an existing broker program. Two attendees.", "ppl": [{"n": "Hanna Willis", "e": "hanna@bullmarketcapital.com"}, {"n": "Vernon Lesser", "e": "vernonlesser@bullmarketcapital.com", "t": "Founder & CEO"}], "hist": true}, "SBA Loan Consultants": {"what": "SBA loan packaging & lender matching", "fit": "Good fit", "loc": "Round Rock, TX", "blurb": "SBA loan consultant that analyzes a business's financials, prepares the full application package and connects owners with SBA lenders.", "ptype": "Referral partner: advisor / CPA", "why": "Clients who don't fit SBA rules or can't wait for SBA timelines need a fast alternative. Altbanq can be that call.", "ppl": [{"n": "Rocio Vallejo", "e": "rocio@sbaloanconsultants.net", "t": "Founder"}]}, "Apex commercial capital": {"what": "Direct lender: commercial mortgages & equipment; medical, hospitality", "fit": "Good fit", "loc": "Horsham, PA", "blurb": "Direct lender providing commercial mortgages and equipment financing for small and mid-size businesses, including hospitality and medical practices; works with approved brokers and referral partners.", "ptype": "Cross-referral: equipment / CRE lender", "why": "Equipment and CRE lender with medical practice clients. Their borrowers may need working capital, and Altbanq clients may need equipment financing.", "ppl": [{"n": "Donald Wampler", "e": "donald@apexcommercial.com", "t": "Managing Director, Equipment Finance"}]}, "Mission valley bank": {"what": "SoCal business bank: SBA and business loans", "fit": "Good fit", "loc": "Southern California (Santa Clarita and San Gabriel Valleys)", "blurb": "FDIC-insured Southern California business bank offering business and SBA loans, treasury management, merchant services and specialty banking for cannabis and card rooms.", "ptype": "Bank referral partner", "why": "Business bank whose SBA and commercial declines could come to Altbanq. Altbanq does not lend to cannabis or gambling, so steer away from those segments.", "ppl": [{"n": "Philip Demings", "e": "pdemings@missionvalleybank.com", "t": "VP, SBA Business Development Officer", "tc": true}]}, "Fora Financial": {"what": "Revenue-based advances, LOCs, term loans (competitor)", "fit": "Not a fit", "loc": "New York, NY", "blurb": "Small business funder offering up to $1.5M through revenue-based advances, lines of credit, term loans and SBA loans, sold largely through ISO partners.", "whynot": "Competitor for the same broker deal flow (three attendees). Market intel only.", "ppl": [{"n": "Jason Solomon", "e": "jason.solomon@forafinancial.com", "t": "VP, Partnership Development", "tc": true}, {"n": "Jim Magrath", "e": "jim.magrath@forafinancial.com"}, {"n": "Kevin May", "e": "kevin.may@forafinancial.com"}]}, "First Horizon": {"what": "Regional bank: ABL lines to specialty finance companies", "fit": "Possible fit", "loc": "Memphis, TN", "blurb": "Large regional bank. Harley Gorter, CFA, is SVP of Specialty Finance, providing asset-based working capital lines to auto, installment, factoring, trucking and equipment finance companies.", "ptype": "Strategic: capital provider", "why": "Not a deal referral source. His group lends to finance companies, so this is a funding-side relationship for Altbanq leadership.", "ppl": [{"n": "Harley Gorter", "t": "SVP, Specialty Finance", "e": "hgorter@firsthorizon.com"}]}, "MoneyThumb": {"what": "Bank-statement analysis & fraud-check software", "fit": "Possible fit", "loc": "Not stated", "blurb": "Financial document software. PDF Insights and Thumbprint analyze bank statements and flag fraudulent documents for small business lenders and funders; PDF statement converters serve accountants.", "ptype": "Strategic: technology vendor", "why": "Potential underwriting tool (Altbanq reviews bank statements on every deal) and a well-known name in the broker community for co-marketing.", "ppl": [{"n": "Don Campbell", "e": "don@moneythumb.com", "t": "Business Development"}]}, "Household Mortgage Solutions USA, Inc.": {"what": "Mortgage and hard money lender", "fit": "Not a fit", "loc": "Columbus, OH", "blurb": "Listed in lender directories as a mortgage and hard money lender.", "whynot": "Mortgage and hard money real estate focus.", "ppl": [{"n": "Mario Jackson", "e": "mjmillennium@aol.com"}]}, "IAI Mortgage": {"what": "Residential mortgage broker, some SBA/commercial", "fit": "Not a fit", "loc": "Dallas / Frisco, TX", "blurb": "Mortgage brokerage focused on residential purchase and refinance (FHA, VA, jumbo, non-QM), with some commercial, SBA and multifamily loans; serves TX, FL and MD.", "whynot": "Primarily residential mortgage.", "ppl": [{"n": "James Olawaye", "e": "james@iaimortgage.com"}]}, "Mobile Home Park (MHP) Funding": {"what": "Mobile home park financing broker, $1M+", "fit": "Not a fit", "loc": "Rolling Meadows, IL", "blurb": "Commercial financing broker for mobile home park acquisitions and refinances, $1M and up.", "whynot": "Real estate only (mobile home parks).", "ppl": [{"n": "Brett Hulsebus", "e": "brett@mhp-funding.org"}]}, "Oasis Mortgage": {"what": "Residential mortgage lender", "fit": "Not a fit", "loc": "Phoenix, AZ", "blurb": "Mortgage lender focused on residential loans (conventional, FHA, VA, jumbo, reverse, non-QM, DSCR) with some commercial lending.", "whynot": "Primarily residential mortgage.", "ppl": [{"n": "Malcolm Toussaint", "e": "malcolmt@oasismtgaz.com"}]}, "Palmwood Home Loans": {"what": "Residential mortgage broker", "fit": "Not a fit", "loc": "Bethlehem, PA", "blurb": "Residential mortgage brokerage (purchase, refinance, conventional, jumbo, VA, HELOC) working with 100+ investors; lists commercial loans without detail.", "whynot": "Residential mortgage focus.", "ppl": [{"n": "Janine Marlatt", "e": "jm4374@gmail.com"}, {"n": "Jeffrey M Yearwood", "e": "jeff@palmwoodfinance.com", "t": "President / Loan Officer"}]}, "Bloom field capital": {"what": "CRE bridge lender & equity investor", "fit": "Not a fit", "loc": "New York, NY / Detroit, MI", "blurb": "CRE direct lender and equity investor (bridge, senior housing) with deals around $4.7M to $13M.", "whynot": "Real estate lending.", "ppl": [{"n": "Brent Truscott", "e": "btruscott@bloomfieldcapital.com", "t": "Partner"}]}, "Libertas funding": {"what": "Revenue-based financing $100K–$10M (competitor)", "fit": "Not a fit", "loc": "Greenwich, CT", "blurb": "Revenue-based financing provider for growing small and mid-size businesses, $500K to $10M (as low as $100K); term loans issued through WebBank.", "whynot": "Direct competitor in Altbanq's deal size range. Market intel only.", "ppl": [{"n": "David Goldberg", "e": "david.goldberg@libertasfunding.com", "t": "Head of Partnerships / Referral Relationships", "tc": true}]}, "US small business administration": {"what": "Federal agency guaranteeing SBA loans", "fit": "Not a fit", "loc": "Washington, DC", "blurb": "Federal agency that guarantees loans made by SBA-participating lenders.", "whynot": "Government agency, not a referral partner. Useful for market knowledge only.", "ppl": [{"n": "J. Eric Armacost", "e": "James.Armacost@sba.gov", "t": "Lead Lender Relations Specialist"}]}, "ACQUIS": {"what": "Equipment insurance for lessors (UK/Europe)", "fit": "Not a fit", "loc": "Newport, UK", "blurb": "Outsourced equipment insurance for the asset finance and leasing industry, serving 100+ lessor partners across Europe.", "whynot": "Serves equipment lessors; no lending referral flow.", "ppl": [{"n": "Olayinka Sanusi", "e": "osanusi@acquisinsurance.com", "t": "VP, West Coast"}, {"n": "Peter Austin", "e": "paustin@acquisinsurance.com", "t": "VP, Business Development (Mid-Atlantic & Southeast)"}]}, "Life ease": {"what": "Life insurance required on SBA loans", "fit": "Not a fit", "loc": "Not stated", "blurb": "Insurance provider specializing in the life insurance required on SBA loans. Managing Director Ryan Goodson, CLU, writes on SBA life insurance rules for the Coleman Report.", "whynot": "Insurance vendor to SBA borrowers; little lending referral flow.", "ppl": [{"n": "Ryan Goodson", "t": "Managing Director", "e": "ryan@lifeease.com"}]}, "Stewart": {"what": "Title insurance & commercial closings", "fit": "Not a fit", "loc": "Houston, TX", "blurb": "National title insurance and commercial closing services company.", "whynot": "Real estate title services.", "web": "https://www.stewart.com", "ppl": [{"n": "Rob Silva", "e": "rob.silva@stewart.com"}]}, "Bridgeworks Capital Group": {"fit": "Strong fit", "loc": "Not stated (all 50 states)", "blurb": "Commercial loan brokerage connecting businesses with banks, credit unions and private lenders nationwide. Offers SBA, transition bridge, business term loans, equipment, CRE and working capital for healthcare, hospitality, construction, retail and professional services.", "ptype": "Referral partner: business loan broker", "why": "Places business term loans and bridge capital in healthcare and retail. Direct match for Altbanq's product.", "ppl": [{"n": "David Staton", "e": "info@bridgeworkscapitalgroup.com"}], "what": "Broker: term, bridge, SBA, equipment; healthcare & retail"}, "Cardinal Business Financing": {"fit": "Strong fit", "loc": "Not stated", "blurb": "Commercial lending and consulting firm offering equipment leasing, working capital, small business loans and CRE loans through a partner network. Focus sectors include franchise, medical, restaurant, hospitality and manufacturing. ABF Journal reported its acquisition by Alliance Capital.", "ptype": "Referral partner: business loan broker", "why": "Working capital and small business loans for medical and manufacturing clients, two of Altbanq's preferred industries.", "ppl": [{"n": "Daniel Casanta", "e": "dan@cardinalbusinessfinancing.com", "t": "Founder"}], "what": "Broker: working capital, equipment; medical, franchise, manufacturing", "sf": true, "sfd": {"status": "Active", "ptype": "Institutional broker", "created": "2026-02-06", "clabel": "Lead created", "contacts": [{"n": "Daniel Casanta", "e": "dan@cardinalbusinessfinancing.com"}], "deals": [{"n": "Sidewalk construction maintenance", "d": "2026-02-06", "o": "Declined"}]}, "sub": "2026-02-06"}, "Leading Edge Commercial Capital, LLC": {"fit": "Strong fit", "loc": "Denver, CO", "blurb": "Financing advisor for business owners, CRE investors, developers and builders. Arranges SBA 7(a), 504 and Express, CRE and construction, working capital, equipment, AR and inventory financing from $250K to $50M through banks, non-bank lenders and private credit.", "ptype": "Referral partner: business loan broker", "why": "Working capital practice with a $250K floor matches Altbanq's sweet spot, and it already sources from non-bank lenders.", "ppl": [{"n": "Amy Berk", "e": "amy@leadingedgecc.com", "t": "Founder & CEO"}], "what": "Broker: SBA, working capital, equipment, CRE; $250K–$50M", "sf": true, "sfd": {"status": "Active", "ptype": "Institutional broker", "created": "2026-03-02", "clabel": "Created", "contacts": [{"n": "Amy Berk", "e": "amy@leadingedgecc.com"}], "deals": [{"n": "Shattered Glass", "d": "2026-07-22", "o": "Declined"}, {"n": "Zuvan Renewables", "dt": "3/?/2026 (date to confirm)", "o": "Declined"}]}, "sub": "2026-07-22"}, "LMC Alternative Business Capital": {"fit": "Strong fit", "loc": "Miami, FL", "blurb": "Alternative business finance firm arranging CRE loans, invoice factoring, asset-based loans, equipment and franchise financing and working capital through bank and non-bank partners. Serves construction, medical, retail and other industries; commercial loans from $1M to $50M.", "ptype": "Referral partner: business loan broker", "why": "Alternative capital focus, medical and retail clients, and $1M+ deal sizes. Two attendees (Luciano and Francesca Cuneo).", "ppl": [{"n": "Francesca Cuneo", "e": "francesca.cuneo@lmcalternativecapital.com"}, {"n": "Luciano Cuneo", "e": "luciano.cuneo@lmcalternativecapital.com", "t": "Founder"}], "what": "Broker: factoring, ABL, equipment, working capital; medical & retail; $1M+"}, "Marina advisory": {"fit": "Strong fit", "loc": "Not stated", "blurb": "CPA-led capital placement and fractional CFO practice for lower middle market businesses and sponsors, founded in 2025. Arranges working capital, acquisition financing and AR factoring through 15+ private lenders, with deals from $500K to $100M.", "ptype": "Referral partner: advisor / CPA", "why": "CPA and fractional CFO with private lender relationships, the exact partner profile Altbanq targets. New firm, so an early relationship.", "warn": ["Website blocks automated reading; description from RocketReach."], "ppl": [{"n": "Anthony Reitano, CPA", "e": "anthony@marinaadvisory.com", "t": "Founder", "tc": true}], "what": "CPA-led capital placement & fractional CFO; $500K+"}, "Nextlink capital": {"fit": "Strong fit", "loc": "Kansas City, MO", "blurb": "Commercial finance advisory firm and registered commercial loan brokerage. Helps founders, growing businesses and real estate investors nationwide plan financing before they approach lenders, from about $25K to $250M+ across healthcare, business, equipment and investor needs.", "ptype": "Referral partner: business loan broker", "why": "Nationwide broker with a healthcare and business lending practice. Its plan-first advisory style suits Altbanq's relationship model.", "ppl": [{"n": "Michael Hohenberg", "e": "michael.hohenberg@nextlinkcapital.com", "t": "Founder & Managing Partner"}], "what": "Broker/advisor: business, healthcare, equipment loans"}, "One source business capital": {"fit": "Strong fit", "loc": "Estero, FL (offices in TX, WA, TN, NY, MA)", "blurb": "Non-bank financing intermediary connecting business owners and buyers with non-bank lenders nationwide. Offers SBA and USDA loans, CRE and bridge loans, small balance commercial loans and business lines of credit; recent closings range from $550K to $5M.", "ptype": "Referral partner: business loan broker", "why": "Already places deals with non-bank lenders at Altbanq-sized amounts. Multi-state team with two attendees.", "ppl": [{"n": "David Marcantonio", "e": "davidm@osbcapital.com", "t": "President"}, {"n": "Victoria Pelka", "e": "vpelka@osbcapital.com", "t": "Executive Vice President"}], "what": "Non-bank broker: SBA/USDA, CRE, LOCs; $550K–$5M"}, "Private client capital partners": {"fit": "Strong fit", "loc": "Boston, MA", "blurb": "Commercial financing firm serving businesses of all sizes. Places commercial real estate debt (CMBS, construction, fix and flip), business loans (acquisition, equipment, franchise, healthcare, SBA) and working capital products such as lines of credit, receivables and purchase order financing.", "ptype": "Referral partner: business loan broker", "why": "Broad business lending menu that includes healthcare and working capital. Altbanq term loans cover clients who need speed or fall outside SBA timelines.", "ppl": [{"n": "Michael Cannon", "e": "vendor.clba@privateclientcapital.com", "t": "Principal & Managing Director, Private Client Group Companies", "tc": true}], "what": "Broker: business loans, working capital, CRE; healthcare"}, "Rainstar Capital Group": {"fit": "Strong fit", "loc": "National (founded 2014)", "blurb": "National debt advisory firm working with about 250 lenders across CRE, corporate finance, small business and equipment financing: lines of credit, revenue-based funding, leasing, factoring, CMBS, agency, bridge and hard money, from $10K to $10B+.", "ptype": "Referral partner: business loan broker", "why": "Large lender panel with small business and corporate finance desks; Altbanq adds a 12 to 24 month term loan option. Two attendees.", "ppl": [{"n": "Josiah Lambers", "e": "Josiah@rainstarcapitalgroup.com", "t": "Credit Analyst", "tc": true}, {"n": "Kurt Nederveld", "e": "Kurt@rainstarcapitalgroup.com", "t": "Founder & CEO"}], "what": "National debt advisor with ~250 lenders, small business to CRE", "sam": "Prior contact, 3 deals, nothing went through", "sf": true, "sfd": {"status": "Inactive since 2023", "ptype": "", "created": "2020-11-03", "clabel": "Partner since", "contacts": [{"n": "Kurt Nederveld", "e": "kurt@rainstarcapitalgroup.com", "x": "attending"}, {"n": "Rich Rose", "e": "rick@rainstarcapitalgroup.com"}], "deals": [{"n": "Wag Nation", "d": "2023-09-14", "o": "Declined"}, {"n": "Warrior Sewer and Drain", "d": "2023-08-30", "o": "Declined"}, {"n": "Cupcake Quilts", "d": "2020-11-03", "o": "Closed lost", "amt": "$50K", "x": "closed 11/25/2020"}]}, "sub": "2023-09-14"}, "Strategies for Small Business": {"fit": "Strong fit", "loc": "Danville, CA", "blurb": "Small business capital access firm led by Suzanne (Sue) Malone. Reports 20,000+ business loans facilitated over 24+ years across all 50 states, with SBA, commercial and real estate financing and equity for companies from startups to 300 employees.", "ptype": "Referral partner: business loan broker", "why": "High-volume, long-tenured small business funding source with national reach.", "warn": ["California-based. Altbanq's partner terms require a CA CFL license to receive referral fees; confirm licensing."], "ppl": [{"n": "Suzanne Malone", "e": "suzannemalone@sbcglobal.net", "t": "Founder"}], "what": "Small business loan facilitator, 24+ years, all 50 states"}, "Wild elm": {"fit": "Strong fit", "loc": "Fort Collins, CO", "blurb": "Commercial loan broker placing financing for established businesses through SBA, conventional and alternative lenders. Also offers transaction consulting plus business appraisal and appraisal review for owners and financial institutions.", "ptype": "Referral partner: business loan broker", "why": "Works with established businesses and already uses alternative lenders. Appraisal work gives early visibility into acquisitions and growth deals.", "ppl": [{"n": "Autumn Perry", "e": "Autumn@wildelmadvisors.com", "t": "Founder"}], "what": "Broker for established businesses: SBA, conventional, alternative"}, "Capital Bridge Brokers": {"fit": "Good fit", "loc": "Not stated", "blurb": "Business loan broker paid by lenders on funding. Helps small and mid-size companies obtain working capital, equipment financing, SBA, CRE and business lines of credit.", "ptype": "Referral partner: business loan broker", "why": "Working capital broker for small and mid-size businesses. Lender-paid model fits Altbanq's partner commissions.", "ppl": [{"n": "Zachariah Forsting", "e": "capitalbridgebroker@gmail.com"}], "what": "Broker: working capital, equipment, SBA, lines of credit"}, "Capital funding Opportunities": {"fit": "Good fit", "loc": "Houston, TX", "blurb": "Commercial finance provider offering equipment financing, SBA loans, factoring, purchase order financing, CRE and unsecured business lines of credit, with a broker referral program.", "ptype": "Referral partner: business loan broker", "why": "Business-focused product menu and an existing referral program.", "ppl": [{"n": "Pierre Djunga", "e": "pierredjunga@capitalfundingopportunities.com", "t": "Managing Partner", "tc": true}], "what": "Broker: equipment, SBA, factoring, PO, LOCs"}, "DAL Commercial Capital": {"fit": "Good fit", "loc": "Hartford / Wallingford, CT", "blurb": "Connecticut commercial finance firm offering commercial real estate financing, small business loans, working capital and equipment financing, plus stated income CRE programs.", "ptype": "Referral partner: business loan broker", "why": "Runs a working capital and small business loan practice alongside CRE. Two attendees, and close to Altbanq's NYC office.", "ppl": [{"n": "Carol Cajahuaringa", "e": "carol.cajahuaringa@dalcomcapital.com", "t": "Owner & Business Partner"}, {"n": "Dario Lopez", "e": "dario.lopez@dalcomcapital.com", "t": "SVP, Managing Partner"}], "what": "CT broker: small business loans, working capital, CRE"}, "Elan capital Inc.": {"fit": "Good fit", "loc": "Not stated", "blurb": "Business financing firm offering business loans, equipment leasing and factoring, connecting companies to hundreds of lending sources.", "ptype": "Referral partner: business loan broker", "why": "Business-only product menu and a wide lender panel.", "ppl": [{"n": "Michael Felan", "e": "Michael@elancapital.ai"}], "what": "Broker: business loans, equipment leasing, factoring"}, "Elevate Capital Consulting": {"fit": "Good fit", "loc": "Beaufort, NC", "blurb": "Loan consulting firm that matches borrowers with lenders in its banking network for business and SBA, CRE and construction loans (cited at $1M to $20M) and guides clients through underwriting and closing.", "ptype": "Referral partner: business loan broker", "why": "Bank-network broker handling $1M+ business loans. Altbanq is the alternative when bank or SBA timelines don't work.", "ppl": [{"n": "Bethany Smith", "e": "bethany@elevatecapitalconsulting.com", "t": "Founder & President"}], "what": "Bank-network loan consultant: business/SBA, CRE; $1M–$20M"}, "Fusion Alternative Funding": {"fit": "Good fit", "loc": "Not stated", "blurb": "Business financing firm offering CRE, equipment, franchise, healthcare, small business, receivables, purchase order and unsecured credit line products, with its own referral and broker program.", "ptype": "Referral partner: business loan broker", "why": "Healthcare and small business lending focus, and already runs a broker program.", "ppl": [{"n": "Gary Benedix", "e": "gbenedix@fusionalternativefunding.net", "t": "President"}], "what": "Broker: healthcare, small business, receivables, LOCs"}, "K2 Capital": {"fit": "Good fit", "loc": "Florence, SC", "blurb": "Capital advisory firm structuring debt and equity for CRE, construction and business financing. Products include SBA 7(a) and 504, asset-based lending, construction and bridge loans; representative deals run $2.9M to $7.8M.", "ptype": "Referral partner: business loan broker", "why": "Deal sizes sit inside Altbanq's range. ABL and bridge clients may need a faster term loan option.", "ppl": [{"n": "Chris Peebles", "e": "chris@k2capital.com", "t": "Owner"}], "what": "Capital advisor: SBA, ABL, bridge, construction; $3M–$8M deals", "sfd": {"status": "Active", "ptype": "Institutional broker", "created": "2026-05-15", "clabel": "Created", "contacts": [{"n": "Chris Peebles", "e": "chris@k2capital.com"}], "deals": [{"n": "Bug Bite Thing", "d": "2026-09-23", "o": "Declined"}, {"n": "Comfort Keepers", "d": "2026-07-09", "o": "Approved, closed lost", "x": "stage date 7/20/2026"}, {"n": "Comfort Keepers", "d": "2026-05-12", "o": "Funded", "amt": "$200K", "x": "funded 5/29/2026"}]}, "sf": true, "sub": "2026-09-23"}, "LCG Advisors": {"fit": "Good fit", "loc": "Tampa, FL (30 cities)", "blurb": "National third-party due diligence and transaction advisory firm: quality of earnings, valuation, forensic accounting and M&A advisory for business owners, private equity, attorneys, banks and debt providers.", "ptype": "Referral partner: advisor / CPA", "why": "Sees acquisitions and growth deals at the diligence stage and works alongside lenders. Strong advisor-channel source.", "ppl": [{"n": "Ross McClellan", "e": "rmcclellan@lcgadvisors.com", "t": "Director of Small Business Services"}], "what": "Due diligence & M&A advisory (quality of earnings, valuation)"}, "Relationship Management Solutions Inc": {"fit": "Good fit", "loc": "Atlanta, GA", "blurb": "Small business management consulting firm with a funding arm, RMSI Fundings, offering term loans, lines of credit, real estate, construction, equipment, bridge and SBA loans plus guidance on underwriting and cash flow. Glenda Walker, MBA, is also a SCORE contributor.", "ptype": "Referral partner: advisor / CPA", "why": "Consultant with direct owner relationships and an existing term loan offering. SCORE ties add access to small business owners.", "warn": ["Email in the source list is cut off (glenda.walker@relationship). Likely @relationshipmsolutions.com; confirm before sending."], "ppl": [{"n": "Glenda Walker", "t": "President"}], "what": "Small business consultant with a funding arm: term loans, LOCs, SBA"}, "Spectrum Capital": {"fit": "Good fit", "loc": "Not stated", "blurb": "Business financing company listing 15 financing types, including equipment, SBA, CRE, receivables, revenue-based funding, bridge and hard money, and consumer financing.", "ptype": "Referral partner: business loan broker", "why": "Multi-product shop for growing companies. Altbanq adds a longer-term, simple-interest option next to short-term products.", "ppl": [{"n": "David Griffith", "e": "dgriffith@spectrumcapitalsolutions.com"}], "what": "Multi-product broker: equipment, SBA, AR, revenue-based"}, "The Capital vine": {"fit": "Good fit", "loc": "Not stated", "blurb": "Capital advisory firm and loan broker that introduces clients to funding sources from $50K up to large capital stacks. Covers business acquisition, SBA, conventional, equipment and bridge loans, CRE purchase, construction and mezzanine, plus residential investor products.", "ptype": "Referral partner: business loan broker", "why": "Acquisition and bridge needs map well to Altbanq term loans. Book is mixed with real estate, so qualify each deal by industry first.", "ppl": [{"n": "Melissa Vine", "e": "melissa@thecapitalvine.com", "t": "President"}], "what": "Capital advisor: acquisition, SBA, bridge; $50K+", "hist": true}, "Founding for you": {"fit": "Good fit", "loc": "Blue Springs, MO", "blurb": "Invoice factoring company offering factoring, payroll funding for staffing firms and purchase order financing to B2B businesses with $100K to $3M in monthly invoicing.", "ptype": "Cross-referral: factoring / ABL lender", "why": "Factoring clients often need term capital for growth projects. Two-way referrals.", "ppl": [{"n": "Anna Aeschliman", "e": "anna@funding4you.com", "t": "Director of Growth and Accounts"}], "what": "Factoring, payroll funding for staffing, PO financing"}, "Milestone bank": {"fit": "Good fit", "loc": "Salt Lake City, UT", "blurb": "SBA Preferred Lender (formerly LCA Bank) established in 2006, with SBA loans funded in 34 states averaging about $1.3M. Ryan Kroge is a Detroit-based SBA loan specialist with 25+ years of experience.", "ptype": "Bank referral partner", "why": "SBA lenders see deals that are too urgent or not SBA-eligible. Altbanq can take those and keep the bank's client relationship intact. Two attendees.", "ppl": [{"n": "Mike Stone", "e": "mstone@milestonebank.com", "t": "SVP, SBA"}, {"n": "Ryan Kroge", "t": "Senior Business Development Officer (SBA)", "e": "rkroge@milestonebank.com", "tc": true}], "what": "SBA Preferred Lender; average SBA loan ~$1.3M"}, "Oxford Commercial finance": {"fit": "Good fit", "loc": "Michigan (Oxford Bank); BD based in Spartanburg, SC", "blurb": "Commercial finance division of Michigan-based Oxford Bank providing factoring and asset-based working capital facilities to U.S. businesses; has surpassed $275M in facilities. Robbie Faucett joined as VP of Business Development in 2026.", "ptype": "Cross-referral: factoring / ABL lender", "why": "Working capital lender that sees growing businesses who may also need a term loan. Two-way referrals.", "ppl": [{"n": "Robbie Faucett", "t": "VP of Business Development", "e": "rfaucett@oxfordbank.bank"}], "what": "Bank-owned factoring & ABL facilities"}, "Servbank": {"fit": "Good fit", "loc": "Oswego, IL", "blurb": "Servbank, N.A. focuses on commercial and business banking, including SBA 7(a) and 504, CRE and treasury management, plus mortgage subservicing.", "ptype": "Bank referral partner", "why": "Business bank with SBA lending; referral for deals that need speed or fall outside SBA rules.", "ppl": [{"n": "Oscar Gonzalez", "e": "Oscar.Gonzalez@servbank.com"}], "what": "Bank: SBA 7(a)/504, CRE, treasury"}, "Aspen": {"fit": "Possible fit", "loc": "Not stated", "blurb": "Residential and commercial lender offering home loans, CRE financing (multifamily, mixed use, industrial) and SBA 504, 7(a) and USDA business loans. Originates in house and funds directly or places with outside capital through a syndication network.", "ptype": "Referral partner: business loan broker", "why": "SBA business loan practice could send deals that aren't SBA-eligible. Otherwise mostly real estate.", "warn": ["Nicholas Zuchegno also appears on the 'not registered' member list, but he is on the registered list too."], "ppl": [{"n": "Nicholas Zuchegno", "e": "nickz@aspencapitalsolutions.com", "t": "President (bio says Founder & CEO)"}], "what": "Lender: SBA 504/7(a)/USDA, CRE, home loans"}, "Boathouse": {"fit": "Possible fit", "loc": "Kalamazoo, MI", "blurb": "Commercial lending firm founded in 2010 serving real estate investors, landlords and business owners in 48 states with DSCR, hard money, multifamily, CRE and business loans (lines of credit, equipment); $25M+ funded.", "ptype": "Referral partner: business loan broker", "why": "Mostly real estate, but has a business loan line. Qualify by industry.", "ppl": [{"n": "Frederic SaintAmour", "e": "Fred@BoathouseCFG.com"}], "what": "RE investor & business loans: DSCR, hard money, LOCs"}, "Equal Fund": {"fit": "Possible fit", "loc": "Not found", "blurb": "Website blocks automated reading and no public company profile was found. Listed as a broker with two registered attendees.", "ptype": "Referral partner: business loan broker", "why": "Confirm their lending focus at the event before adding to outreach.", "warn": ["Unverified: website domain taken from attendee emails."], "web": "https://equalfund.com", "ppl": [{"n": "Jagbir S Chahal", "e": "jag@equalfund.com"}, {"n": "Lakhvir Singh", "e": "lakhvir@equalfund.com"}], "what": "No public company info found"}, "Magnolia Business Group": {"fit": "Possible fit", "loc": "Charlotte, NC", "blurb": "Company details aren't public. Run by Tamika Stafford, a former U.S. Bank small business lead with 16 years at SunTrust and Truist, named a 2023 Charlottean of the Year by Charlotte Magazine.", "ptype": "Referral partner: advisor / CPA", "why": "Deep small business and banking network. Confirm what Magnolia does before outreach.", "warn": ["Personal Gmail address on the list."], "ppl": [{"n": "Tamika Stafford", "e": "bluwavevibe@gmail.com"}], "what": "Run by a former U.S. Bank small business lead"}, "Patton Holding Group": {"fit": "Possible fit", "loc": "Not found", "blurb": "No website or public company description found. Philip Patton has a LinkedIn profile under Patton Holding Group. Listed as a broker.", "ptype": "Referral partner: business loan broker", "why": "Confirm what they place before adding to outreach.", "warn": ["Unverified. Personal Yahoo email."], "ppl": [{"n": "Philip Patton", "e": "ppatton1414@yahoo.com", "t": "Founder / President"}], "what": "No public company info found"}, "Preferred funding group": {"fit": "Possible fit", "loc": "West Dundee, IL", "blurb": "Unsecured business funding provider offering $50K to $500K with no collateral for startups and established businesses, plus 0% intro credit cards and personal term loans; works with 150+ funding sources.", "ptype": "Referral partner: business loan broker", "why": "Overlaps at the $100K to $500K range. Screen for clients with $1M+ revenue and 1+ year in business, since startup deals won't qualify.", "ppl": [{"n": "Danny Tran", "e": "danny@preferredfundinggroup.com", "t": "Funding Specialist"}], "what": "Unsecured business funding, $50K–$500K"}, "Rich Port Capital": {"fit": "Possible fit", "loc": "Orlando, FL", "blurb": "Private and hard money lender focused on CRE bridge, fix and flip and construction loans up to $100M. Also offers business funding: SBA, working capital, invoice financing and equipment loans.", "ptype": "Referral partner: business loan broker", "why": "Real estate is the core book, but the business funding side (working capital, SBA) could send Altbanq deals that need speed.", "ppl": [{"n": "Miguel Planas", "e": "mplanas@richportcapital.com"}], "what": "Hard money CRE lender, plus some business funding"}, "Sawtooth value advisory": {"fit": "Possible fit", "loc": "Not stated", "blurb": "Business valuation and advisory firm for owners who are starting or buying, growing or exiting a business. Services include valuations, financial modeling, financial diagnostics and second-opinion reviews.", "ptype": "Referral partner: advisor / CPA", "why": "Not a lender, but it sees owners at buy and growth moments. Fits the advisor referral channel alongside CPAs.", "ppl": [{"n": "Jeremy Burnstein", "e": "jburnstein@sawtoothvalue.com", "t": "Founder"}], "what": "Business valuation & advisory"}, "Storehouse": {"fit": "Possible fit", "loc": "Wesley Chapel, FL", "blurb": "Florida funding firm founded by Michael Pilet offering business lending and personal loans, based on its directory and networking profiles.", "ptype": "Referral partner: business loan broker", "why": "Business lending broker. Confirm typical client size, since Altbanq needs $1M+ revenue.", "warn": ["Website blocks automated reading."], "ppl": [{"n": "Michael Pilet", "t": "Founder", "e": "mpilet@storehousecapitalfs.com"}], "what": "Florida firm: business and personal loans"}, "Vista Commercial Capital Corp": {"fit": "Possible fit", "loc": "Smithtown, NY", "blurb": "Long Island commercial finance firm listed in commercial mortgage and hard money directories. Website blocks automated reading.", "ptype": "Referral partner: business loan broker", "why": "Appears to be mostly commercial mortgage. Close to Altbanq's NYC office; a short call would confirm whether they place business loans.", "warn": ["Unverified product mix."], "web": "https://vistacommercialcapital.com", "ppl": [{"n": "Steven Baritz", "e": "steven@vistacommercialcapital.com"}], "what": "Long Island commercial mortgage / hard money"}, "WTA Solutions": {"fit": "Possible fit", "loc": "Not found", "blurb": "No website or public company description found. Listed as a broker.", "ptype": "Referral partner: business loan broker", "why": "Confirm what they place before adding to outreach.", "warn": ["Unverified. Personal Yahoo email."], "ppl": [{"n": "Tim Allred", "e": "tlallred44@yahoo.com"}], "what": "No public company info found"}, "Total Bank": {"fit": "Possible fit", "loc": "Florida", "blurb": "TotalBank is a brand of City National Bank of Florida; the TotalBank site shows online deposit products (CDs, money market) only.", "ptype": "Bank referral partner", "why": "Parent City National Bank of Florida is a commercial bank. Confirm Tooney Thepsoumane's role before outreach.", "warn": ["Unverified lending role."], "ppl": [{"n": "Tooney Thepsoumane", "e": "tooney.thepsoumane@totalbank.com", "t": "VP, SBA Business Development Officer", "tc": true}], "what": "City National Bank of FL brand; deposit products only online"}, "Travelers": {"fit": "Possible fit", "loc": "Toronto / Calgary, Canada (has a US site)", "blurb": "Non-bank alternative lender, part of Travelers Financial Group, providing asset-based loans and leases to public and private mid-market companies for working capital, acquisitions and balance sheet restructuring.", "ptype": "Co-lending / cross-referral", "why": "Mid-market and public company focus overlaps with Altbanq's complex structures (Point 01). Possible co-lending or cross-referral on U.S. deals.", "ppl": [{"n": "Sean Pisarski", "e": "spisarski@travelerscapital.com", "t": "Vice President, Originations", "tc": true}], "what": "Canadian non-bank ABL and leasing, mid-market"}, "Paynada": {"fit": "Possible fit", "loc": "Concord, CA / Allen, TX", "blurb": "Payment processor (registered ISO of Wells Fargo) running a dual pricing program so card fees are covered by the card price; serves retail, hospitality, e-commerce and B2B merchants.", "ptype": "Strategic: payments", "why": "Merchant base may need working capital, but Paynada competes with Altbanq Payments. Best as a selective lending referral conversation.", "warn": ["California-based. Altbanq's partner terms require a CA CFL license to receive referral fees; confirm licensing."], "ppl": [{"n": "Amanda Knowles", "e": "amanda.knowles@youpaynada.com"}], "what": "Payment processing (dual pricing)"}, "Boardwalk Capital LLC": {"fit": "Not a fit", "loc": "Not stated", "blurb": "Hard money lender for real estate investors: fix and flip, DSCR, rental, multifamily, short-term rental and blanket loans; recent loans roughly $180K to $600K.", "whynot": "Real estate investor lending.", "ppl": [{"n": "Matthew Mesick", "e": "matt@boardwalk-cap.com", "t": "Hard Money Loan Broker"}], "what": "Hard money for RE investors"}, "KBA Financial Group": {"fit": "Not a fit", "loc": "Bradenton, FL", "blurb": "Residential mortgage firm (KBA Group LLC) helping customers buy homes, refinance and access home equity. No commercial or business lending found.", "whynot": "Residential mortgage only.", "ppl": [{"n": "Kenneth Benitez-Aulet", "e": "kbenitez@kbafinancialgroup.com", "t": "Mortgage Broker & CEO"}], "what": "Residential mortgage only"}, "Klea RE": {"fit": "Not a fit", "loc": "North Texas (lends nationwide)", "blurb": "Woman-owned real estate financing firm offering fix and flip, bridge, DSCR rental, commercial and construction loans, plus some business funding.", "whynot": "Primarily real estate investor financing.", "ppl": [{"n": "Lamar Barnes", "e": "lamar@klea-re.com"}], "what": "RE investor loans: fix & flip, bridge, DSCR"}, "Middle Creek Capital": {"fit": "Not a fit", "loc": "Lexington, KY", "blurb": "Capital advisory firm helping real estate investors and developers finance $1M to $50M deals nationwide. Founder Kyle Wicker has 20+ years in commercial lending.", "whynot": "Real estate investor and developer focus; real estate is a restricted industry for Altbanq.", "ppl": [{"n": "Evan Cannon", "e": "evan@middlecreekcapital.com"}, {"n": "Kyle Wicker", "t": "Founder", "e": "kyle@middlecreekcapital.com"}], "what": "Capital advisor for RE investors/developers, $1M–$50M"}, "Mountain Capital": {"fit": "Not a fit", "loc": "Spokane, WA", "blurb": "Hard money real estate lender (short-term rental, fix and flip, construction, DSCR) for investors and builders in North Idaho and Eastern Washington since 2007; affiliate of Mountain BizCapital Inc.", "whynot": "Real estate investor lending. The affiliate Mountain BizCapital may do business lending; worth asking Lee Carney if you meet.", "ppl": [{"n": "Lee J. Carney", "e": "lee.carney@mountaincapital-llc.com", "t": "Founder & Principal"}], "what": "Hard money RE lender (ID/WA); affiliate does business loans"}, "Red Heart Capital Loans": {"fit": "Not a fit", "loc": "California", "blurb": "Licensed mortgage lender offering bridge, fix and flip and construction loans to real estate investors and homebuyers, with recent deals in Los Angeles and San Jose.", "whynot": "Real estate investor lending. California referral fees would also require a CFL license.", "ppl": [{"n": "Terence Green", "e": "tgreen@redheartcapital.com"}], "what": "RE investor bridge / fix & flip lender (CA)"}, "Blue Stone commercial capital": {"fit": "Not a fit", "loc": "Haddonfield, NJ", "blurb": "Private commercial bridge lender for real estate investors and developers (bridge, fix and flip); recent closings $331K to $2.5M.", "whynot": "Real estate lending.", "ppl": [{"n": "Dan Hampton", "e": "dan@bluestoneloans.com", "t": "EVP, Originations"}], "what": "Private bridge lender for RE investors"}, "Cashflow IT": {"fit": "Not a fit", "loc": "Not stated", "blurb": "Direct funder of revenue-based advances (1st to 3rd position) and asset-based financing up to $2.5M, including high-risk industries; sells through ISO partners.", "whynot": "Competes for the same broker deal flow with a higher-cost product. Market intel only.", "ppl": [{"n": "Matthew Washington", "e": "Matt@cashfloit.com"}], "what": "Revenue-based advances & ABL up to $2.5M (competitor)"}, "MM Lending": {"fit": "Not a fit", "loc": "Ohio / Indiana / Kentucky", "blurb": "Private real estate lender since 2005: fix and flip, fix to rent, new construction and DSCR loans.", "whynot": "Real estate investor lending.", "ppl": [{"n": "Patrick Yost", "e": "patrick@mmlending.com"}], "what": "Private RE lender: fix & flip, DSCR"}, "New Day Commercial capital": {"fit": "Not a fit", "loc": "Westlake Village, CA", "blurb": "DBA of Velocity Commercial Capital providing CRE loans nationwide ($150K to $17.5M+) for owner-users and investors.", "whynot": "Real estate lending; little overlap.", "ppl": [{"n": "Christopher Boardman", "e": "cboardman@newdaycommercial.com"}], "what": "CRE loans (DBA of Velocity Commercial Capital)", "sp": true, "spn": "New Day Business Finance", "addp": [{"n": "Dain Court", "c": "New Day Commercial Capital", "t": "Chief Origination Officer", "tc": true, "e": "dcourt@newdaybf.com"}]}};
+// ========================================================
+var TYPES=["Bank","Credit union","Non-bank lender","SBA","Term loans","Lines of credit","Equipment","Factoring / AR","ABL","MCA / revenue-based","Real estate / CRE","Healthcare"];
+var ROLES=["Broker","Lender","Service provider"];
+var TC={exec:"Executive / Owner",vp:"VP / Director",sales:"Sales / BD",credit:"Credit / Ops",other:"Other"};
+var F={role:"Role",our:"Our contact",signup:"Signed up",lead:"Lead created",sub:"Last submission",tnote:"Type details"};
+
+// ===== SHARED DATABASE =====
 var DB="https://clba-conferance-default-rtdb.firebaseio.com";
-// example: var DB="https://my-project-default-rtdb.firebaseio.com";
-// =========================================================================================
+// The Slack webhook is read from the database (config/slack), not stored in this file.
+// ===========================
 DB=DB.replace(/\/+$/,"");
-var st={tab:"all",q:"",info:false,unmet:false},S={},K=[],RK={top:0,fit:1,low:2},seen={},pend=false,tmr={};
+var HOOK="";
+var st={tab:"all",q:"",info:false,unmet:false,edit:null,dr:null},S={},K=[],RK={top:0,fit:1,low:2,spo:3},seen={},pend=false,tmr={},nt={},sent={};
 D.forEach(function(d,i){var k=(d[0]+"|"+d[1]).replace(/[.$#\[\]\/]/g,"_");seen[k]=(seen[k]||0)+1;K[i]=seen[k]>1?k+"#"+seen[k]:k});
+
 function cache(){try{localStorage.setItem("clba2",JSON.stringify(S))}catch(e){}}
-function lcl(){try{S=JSON.parse(localStorage.getItem("clba2")||"{}")}catch(e){S={}}}
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
-function key(i){return K[i]}
+function lcl(){try{S=JSON.parse(localStorage.getItem("clba2")||"{}")||{}}catch(e){S={}}}
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function sesc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function eff(i){var s=S[K[i]];return (s&&s.l)||D[i][0]}
+function xi(i){var s=S[K[i]]||{},b=X[D[i][1]]||{},o={},p;for(p in b)o[p]=b[p];if(s.x)for(p in s.x)o[p]=s.x[p];return o}
+function types(x){return x.types?String(x.types).split("|").filter(Boolean):[]}
+function ppl(i,x){x=x||xi(i);if(x.ppl0)return[];if(x.ppl&&x.ppl.length)return x.ppl.filter(Boolean).concat(x.addp||[]);var b=(D[i][5]||[]).map(function(n){return{n:n}});return b.concat(x.addp||[])}
+function role(i,x){x=x||xi(i);if(x.role)return x.role;return autoRole(i)}
+function autoRole(i){var n=(D[i][3]||"").toLowerCase(),f=n.split(",")[0];if(/^lender/.test(f))return "Lender";if(/broker/.test(f))return "Broker";if(/^service provider/.test(f))return "Service provider";return ""}
+function tc(t){t=(t||"").toLowerCase();if(!t)return "none";
+  if(/managing (director|partner|member)/.test(t))return "exec";
+  if(/\b(vp|svp|evp|avp|vice president|director|head)\b/.test(t))return "vp";
+  if(/\b(ceo|cfo|coo|cto|cro|cmo|chief|founder|co-founder|owner|president|principal|partner|chairman)\b/.test(t))return "exec";
+  if(/(sales|business development|\bbd\b|relationship|relations|account|partnership|originat|broker|loan officer|market|specialist)/.test(t))return "sales";
+  if(/(credit|underwrit|risk|operation|\bops\b|analyst|portfolio|servic|compliance|closing|processor)/.test(t))return "credit";
+  return "other"}
+function fd(v){if(!v)return "";var d=new Date(v+"T00:00:00");if(isNaN(d))return v;return d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
+function liu(p,i){if(p.li)return /^https?:/i.test(p.li)?p.li:"https://"+p.li;return "https://www.linkedin.com/search/results/people/?keywords="+encodeURIComponent(p.n+" "+(p.c||D[i][1]))}
 function toast(t){var e=document.getElementById("toast");e.textContent=t;e.className="on";clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=""},2200)}
 function status(t,c){var e=document.getElementById("sync");e.textContent=t;e.className=c||""}
+
+// ----- who is using this phone (for Slack messages) -----
+function myName(){try{return localStorage.getItem("clbaName")||""}catch(e){return ""}}
+function setName(n){try{localStorage.setItem("clbaName",n)}catch(e){}meBtn()}
+function meBtn(){var n=myName();document.getElementById("me").textContent=n?"You: "+n:"Set your name"}
+function who(ask){var n=myName();if(!n&&ask&&HOOK){n=(prompt("Your name (shown in Slack updates):")||"").trim();if(n)setName(n)}return n||"Someone"}
+
+// ----- Slack -----
+function slack(text){
+  if(!HOOK)return;
+  fetch(HOOK,{method:"POST",mode:"no-cors",body:new URLSearchParams({payload:JSON.stringify({text:text})})}).catch(function(){});
+}
+function loadHook(){
+  fetch(DB+"/config/slack.json").then(function(r){return r.ok?r.json():null}).then(function(v){
+    if(typeof v=="string"&&/^https:\/\/hooks\.slack\.com\//.test(v.trim())){HOOK=v.trim();document.getElementById("sl").textContent="· Slack on"}
+  }).catch(function(){});
+}
+function noteSlack(i){
+  clearTimeout(nt[i]);delete nt[i];
+  var v=(S[K[i]]||{}).n||"";if(v===sent[i])return;sent[i]=v;
+  if(!v){slack("*"+sesc(who())+"* cleared the notes on *"+sesc(D[i][1])+"*");return}
+  slack("*"+sesc(who())+"* updated notes on *"+sesc(D[i][1])+"*:\n"+sesc(v).split("\n").map(function(l){return ">"+l}).join("\n"));
+}
+
+// ----- database -----
 function url(k){return DB+"/clba/"+encodeURIComponent(k)+".json"}
 function send(k,f){
   if(!DB)return;
@@ -186,90 +337,198 @@ function put(i,f,delay){
   if(delay){var body={};for(var p2 in f)body[p2]=f[p2];tmr[k+"n"]=setTimeout(function(){send(k,body)},delay)}
   else send(k,f);
 }
+
+// ----- drawing -----
 function tabs(){
-  var c={top:0,fit:0,low:0};D.forEach(function(d,i){c[eff(i)]++});
+  var c={top:0,fit:0,low:0,sp:0,spo:0};D.forEach(function(d,i){c[eff(i)]++;if(xi(i).sp)c.sp++});
   var h='<button data-t="all" class="'+(st.tab=="all"?"on":"")+'">All <b>'+D.length+'</b></button>';
   for(var k in L){h+='<button data-t="'+k+'" class="'+k+' '+(st.tab==k?"on":"")+'">'+L[k]+' <b>'+c[k]+'</b></button>'}
+  h+='<button data-t="sp" class="sp '+(st.tab=="sp"?"on":"")+'">★ Sponsors <b>'+c.sp+'</b></button>';
   document.getElementById("tabs").innerHTML=h;
 }
+function editForm(i){
+  var d=st.dr,o='<option value="">Auto'+(autoRole(i)?" ("+autoRole(i)+")":"")+'</option>';
+  ROLES.forEach(function(r){o+='<option'+(d.role==r?" selected":"")+'>'+r+'</option>'});
+  var ch="";TYPES.forEach(function(t){ch+='<button class="'+(d.types.indexOf(t)>=0?"on":"")+'" data-ty="'+esc(t)+'">'+esc(t)+'</button>'});
+  var pr="";d.ppl.forEach(function(p,j){
+    pr+='<div class="pr"><input data-p="'+j+'|n" placeholder="Name" value="'+esc(p.n)+'">'+
+        '<input data-p="'+j+'|t" placeholder="Title (e.g. CEO)" value="'+esc(p.t)+'">'+
+        '<input data-p="'+j+'|li" type="url" inputmode="url" placeholder="LinkedIn profile URL (optional)" value="'+esc(p.li)+'">'+
+        '<button class="del" data-pdel="'+j+'">Remove person</button></div>'});
+  return '<div class="ed">'+
+    '<label class="ck"><input type="checkbox" data-f="sp"'+(d.sp?" checked":"")+'> ★ Conference sponsor</label>'+
+    '<label>Role<select data-f="role">'+o+'</select></label>'+
+    '<div class="grp">Lender / product type</div><div class="tch">'+ch+'</div>'+
+    '<label>Type details<input data-f="tnote" placeholder="e.g. $50k–$5M, 1st position, 12+ months in business" value="'+esc(d.tnote)+'"></label>'+
+    '<label>Our contact (Altbanq)<input data-f="our" value="'+esc(d.our)+'"></label>'+
+    '<label>Signed up<input type="date" data-f="signup" value="'+esc(d.signup)+'"></label>'+
+    '<label>Lead created (Salesforce)<input type="date" data-f="lead" value="'+esc(d.lead)+'"></label>'+
+    '<label>Last deal submission (Salesforce)<input type="date" data-f="sub" value="'+esc(d.sub)+'"></label>'+
+    '<div class="grp">Attending the conference</div>'+pr+
+    '<button class="add" data-padd="1">+ Add person</button>'+
+    '<div class="row"><button class="pri" data-save="'+i+'">Save details</button><button class="mm" data-cancel="1">Cancel</button></div></div>';
+}
+function sfBox(x){var f=x.sfd;if(!f)return "";
+  var g='<div class="box sfb"><div class="h">Salesforce · <b class="'+(/inactive/i.test(f.status)?"off":"on")+'">'+esc(f.status)+'</b></div><dl class="kv">'+
+    (f.ptype?'<dt>Partner type</dt><dd>'+esc(f.ptype)+'</dd>':'')+'<dt>'+esc(f.clabel)+'</dt><dd>'+fd(f.created)+'</dd>'+
+    (x.sub?'<dt>Last submission</dt><dd>'+fd(x.sub)+'</dd>':'')+'<dt>Deals</dt><dd>'+f.deals.length+'</dd></dl>';
+  g+=f.deals.map(function(d){var c=/funded/i.test(d.o)?"dg":/declined/i.test(d.o)?"dr":"dm";
+    return '<div class="deal"><span class="dn">'+esc(d.n)+'</span><span class="do '+c+'">'+esc(d.o)+(d.amt?' · '+esc(d.amt):'')+'</span><div class="dd">'+(d.dt?esc(d.dt):fd(d.d))+(d.x?' · '+esc(d.x):'')+'</div></div>'}).join("");
+  g+='<div class="h" style="margin-top:8px">Contacts in Salesforce</div>'+f.contacts.map(function(c){
+    return '<div class="sfc">'+esc(c.n)+(c.x?' <span class="dd">('+esc(c.x)+')</span>':'')+' · <a href="mailto:'+esc(c.e)+'">'+esc(c.e)+'</a></div>'}).join("");
+  return g+'</div>'}
+function card(i){
+  var d=D[i],ln=eff(i),s=S[K[i]]||{},x=xi(i),r=role(i,x),P=ppl(i,x),T=types(x),moved=ln!=d[0],web=x.web||d[2];
+  var sub=lab(ln)+(r?" · "+r:"")+(x.fit?" · "+x.fit:"")+(x.sub?" · Last sub "+fd(x.sub):"");
+  var mv='';for(var k in L){mv+='<button class="'+k+(k==ln?' cur':'')+'" data-mv="'+i+'|'+k+'">'+L[k]+'</button>'}
+  var kv=[["Location",x.loc],["Our contact",x.our],["Signed up",fd(x.signup)],["Lead created",fd(x.lead)],["Last submission",fd(x.sub)]].filter(function(a){return a[1]&&a[1]!="Not stated"&&a[1]!="Not found"});
+  var fc=!x.fit?"":/not/i.test(x.fit)?"fN":/possible/i.test(x.fit)?"fP":"fS";
+  var h='<details data-i="'+i+'" class="c '+ln+(x.sp?" spx":"")+(s.met?" met":"")+'"><summary><span class="nm">'+esc(d[1])+
+    '<div class="lst">'+esc(sub)+'</div>'+(x.what?'<div class="wh">'+esc(x.what)+'</div>':'')+'</span>'+(x.sf?'<span class="tag sf">In Salesforce</span>':'')+(x.hist?'<span class="tag hs">Past contact</span>':'')+(x.sp?'<span class="tag sp">★ Sponsor</span>':'')+(s.met?'<span class="tag m">Met</span>':'')+
+    (moved?'<span class="tag mv2">moved</span>':'')+'</summary><div class="body">';
+  h+=sfBox(x);
+  if(x.blurb)h+='<div class="box"><div class="h">About</div>'+esc(x.blurb)+'</div>';
+  else if(x.what)h+='<div class="box"><div class="h">What they do'+(x.spn&&x.spn!=d[1]?' (sponsor listing: '+esc(x.spn)+')':'')+'</div>'+esc(x.what)+'</div>';
+  else h+='<div class="none">Specialty not confirmed. Ask what loans and industries they focus on.</div>';
+  if(x.fit)h+='<div class="box fit '+fc+'"><div class="h">'+esc(x.fit)+(x.ptype?' · '+esc(x.ptype):'')+'</div>'+esc(x.why||x.whynot||"")+'</div>';
+  if(x.warn)h+=x.warn.map(function(w){return '<div class="box warn">⚠ '+esc(w)+'</div>'}).join("");
+  h+=P.length?'<div class="box"><div class="h">Attending</div>'+P.map(function(p){var c=tc(p.t);
+      return '<div class="pp"><div class="pn">'+esc(p.n)+(p.t?'<br><span class="tt '+c+'">'+esc(p.t)+'</span>'+(p.tc?' <span class="cf">confirm</span>':''):'')+'</div>'+
+        (p.e?'<a class="li s" href="mailto:'+esc(p.e)+'">Email</a>':'')+
+        '<a class="li'+(p.li?"":" s")+'" href="'+esc(liu(p,i))+'" target="_blank" rel="noopener">'+(p.li?"in Profile":"in Search")+'</a></div>'}).join("")+'</div>'
+    :'<div class="none">Attendee name not confirmed</div>';
+  h+=kv.length?'<div class="box"><dl class="kv">'+kv.map(function(a){return '<dt>'+a[0]+'</dt><dd>'+esc(a[1])+'</dd>'}).join("")+'</dl></div>':'';
+  if(d[3]||x.sam)h+='<div class="box note"><div class="h">Our notes</div>'+esc(d[3])+(x.sam?(d[3]?'\n':'')+esc(x.sam):'')+'</div>';
+  h+='<div class="row">'+(web?'<a href="'+esc(web)+'" target="_blank" rel="noopener">Open website</a>':'<div class="web">'+esc(d[4]||"No website")+'</div>')+
+    '<a href="https://www.linkedin.com/search/results/companies/?keywords='+encodeURIComponent(x.spn||d[1])+'" target="_blank" rel="noopener">Company LinkedIn</a></div><div class="row">'+
+    '<button class="mm" data-m="'+i+'">'+(s.met?"Unmark met":"Mark as met")+'</button></div>'+
+    '<div class="mvl">Move to list:</div><div class="mv">'+mv+'</div>'+
+    (moved?'<button class="rv" data-mv="'+i+'|'+d[0]+'">Return to original list ('+lab(d[0])+')</button>':'')+
+    '<textarea data-n="'+i+'" placeholder="My notes from the conversation…">'+esc(s.n||"")+'</textarea></div></details>';
+  return h;
+}
+function FR(f){return {"Strong fit":0,"Good fit":1,"Possible fit":2,"Not a fit":3}[f]??4}
 function render(){
-  var q=st.q.toLowerCase(),h="",idx=[];
+  var q=st.q.toLowerCase(),idx=[];
   D.forEach(function(d,i){
-    var ln=eff(i),s=S[K[i]]||{};
-    if(st.tab!="all"&&ln!=st.tab)return;
+    var ln=eff(i),s=S[K[i]]||{},x=xi(i);
+    if(st.tab=="sp"){if(!x.sp)return}else if(st.tab!="all"&&ln!=st.tab)return;
     if(st.info&&!d[3])return;
     if(st.unmet&&s.met)return;
-    if(q&&(d[1]+" "+d[3]+" "+(s.n||"")).toLowerCase().indexOf(q)<0)return;
+    if(q){var hay=[d[1],d[3],x.what,x.spn,x.blurb,x.loc,x.fit,x.why,x.whynot,x.sam,s.n,x.our,x.tnote,types(x).join(" "),role(i,x)].concat(ppl(i,x).map(function(p){return p.n+" "+(p.t||"")})).join(" ").toLowerCase();if(hay.indexOf(q)<0)return}
     idx.push(i);
   });
   idx.sort(function(a,b){
     var la=RK[eff(a)],lb=RK[eff(b)];if(la!=lb)return la-lb;
+    if(st.tab=="sp"||eff(a)=="spo"){var fa=FR(xi(a).fit),fb=FR(xi(b).fit);if(fa!=fb)return fa-fb}
     var ta=(S[K[a]]||{}).t||0,tb=(S[K[b]]||{}).t||0;if(ta!=tb)return tb-ta;
     return a-b;
   });
-  idx.forEach(function(i){
-    var d=D[i],ln=eff(i),s=S[K[i]]||{},moved=ln!=d[0];
-    var mv='';
-    for(var k in L){mv+='<button class="'+k+(k==ln?' cur':'')+'" data-mv="'+i+'|'+k+'">'+L[k]+'</button>'}
-    h+='<details data-i="'+i+'" class="'+ln+(s.met?" met":"")+'"><summary><span class="nm">'+esc(d[1])+
-      '<div class="lst">'+L[ln]+'</div></span>'+(s.met?'<span class="tag m">Met</span>':'')+(moved?'<span class="tag mv2">moved</span>':'')+(d[3]?'<span class="tag i">info</span>':'')+
-      '</summary><div class="body">'+(d[3]?'<div class="note">'+esc(d[3])+'</div>':'<div class="none">No details in list</div>')+
-      '<div class="row">'+(d[2]?'<a href="'+esc(d[2])+'" target="_blank" rel="noopener">Open website</a>':'<div class="web">'+esc(d[4]||"no website")+'</div>')+
-      '<button class="mm" data-m="'+i+'">'+(s.met?"Unmark met":"Mark as met")+'</button></div>'+
-      '<div class="mvl">Move to list:</div><div class="mv">'+mv+'</div>'+
-      (moved?'<button class="rv" data-mv="'+i+'|'+d[0]+'">Return to original list ('+L[d[0]]+')</button>':'')+
-      '<textarea data-n="'+i+'" placeholder="My notes from the conversation…">'+esc(s.n||"")+'</textarea></div></details>';
-  });
-  document.getElementById("list").innerHTML=h||'<div class="none">No matches</div>';
+  document.getElementById("list").innerHTML=idx.map(card).join("")||'<div class="none">No matches</div>';
   document.getElementById("cnt").textContent=idx.length+" companies";
   document.getElementById("fi").className=st.info?"on":"";
   document.getElementById("fm").className=st.unmet?"on":"";
 }
 function refresh(){
-  var open=[].map.call(document.querySelectorAll("details[open]"),function(d){return d.dataset.i});
+  var open=[].map.call(document.querySelectorAll("details.c[open]"),function(d){return d.dataset.i});
   var y=window.scrollY;tabs();render();
   open.forEach(function(i){var d=document.querySelector('details[data-i="'+i+'"]');if(d)d.open=true});
   window.scrollTo(0,y);
 }
+function busy(){return st.edit!==null||(document.activeElement&&document.activeElement.tagName=="TEXTAREA")}
 function pull(){
   fetch(DB+"/clba.json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
     S=d||{};cache();status("● Live","ok");
-    if(document.activeElement&&document.activeElement.tagName=="TEXTAREA"){pend=true}else{pend=false;refresh()}
+    if(busy()){pend=true}else{pend=false;refresh()}
   }).catch(function(){status("○ Offline – showing saved copy","bad")});
 }
 function live(){
   if(!DB){status("○ Local only","bad");return}
-  status("… connecting");pull();
+  status("… connecting");pull();loadHook();
   try{
     var es=new EventSource(DB+"/clba.json");
     es.addEventListener("put",pull);es.addEventListener("patch",pull);
     es.onerror=function(){status("○ Reconnecting…","bad")};
   }catch(e){setInterval(pull,5000)}
 }
+
+// ----- editing details -----
+function openEdit(i){
+  var x=xi(i);
+  st.edit=i;st.dr={sp:!!x.sp,role:x.role||"",types:types(x),tnote:x.tnote||"",our:x.our||"",signup:x.signup||"",lead:x.lead||"",sub:x.sub||"",
+    ppl:ppl(i,x).map(function(p){return{n:p.n||"",t:p.t||"",li:p.li||""}})};
+  refresh();
+}
+function closeEdit(){st.edit=null;st.dr=null;pend=false;refresh()}
+function saveEdit(i){
+  var o=xi(i),d=st.dr,cur=(S[K[i]]||{}).x||{},nx={},p,ch=[];
+  for(p in cur)nx[p]=cur[p];
+  for(p in F){var nv=(d[p]||"").trim(),ov=o[p]||"";if(nv!==ov){nx[p]=nv;ch.push(F[p]+": "+(nv?(/signup|lead|sub/.test(p)?fd(nv):nv):"(cleared)"))}}
+  if(!!d.sp!==!!o.sp){nx.sp=!!d.sp;ch.push(d.sp?"Marked as sponsor ★":"No longer a sponsor")}
+  var tn=d.types.join("|");if(tn!==types(o).join("|")){nx.types=tn;ch.push("Type: "+(d.types.join(", ")||"(cleared)"))}
+  var np=d.ppl.map(function(q){return{n:q.n.trim(),t:q.t.trim(),li:q.li.trim()}}).filter(function(q){return q.n});
+  var op=ppl(i,o).map(function(q){return{n:q.n||"",t:q.t||"",li:q.li||""}});
+  if(JSON.stringify(np)!==JSON.stringify(op)){
+    if(np.length){nx.ppl=np;delete nx.ppl0}else{nx.ppl0=true;delete nx.ppl}
+    ch.push("Attending: "+(np.map(function(q){return q.n+(q.t?" ("+q.t+")":"")}).join(", ")||"(none)"));
+  }
+  if(ch.length){
+    put(i,{x:nx});
+    slack("*"+sesc(who(true))+"* updated *"+sesc(D[i][1])+"*:\n"+ch.map(function(c){return "• "+sesc(c)}).join("\n"));
+    toast("Saved details for "+D[i][1]);
+  }else toast("Nothing changed");
+  closeEdit();
+}
+
+// ----- events -----
 document.getElementById("q").oninput=function(e){st.q=e.target.value;render()};
 document.getElementById("tabs").onclick=function(e){var t=e.target.closest("button");if(t){st.tab=t.dataset.t;tabs();render()}};
 document.getElementById("fi").onclick=function(){st.info=!st.info;render()};
 document.getElementById("fm").onclick=function(){st.unmet=!st.unmet;render()};
+document.getElementById("me").onclick=function(){var n=prompt("Your name (shown in Slack updates):",myName());if(n!==null){n=n.trim();if(n)setName(n)}};
 document.getElementById("list").onclick=function(e){
-  var m=e.target.closest("button[data-mv]");
-  if(m){
-    var p=m.dataset.mv.split("|"),i=+p[0],to=p[1];
-    if(eff(i)==to)return;
+  var b;
+  if(b=e.target.closest("button[data-mv]")){
+    var p=b.dataset.mv.split("|"),i=+p[0],to=p[1],from=eff(i);
+    if(from==to)return;
     if(to==D[i][0])put(i,{l:null,t:null});else put(i,{l:to,t:Date.now()});
-    tabs();render();toast(D[i][1]+" → "+L[to]);return;
+    slack("*"+sesc(who(true))+"* moved *"+sesc(D[i][1])+"* from "+lab(from)+" → *"+L[to]+"*");
+    refresh();toast(D[i][1]+" → "+L[to]);return;
   }
-  var b=e.target.closest("button[data-m]");if(!b)return;
-  var i2=+b.dataset.m,s2=S[K[i2]]||{};
-  put(i2,{met:s2.met?null:true});
-  var o=document.querySelector('details[data-i="'+i2+'"]').open;render();
-  var d=document.querySelector('details[data-i="'+i2+'"]');if(d)d.open=o;
+  if(b=e.target.closest("button[data-m]")){
+    var i2=+b.dataset.m,s2=S[K[i2]]||{},nowMet=!s2.met;
+    put(i2,{met:nowMet?true:null});
+    slack("*"+sesc(who(true))+"* "+(nowMet?"marked *"+sesc(D[i2][1])+"* as met ✅":"unmarked *"+sesc(D[i2][1])+"* as met"));
+    refresh();return;
+  }
+  if(b=e.target.closest("button[data-e]")){openEdit(+b.dataset.e);return}
+  if(b=e.target.closest("button[data-ty]")){
+    var t=b.dataset.ty,a=st.dr.types,k=a.indexOf(t);
+    if(k>=0)a.splice(k,1);else a.push(t);b.classList.toggle("on");return;
+  }
+  if(e.target.closest("button[data-padd]")){st.dr.ppl.push({n:"",t:"",li:""});refresh();return}
+  if(b=e.target.closest("button[data-pdel]")){st.dr.ppl.splice(+b.dataset.pdel,1);refresh();return}
+  if(b=e.target.closest("button[data-save]")){saveEdit(+b.dataset.save);return}
+  if(e.target.closest("button[data-cancel]")){closeEdit();return}
 };
-document.getElementById("list").oninput=function(e){
-  var t=e.target;if(t.dataset.n===undefined)return;
-  put(+t.dataset.n,{n:t.value||null},600);
-};
-document.getElementById("list").addEventListener("focusout",function(e){
-  if(e.target.tagName=="TEXTAREA"&&pend){pend=false;setTimeout(refresh,50)}
+function onField(e){
+  var t=e.target;
+  if(st.dr&&t.dataset.f!==undefined){st.dr[t.dataset.f]=t.type=="checkbox"?t.checked:t.value;return}
+  if(st.dr&&t.dataset.p!==undefined){var p=t.dataset.p.split("|");st.dr.ppl[+p[0]][p[1]]=t.value;return}
+  if(e.type=="input"&&t.dataset.n!==undefined){
+    var i=+t.dataset.n;put(i,{n:t.value||null},600);
+    clearTimeout(nt[i]);nt[i]=setTimeout(function(){noteSlack(i)},8000);
+  }
+}
+document.getElementById("list").addEventListener("input",onField);
+document.getElementById("list").addEventListener("change",onField);
+document.getElementById("list").addEventListener("focusin",function(e){
+  if(e.target.tagName=="TEXTAREA"){var i=+e.target.dataset.n;if(!(i in nt))sent[i]=(S[K[i]]||{}).n||""}
 });
-lcl();tabs();render();live();
+document.getElementById("list").addEventListener("focusout",function(e){
+  if(e.target.tagName!="TEXTAREA")return;
+  var i=+e.target.dataset.n;if(i in nt){who(true);noteSlack(i)}
+  if(pend&&st.edit===null){pend=false;setTimeout(refresh,50)}
+});
+meBtn();lcl();tabs();render();live();
 </script></body></html>
