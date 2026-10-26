@@ -47,9 +47,19 @@ textarea{width:100%;min-height:70px;padding:10px;font-size:16px;border:1px solid
 .chips button{padding:6px 10px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--tx);font-size:13px}
 .chips button.on{background:var(--acbg);color:var(--ac);border-color:var(--ac)}
 .lst{font-size:12px;color:var(--mu)}
+.mv{display:flex;gap:6px;margin-bottom:8px;align-items:stretch}
+.mvl{font-size:13px;color:var(--mu);margin:2px 0 4px}
+.mv button{flex:1;padding:10px 4px;border-radius:10px;border:2px solid var(--bd);font-size:14px;background:var(--card);color:var(--tx)}
+.mv button.top{border-color:var(--g)}.mv button.fit{border-color:var(--y)}.mv button.low{border-color:var(--r)}
+.mv button.top.cur{background:var(--g);color:#fff}.mv button.fit.cur{background:var(--y);color:#222}.mv button.low.cur{background:var(--r);color:#fff}
+.rv{background:none;border:none;color:var(--ac);font-size:13px;padding:2px 0 8px;text-decoration:underline}
+.tag.mv2{background:var(--ac);color:#fff}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:#111;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+#sync{font-size:12px;font-weight:500;margin-left:6px;color:var(--mu)}#sync.ok{color:var(--g)}#sync.bad{color:var(--r)}
 </style></head><body>
 <header>
-<h1>CLBA Conference · Ltbanq</h1>
+<h1>CLBA Conference · Ltbanq <span id="sync"></span></h1>
 <input id="q" type="search" placeholder="Search company, contact, keyword…" autocomplete="off">
 <div class="tabs" id="tabs"></div>
 </header>
@@ -58,6 +68,7 @@ textarea{width:100%;min-height:70px;padding:10px;font-size:16px;border:1px solid
 <div class="sub" id="cnt"></div>
 <div id="list"></div>
 </main>
+<div id="toast"></div>
 <script>
 var L={
 top:"Top 25",
@@ -147,51 +158,118 @@ var D=[
 ["low","Stewart","https://www.lifeease.com/","service provider, contact Rob Silva"],
 ["low","Preferred funding group","https://preferredfundinggroup.com/","Business loan broker, contact Danny Tran"]
 ];
-var st={tab:"all",q:"",info:false,unmet:false},S={};
-function ld(){try{S=JSON.parse(localStorage.getItem("clba")||"{}")}catch(e){S={}}}
-function sv(){try{localStorage.setItem("clba",JSON.stringify(S))}catch(e){}}
+// ===== SHARED DATABASE: paste your Firebase Realtime Database URL between the quotes =====
+var DB="https://clba-conferance-default-rtdb.firebaseio.com";
+// example: var DB="https://my-project-default-rtdb.firebaseio.com";
+// =========================================================================================
+DB=DB.replace(/\/+$/,"");
+var st={tab:"all",q:"",info:false,unmet:false},S={},K=[],RK={top:0,fit:1,low:2},seen={},pend=false,tmr={};
+D.forEach(function(d,i){var k=(d[0]+"|"+d[1]).replace(/[.$#\[\]\/]/g,"_");seen[k]=(seen[k]||0)+1;K[i]=seen[k]>1?k+"#"+seen[k]:k});
+function cache(){try{localStorage.setItem("clba2",JSON.stringify(S))}catch(e){}}
+function lcl(){try{S=JSON.parse(localStorage.getItem("clba2")||"{}")}catch(e){S={}}}
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
-function key(i){return D[i][0]+"|"+D[i][1]}
+function key(i){return K[i]}
+function eff(i){var s=S[K[i]];return (s&&s.l)||D[i][0]}
+function toast(t){var e=document.getElementById("toast");e.textContent=t;e.className="on";clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=""},2200)}
+function status(t,c){var e=document.getElementById("sync");e.textContent=t;e.className=c||""}
+function url(k){return DB+"/clba/"+encodeURIComponent(k)+".json"}
+function send(k,f){
+  if(!DB)return;
+  fetch(url(k),{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(f)})
+   .then(function(r){if(!r.ok)throw 0;status("● Live","ok")}).catch(function(){status("○ Not saved online","bad")});
+}
+function put(i,f,delay){
+  var k=K[i];S[k]=S[k]||{};
+  for(var p in f){if(f[p]===null)delete S[k][p];else S[k][p]=f[p]}
+  cache();
+  clearTimeout(tmr[k+(delay?"n":"")]);
+  if(delay){var body={};for(var p2 in f)body[p2]=f[p2];tmr[k+"n"]=setTimeout(function(){send(k,body)},delay)}
+  else send(k,f);
+}
 function tabs(){
+  var c={top:0,fit:0,low:0};D.forEach(function(d,i){c[eff(i)]++});
   var h='<button data-t="all" class="'+(st.tab=="all"?"on":"")+'">All <b>'+D.length+'</b></button>';
-  for(var k in L){var n=D.filter(function(d){return d[0]==k}).length;
-    h+='<button data-t="'+k+'" class="'+k+' '+(st.tab==k?"on":"")+'">'+L[k]+' <b>'+n+'</b></button>'}
+  for(var k in L){h+='<button data-t="'+k+'" class="'+k+' '+(st.tab==k?"on":"")+'">'+L[k]+' <b>'+c[k]+'</b></button>'}
   document.getElementById("tabs").innerHTML=h;
 }
 function render(){
-  var q=st.q.toLowerCase(),h="",n=0;
+  var q=st.q.toLowerCase(),h="",idx=[];
   D.forEach(function(d,i){
-    if(st.tab!="all"&&d[0]!=st.tab)return;
-    var s=S[key(i)]||{};
+    var ln=eff(i),s=S[K[i]]||{};
+    if(st.tab!="all"&&ln!=st.tab)return;
     if(st.info&&!d[3])return;
     if(st.unmet&&s.met)return;
     if(q&&(d[1]+" "+d[3]+" "+(s.n||"")).toLowerCase().indexOf(q)<0)return;
-    n++;
-    h+='<details data-i="'+i+'" class="'+d[0]+(s.met?" met":"")+'"'+(q&&n==1&&0?" open":"")+'><summary><span class="nm">'+esc(d[1])+
-      '<div class="lst">'+L[d[0]]+'</div></span>'+(s.met?'<span class="tag m">Met</span>':'')+(d[3]?'<span class="tag i">info</span>':'')+
+    idx.push(i);
+  });
+  idx.sort(function(a,b){
+    var la=RK[eff(a)],lb=RK[eff(b)];if(la!=lb)return la-lb;
+    var ta=(S[K[a]]||{}).t||0,tb=(S[K[b]]||{}).t||0;if(ta!=tb)return tb-ta;
+    return a-b;
+  });
+  idx.forEach(function(i){
+    var d=D[i],ln=eff(i),s=S[K[i]]||{},moved=ln!=d[0];
+    var mv='';
+    for(var k in L){mv+='<button class="'+k+(k==ln?' cur':'')+'" data-mv="'+i+'|'+k+'">'+L[k]+'</button>'}
+    h+='<details data-i="'+i+'" class="'+ln+(s.met?" met":"")+'"><summary><span class="nm">'+esc(d[1])+
+      '<div class="lst">'+L[ln]+'</div></span>'+(s.met?'<span class="tag m">Met</span>':'')+(moved?'<span class="tag mv2">moved</span>':'')+(d[3]?'<span class="tag i">info</span>':'')+
       '</summary><div class="body">'+(d[3]?'<div class="note">'+esc(d[3])+'</div>':'<div class="none">No details in list</div>')+
       '<div class="row">'+(d[2]?'<a href="'+esc(d[2])+'" target="_blank" rel="noopener">Open website</a>':'<div class="web">'+esc(d[4]||"no website")+'</div>')+
       '<button class="mm" data-m="'+i+'">'+(s.met?"Unmark met":"Mark as met")+'</button></div>'+
+      '<div class="mvl">Move to list:</div><div class="mv">'+mv+'</div>'+
+      (moved?'<button class="rv" data-mv="'+i+'|'+d[0]+'">Return to original list ('+L[d[0]]+')</button>':'')+
       '<textarea data-n="'+i+'" placeholder="My notes from the conversation…">'+esc(s.n||"")+'</textarea></div></details>';
   });
   document.getElementById("list").innerHTML=h||'<div class="none">No matches</div>';
-  document.getElementById("cnt").textContent=n+" companies";
+  document.getElementById("cnt").textContent=idx.length+" companies";
   document.getElementById("fi").className=st.info?"on":"";
   document.getElementById("fm").className=st.unmet?"on":"";
+}
+function refresh(){
+  var open=[].map.call(document.querySelectorAll("details[open]"),function(d){return d.dataset.i});
+  var y=window.scrollY;tabs();render();
+  open.forEach(function(i){var d=document.querySelector('details[data-i="'+i+'"]');if(d)d.open=true});
+  window.scrollTo(0,y);
+}
+function pull(){
+  fetch(DB+"/clba.json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+    S=d||{};cache();status("● Live","ok");
+    if(document.activeElement&&document.activeElement.tagName=="TEXTAREA"){pend=true}else{pend=false;refresh()}
+  }).catch(function(){status("○ Offline – showing saved copy","bad")});
+}
+function live(){
+  if(!DB){status("○ Local only","bad");return}
+  status("… connecting");pull();
+  try{
+    var es=new EventSource(DB+"/clba.json");
+    es.addEventListener("put",pull);es.addEventListener("patch",pull);
+    es.onerror=function(){status("○ Reconnecting…","bad")};
+  }catch(e){setInterval(pull,5000)}
 }
 document.getElementById("q").oninput=function(e){st.q=e.target.value;render()};
 document.getElementById("tabs").onclick=function(e){var t=e.target.closest("button");if(t){st.tab=t.dataset.t;tabs();render()}};
 document.getElementById("fi").onclick=function(){st.info=!st.info;render()};
 document.getElementById("fm").onclick=function(){st.unmet=!st.unmet;render()};
 document.getElementById("list").onclick=function(e){
+  var m=e.target.closest("button[data-mv]");
+  if(m){
+    var p=m.dataset.mv.split("|"),i=+p[0],to=p[1];
+    if(eff(i)==to)return;
+    if(to==D[i][0])put(i,{l:null,t:null});else put(i,{l:to,t:Date.now()});
+    tabs();render();toast(D[i][1]+" → "+L[to]);return;
+  }
   var b=e.target.closest("button[data-m]");if(!b)return;
-  var i=+b.dataset.m,k=key(i);S[k]=S[k]||{};S[k].met=!S[k].met;sv();
-  var o=document.querySelector('details[data-i="'+i+'"]').open;render();
-  var d=document.querySelector('details[data-i="'+i+'"]');if(d)d.open=o;
+  var i2=+b.dataset.m,s2=S[K[i2]]||{};
+  put(i2,{met:s2.met?null:true});
+  var o=document.querySelector('details[data-i="'+i2+'"]').open;render();
+  var d=document.querySelector('details[data-i="'+i2+'"]');if(d)d.open=o;
 };
 document.getElementById("list").oninput=function(e){
   var t=e.target;if(t.dataset.n===undefined)return;
-  var k=key(+t.dataset.n);S[k]=S[k]||{};S[k].n=t.value;sv();
+  put(+t.dataset.n,{n:t.value||null},600);
 };
-ld();tabs();render();
+document.getElementById("list").addEventListener("focusout",function(e){
+  if(e.target.tagName=="TEXTAREA"&&pend){pend=false;setTimeout(refresh,50)}
+});
+lcl();tabs();render();live();
 </script></body></html>
