@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conference agenda · Nov 2–4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F7F4;--surface:#FFFFFF;--ink:#17233A;--ink-2:#4F5868;--ink-3:#8A909B;--rule:#E3E2DC;--rule-strong:#C9C8C0;
+  --s-bg:#E8EBF7;--s-bd:#3E4C8A;--s-tx:#27315E;
+  --f-bg:#F6EEDB;--f-bd:#A9781F;--f-tx:#5E420F;
+  --n-bg:#E2F1EB;--n-bd:#2F7A62;--n-tx:#1B4D3D;
+  --l-bg:#EDEDEA;--l-bd:#7A7F87;--l-tx:#3F444B;
+  --now:#C0392B;
+  color-scheme:light;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161E;--surface:#1A1F29;--ink:#ECEEF2;--ink-2:#B3B8C2;--ink-3:#7E8592;--rule:#2A303C;--rule-strong:#3B4250;
+  --s-bg:#262D52;--s-bd:#8E9BE0;--s-tx:#E3E6FA;
+  --f-bg:#43341A;--f-bd:#D9AE5C;--f-tx:#F7EBD2;
+  --n-bg:#183A30;--n-bd:#6CC3A5;--n-tx:#DDF3EA;
+  --l-bg:#2C3038;--l-bd:#9AA0A9;--l-tx:#E3E5E8;
+  --now:#FF6B5B;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161E;--surface:#1A1F29;--ink:#ECEEF2;--ink-2:#B3B8C2;--ink-3:#7E8592;--rule:#2A303C;--rule-strong:#3B4250;
+  --s-bg:#262D52;--s-bd:#8E9BE0;--s-tx:#E3E6FA;
+  --f-bg:#43341A;--f-bd:#D9AE5C;--f-tx:#F7EBD2;
+  --n-bg:#183A30;--n-bd:#6CC3A5;--n-tx:#DDF3EA;
+  --l-bg:#2C3038;--l-bd:#9AA0A9;--l-tx:#E3E5E8;
+  --now:#FF6B5B;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 120px}
+header h1{font-size:15px;font-weight:500;color:var(--ink-2);margin:0 0 14px;letter-spacing:.01em}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:6px 0 10px;z-index:5}
+.day{all:unset;cursor:pointer;border-radius:12px;padding:10px 12px;border:1px solid var(--rule);background:var(--surface);display:flex;align-items:baseline;gap:8px}
+.day:focus-visible{outline:2px solid var(--s-bd);outline-offset:2px}
+.day .num{font-size:34px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink-3)}
+.day .lbl{font-size:13px;color:var(--ink-2);line-height:1.2}
+.day[aria-selected="true"]{border-color:var(--ink);background:var(--ink)}
+.day[aria-selected="true"] .num,.day[aria-selected="true"] .lbl{color:var(--bg)}
+.reg{font-size:13px;color:var(--ink-2);padding:9px 12px;border-left:3px solid var(--rule-strong);margin:4px 0 14px;background:var(--surface)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink-2);margin-bottom:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;border:1px solid}
+.grid{position:relative;background:var(--surface);border:1px solid var(--rule);border-radius:12px}
+.hr{position:absolute;left:0;right:0;border-top:1px solid var(--rule)}
+.hl{position:absolute;left:8px;font-size:11px;color:var(--ink-3);transform:translateY(-50%);background:var(--surface);padding:0 3px}
+.ev{all:unset;position:absolute;box-sizing:border-box;border-radius:7px;border:1px solid;border-left-width:3px;padding:4px 7px;font-size:12px;line-height:1.3;overflow:hidden;cursor:pointer}
+.ev:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.ev b{font-weight:700;display:block}
+.ev span{display:block;opacity:.85}
+.k-s{background:var(--s-bg);border-color:var(--s-bd);color:var(--s-tx)}
+.k-f{background:var(--f-bg);border-color:var(--f-bd);color:var(--f-tx)}
+.k-n{background:var(--n-bg);border-color:var(--n-bd);color:var(--n-tx)}
+.k-l{background:var(--l-bg);border-color:var(--l-bd);color:var(--l-tx)}
+.now{position:absolute;left:52px;right:0;border-top:2px solid var(--now);z-index:3;pointer-events:none}
+.now::before{content:"";position:absolute;left:-5px;top:-6px;width:10px;height:10px;border-radius:50%;background:var(--now)}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--rule-strong);padding:16px 20px calc(18px + env(safe-area-inset-bottom,0px));transform:translateY(110%);transition:transform .22s ease}
+.sheet.open{transform:none}
+.sheet-in{max-width:760px;margin:0 auto;position:relative;padding-right:40px}
+.sheet h2{font-size:18px;font-weight:700;margin:0 0 4px;line-height:1.3}
+.sheet p{margin:2px 0;color:var(--ink-2);font-size:14px}
+.sheet .x{all:unset;position:absolute;right:0;top:0;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ink-2);font-size:20px;border:1px solid var(--rule)}
+.sheet .x:focus-visible{outline:2px solid var(--ink)}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+@media (max-width:480px){.day{flex-direction:column;gap:2px}.day .num{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>Conference agenda, November 2–4</h1></header>
+  <nav class="days" role="tablist" id="days" aria-label="Conference days"></nav>
+  <div class="reg" id="reg"></div>
+  <div class="legend">
+    <span><i class="k-s"></i>Sessions</span><span><i class="k-f"></i>Meals and breaks</span><span><i class="k-n"></i>Exhibits and networking</span><span><i class="k-l"></i>Logistics</span>
+  </div>
+  <div class="grid" id="grid" role="tabpanel"></div>
+</div>
+<div class="sheet" id="sheet" aria-live="polite">
+  <div class="sheet-in">
+    <button class="x" id="close" aria-label="Close details">×</button>
+    <h2 id="s-title"></h2>
+    <p id="s-time"></p>
+    <p id="s-loc"></p>
+    <p id="s-note"></p>
+  </div>
+</div>
+<script>
+var DAYS=[
+{id:"mon",num:"2",lbl:"Mon<br>Nov",date:[2026,10,2],reg:"Attendee registration 10:00 a.m. – 6:00 p.m., Griffin Hall Foyer, Level 2",r:[9.5,22],e:[
+["Coffee and connections",10,11.5,"Griffin Hall Foyer, Level 2","f","Hosted by Baker Garrington & Garrington Capital"],
+["Women in Commercial Lending brunch",11,13,"Room 201, Level 2","f","Hosted by RCN Capital"],
+["Lunch on your own",11.5,14,"JW Marriott","f","Explore JW Marriott dining options"],
+["Exhibitor setup",12,15,"Griffin Hall, Level 2","l",""],
+["Educational session with Milestone Bank",14,15,"White River Ballroom, Level 1","s","General sessions are brought to you by Banesco USA"],
+["Beverage break",14.75,15.25,"White River Foyer, Level 1","f","Hosted by Tenet Financial"],
+["Breakout session 1",15,16,"Rooms 201–205, Level 2","s",""],
+["Exhibition hall hours",16,18,"Griffin Hall, Level 2","n","Brought to you by Milestone Bank"],
+["Networking reception",18,20,"White River Ballroom Foyer, Level 1","n",""],
+["Monday Night Football networking after party",20,22,"White River Ballroom, Level 1","n","New this year"]]},
+{id:"tue",num:"3",lbl:"Tue<br>Nov",date:[2026,10,3],reg:"Registration open 7:30 a.m. – 6:00 p.m., Griffin Hall Foyer, Level 2",r:[7.5,20],e:[
+["Breakfast and exhibition hall",8,10,"Griffin Hall, Level 2","n","Breakfast served until 9:00 a.m."],
+["Beverage break",9.75,10.25,"Griffin Hall Foyer, Level 2","f","Hosted by National Business Capital"],
+["Breakout session 2",10,11,"Rooms 201–205, Level 2","s",""],
+["Lunch",11,12,"White River Ballroom, Level 1","f",""],
+["Founder’s address and welcome",11.5,11.8334,"White River Ballroom, Level 1","s",""],
+["Featured presentation: SBA expert Eric Armacost",11.8334,12.8334,"White River Ballroom, Level 1","s","SBA updates directly from the source. Sponsored by Banesco USA."],
+["The State of Lending panel",12.8334,13.8334,"White River Ballroom, Level 1","s",""],
+["Breakout session 3",14,15,"Rooms 201–205, Level 2","s",""],
+["Exhibition hall hours",15,17,"Griffin Hall, Level 2","n","Brought to you by Milestone Bank"],
+["Breakout session 4",17,18,"Rooms 201–205, Level 2","s",""],
+["Networking reception and exhibit hall",18,20,"Griffin Hall, Level 2","n",""]]},
+{id:"wed",num:"4",lbl:"Wed<br>Nov",date:[2026,10,4],reg:"Final day. The conference officially closes at 12:00 p.m.",r:[7.5,12.5],e:[
+["Breakfast and awards presentation",8,9,"White River Ballroom, Level 1","f",""],
+["Leadership Council panel, closing remarks and champagne send-off",9,10,"White River Ballroom, Level 1","s",""],
+["Final lap exhibit hall experience",10,12,"Griffin Hall, Level 2","n","Networking and prize drawings. Sponsored by Milestone Bank."],
+["Exhibitor breakdown and conference close",12,12.5,"Griffin Hall, Level 2","l","Starts at 12:00 p.m."]]}
+];
+var PX=66,GUT=56,cur=0;
+function ft(h){var H=Math.floor(h+1e-6),m=Math.round((h-H)*60);if(m===60){H++;m=0}return (H%12||12)+":"+(m<10?"0":"")+m+" "+(H>=12?"p.m.":"a.m.")}
+function fh(h){var H=Math.round(h);return (H%12||12)+" "+(H>=12?"p.m.":"a.m.")}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function layout(ev){
+  var s=ev.map(function(e,i){return {e:e,i:i}}).sort(function(a,b){return a.e[1]-b.e[1]||b.e[2]-a.e[2]});
+  var out=[],cl=[],lanes=[],end=-1;
+  function flush(){var n=lanes.length;cl.forEach(function(c){c.n=n});out=out.concat(cl);cl=[];lanes=[]}
+  s.forEach(function(x){
+    if(cl.length&&x.e[1]>=end-1e-6)flush();
+    var l=-1;for(var k=0;k<lanes.length;k++){if(lanes[k]<=x.e[1]+1e-6){l=k;break}}
+    if(l<0){l=lanes.length;lanes.push(0)}
+    lanes[l]=x.e[2];x.l=l;cl.push(x);end=Math.max(end,x.e[2]);
+  });
+  flush();return out;
+}
+function render(d){
+  cur=d;var day=DAYS[d];
+  document.querySelectorAll(".day").forEach(function(b,i){b.setAttribute("aria-selected",i===d?"true":"false");b.tabIndex=i===d?0:-1});
+  document.getElementById("reg").textContent=day.reg;
+  var a=day.r[0],z=day.r[1],g=document.getElementById("grid"),h="";
+  g.style.height=((z-a)*PX+16)+"px";
+  for(var t=Math.ceil(a);t<=z;t++){var y=(t-a)*PX+8;h+='<div class="hr" style="top:'+y+'px;left:'+GUT+'px"></div><div class="hl" style="top:'+y+'px">'+fh(t)+'</div>'}
+  layout(day.e).forEach(function(x){
+    var e=x.e,top=(e[1]-a)*PX+9,ht=(e[2]-e[1])*PX-2,w="(100% - "+(GUT+6)+"px) / "+x.n;
+    var tall=ht>=44;
+    h+='<button class="ev k-'+e[4]+'" data-i="'+x.i+'" style="top:'+top+'px;height:'+ht+'px;left:calc('+GUT+'px + '+w+' * '+x.l+');width:calc('+w+' - 4px)" aria-label="'+esc(e[0])+', '+ft(e[1])+' to '+ft(e[2])+'"><b>'+esc(e[0])+'</b>'+(tall?'<span>'+ft(e[1])+' – '+ft(e[2])+'</span>'+(ht>=80?'<span>'+esc(e[3])+'</span>':''):'')+'</button>';
+  });
+  h+='<div class="now" id="now" hidden></div>';
+  g.innerHTML=h;
+  g.querySelectorAll(".ev").forEach(function(el){el.addEventListener("click",function(){openSheet(day.e[+el.dataset.i])})});
+  closeSheet();tickNow();
+}
+function openSheet(e){
+  document.getElementById("s-title").textContent=e[0];
+  document.getElementById("s-time").textContent=ft(e[1])+" – "+ft(e[2]);
+  document.getElementById("s-loc").textContent=e[3];
+  var n=document.getElementById("s-note");n.textContent=e[5];n.hidden=!e[5];
+  document.getElementById("sheet").classList.add("open");
+}
+function closeSheet(){document.getElementById("sheet").classList.remove("open")}
+function tickNow(){
+  var el=document.getElementById("now");if(!el)return;
+  var day=DAYS[cur],n=new Date(),dd=day.date;
+  var hrs=n.getHours()+n.getMinutes()/60;
+  if(n.getFullYear()===dd[0]&&n.getMonth()===dd[1]&&n.getDate()===dd[2]&&hrs>=day.r[0]&&hrs<=day.r[1]){el.hidden=false;el.style.top=((hrs-day.r[0])*PX+8)+"px"}else el.hidden=true;
+}
+function go(i){if(location.hash!=="#"+DAYS[i].id)location.hash=DAYS[i].id;else render(i)}
+var nav=document.getElementById("days");
+DAYS.forEach(function(d,i){
+  var b=document.createElement("button");b.className="day";b.setAttribute("role","tab");b.id="tab-"+d.id;
+  b.innerHTML='<span class="num">'+d.num+'</span><span class="lbl">'+d.lbl+'</span>';
+  b.addEventListener("click",function(){go(i)});
+  b.addEventListener("keydown",function(ev){if(ev.key==="ArrowRight"||ev.key==="ArrowLeft"){var j=(i+(ev.key==="ArrowRight"?1:2))%3;go(j);document.getElementById("tab-"+DAYS[j].id).focus()}});
+  nav.appendChild(b);
+});
+document.getElementById("close").addEventListener("click",closeSheet);
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
+function fromHash(){
+  var id=location.hash.replace("#",""),i=DAYS.findIndex(function(d){return d.id===id});
+  if(i<0){var n=new Date();i=DAYS.findIndex(function(d){return n.getFullYear()===d.date[0]&&n.getMonth()===d.date[1]&&n.getDate()===d.date[2]});if(i<0)i=0}
+  render(i);
+}
+window.addEventListener("hashchange",fromHash);
+fromHash();setInterval(tickNow,60000);
+</script>
+</body>
+</html>
