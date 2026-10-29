@@ -66,6 +66,12 @@ header h1{font-size:15px;font-weight:500;color:var(--ink-2);margin:0 0 14px;lett
 .sheet-in{max-width:760px;margin:0 auto;position:relative;padding-right:40px}
 .sheet h2{font-size:18px;font-weight:700;margin:0 0 4px;line-height:1.3}
 .sheet p{margin:2px 0;color:var(--ink-2);font-size:14px}
+.sheet a.go{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:14px;font-weight:500;text-decoration:none}
+.sheet a.go:focus-visible{outline:2px solid var(--s-bd);outline-offset:2px}
+.cal{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cal a,.cal button{all:unset;cursor:pointer;padding:7px 13px;border-radius:999px;border:1px solid var(--rule-strong);font-size:13px;color:var(--ink);background:var(--surface)}
+.cal a:focus-visible,.cal button:focus-visible,.addall:focus-visible{outline:2px solid var(--s-bd);outline-offset:2px}
+.addall{all:unset;cursor:pointer;display:inline-block;font-size:13px;color:var(--ink);text-decoration:underline;text-underline-offset:3px;margin:-4px 0 14px}
 .sheet .x{all:unset;position:absolute;right:0;top:0;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ink-2);font-size:20px;border:1px solid var(--rule)}
 .sheet .x:focus-visible{outline:2px solid var(--ink)}
 @media (prefers-reduced-motion:reduce){.sheet{transition:none}}
@@ -77,6 +83,7 @@ header h1{font-size:15px;font-weight:500;color:var(--ink-2);margin:0 0 14px;lett
   <header><h1>Conference agenda, November 2–4</h1></header>
   <nav class="days" role="tablist" id="days" aria-label="Conference days"></nav>
   <div class="reg" id="reg"></div>
+  <button class="addall" id="addall" type="button">Add the full agenda to my calendar (Apple / Outlook / Google import)</button>
   <div class="legend">
     <span><i class="k-s"></i>Sessions</span><span><i class="k-f"></i>Meals and breaks</span><span><i class="k-n"></i>Exhibits and networking</span><span><i class="k-l"></i>Logistics</span>
   </div>
@@ -89,32 +96,35 @@ header h1{font-size:15px;font-weight:500;color:var(--ink-2);margin:0 0 14px;lett
     <p id="s-time"></p>
     <p id="s-loc"></p>
     <p id="s-note"></p>
+    <a class="go" id="s-link" target="_blank" rel="noopener" hidden></a>
+    <div class="cal"><a id="c-google" target="_blank" rel="noopener">Add to Google Calendar</a><button id="c-ics" type="button">Add to Apple / Outlook</button></div>
   </div>
 </div>
 <script>
+var BRK="https://clba.getregistered.net/2026-conference-expo/breakout-sessions",GEN="https://clba.getregistered.net/2026-conference-expo/general-sessions";
 var DAYS=[
 {id:"mon",num:"2",lbl:"Mon<br>Nov",date:[2026,10,2],reg:"Attendee registration 10:00 a.m. – 6:00 p.m., Griffin Hall Foyer, Level 2",r:[9.5,22],e:[
 ["Coffee and connections",10,11.5,"Griffin Hall Foyer, Level 2","f","Hosted by Baker Garrington & Garrington Capital"],
-["Women in Commercial Lending brunch",11,13,"Room 201, Level 2","f","Hosted by RCN Capital"],
-["Lunch on your own",11.5,14,"JW Marriott","f","Explore JW Marriott dining options"],
+["Women in Commercial Lending brunch",11,13,"Room 201, Level 2","f","Hosted by RCN Capital","https://clba.getregistered.net/2026-conference-expo/women-s-brunch","Meet the panelists"],
+["Lunch on your own",11.5,14,"JW Marriott","f","Explore JW Marriott dining options","https://www.marriott.com/en-us/hotels/indjw-jw-marriott-indianapolis/dining/","See dining options"],
 ["Exhibitor setup",12,15,"Griffin Hall, Level 2","l",""],
-["Educational session with Milestone Bank",14,15,"White River Ballroom, Level 1","s","General sessions are brought to you by Banesco USA"],
+["Educational session with Milestone Bank",14,15,"White River Ballroom, Level 1","s","General sessions are brought to you by Banesco USA",GEN,"About general sessions"],
 ["Beverage break",14.75,15.25,"White River Foyer, Level 1","f","Hosted by Tenet Financial"],
-["Breakout session 1",15,16,"Rooms 201–205, Level 2","s",""],
+["Breakout session 1",15,16,"Rooms 201–205, Level 2","s","",BRK,"Read session descriptions"],
 ["Exhibition hall hours",16,18,"Griffin Hall, Level 2","n","Brought to you by Milestone Bank"],
 ["Networking reception",18,20,"White River Ballroom Foyer, Level 1","n",""],
 ["Monday Night Football networking after party",20,22,"White River Ballroom, Level 1","n","New this year"]]},
 {id:"tue",num:"3",lbl:"Tue<br>Nov",date:[2026,10,3],reg:"Registration open 7:30 a.m. – 6:00 p.m., Griffin Hall Foyer, Level 2",r:[7.5,20],e:[
 ["Breakfast and exhibition hall",8,10,"Griffin Hall, Level 2","n","Breakfast served until 9:00 a.m."],
 ["Beverage break",9.75,10.25,"Griffin Hall Foyer, Level 2","f","Hosted by National Business Capital"],
-["Breakout session 2",10,11,"Rooms 201–205, Level 2","s",""],
+["Breakout session 2",10,11,"Rooms 201–205, Level 2","s","",BRK,"Read session descriptions"],
 ["Lunch",11,12,"White River Ballroom, Level 1","f",""],
 ["Founder’s address and welcome",11.5,11.8334,"White River Ballroom, Level 1","s",""],
-["Featured presentation: SBA expert Eric Armacost",11.8334,12.8334,"White River Ballroom, Level 1","s","SBA updates directly from the source. Sponsored by Banesco USA."],
-["The State of Lending panel",12.8334,13.8334,"White River Ballroom, Level 1","s",""],
-["Breakout session 3",14,15,"Rooms 201–205, Level 2","s",""],
+["Featured presentation: SBA expert Eric Armacost",11.8334,12.8334,"White River Ballroom, Level 1","s","SBA updates directly from the source. Sponsored by Banesco USA.",GEN,"About general sessions"],
+["The State of Lending panel",12.8334,13.8334,"White River Ballroom, Level 1","s","",GEN,"About general sessions"],
+["Breakout session 3",14,15,"Rooms 201–205, Level 2","s","",BRK,"Read session descriptions"],
 ["Exhibition hall hours",15,17,"Griffin Hall, Level 2","n","Brought to you by Milestone Bank"],
-["Breakout session 4",17,18,"Rooms 201–205, Level 2","s",""],
+["Breakout session 4",17,18,"Rooms 201–205, Level 2","s","",BRK,"Read session descriptions"],
 ["Networking reception and exhibit hall",18,20,"Griffin Hall, Level 2","n",""]]},
 {id:"wed",num:"4",lbl:"Wed<br>Nov",date:[2026,10,4],reg:"Final day. The conference officially closes at 12:00 p.m.",r:[7.5,12.5],e:[
 ["Breakfast and awards presentation",8,9,"White River Ballroom, Level 1","f",""],
@@ -152,14 +162,18 @@ function render(d){
   });
   h+='<div class="now" id="now" hidden></div>';
   g.innerHTML=h;
-  g.querySelectorAll(".ev").forEach(function(el){el.addEventListener("click",function(){openSheet(day.e[+el.dataset.i])})});
+  g.querySelectorAll(".ev").forEach(function(el){el.addEventListener("click",function(){openSheet(cur,+el.dataset.i)})});
   closeSheet();tickNow();
 }
-function openSheet(e){
+var SEL=null;
+function openSheet(d,i){
+  SEL=[d,i];var e=DAYS[d].e[i];
   document.getElementById("s-title").textContent=e[0];
   document.getElementById("s-time").textContent=ft(e[1])+" – "+ft(e[2]);
   document.getElementById("s-loc").textContent=e[3];
   var n=document.getElementById("s-note");n.textContent=e[5];n.hidden=!e[5];
+  var k=document.getElementById("s-link");if(e[6]){k.href=e[6];k.textContent=e[7]||"Learn more";k.hidden=false}else{k.hidden=true;k.removeAttribute("href")}
+  document.getElementById("c-google").href=gcal(DAYS[d],e);
   document.getElementById("sheet").classList.add("open");
 }
 function closeSheet(){document.getElementById("sheet").classList.remove("open")}
@@ -178,6 +192,20 @@ DAYS.forEach(function(d,i){
   b.addEventListener("keydown",function(ev){if(ev.key==="ArrowRight"||ev.key==="ArrowLeft"){var j=(i+(ev.key==="ArrowRight"?1:2))%3;go(j);document.getElementById("tab-"+DAYS[j].id).focus()}});
   nav.appendChild(b);
 });
+var VENUE="JW Marriott Indianapolis, 10 S. West Street, Indianapolis, IN 46204";
+function pad(n){return (n<10?"0":"")+n}
+function hm(h){var H=Math.floor(h+1e-6),m=Math.round((h-H)*60);if(m===60){H++;m=0}return [H,m]}
+function localStamp(dd,h){var t=hm(h);return dd[0]+pad(dd[1]+1)+pad(dd[2])+"T"+pad(t[0])+pad(t[1])+"00"}
+function utcStamp(dd,h){var t=hm(h);var x=new Date(Date.UTC(dd[0],dd[1],dd[2],t[0]+5,t[1]));return x.toISOString().replace(/[-:]/g,"").slice(0,15)+"Z"}
+function details(e){var p=[];if(e[5])p.push(e[5]);if(e[6])p.push((e[7]||"More info")+": "+e[6]);p.push("CLBA 2026 Conference & Expo");return p.join("\n")}
+function gcal(day,e){return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("CLBA: "+e[0])+"&dates="+localStamp(day.date,e[1])+"/"+localStamp(day.date,e[2])+"&ctz=America/Indiana/Indianapolis&location="+encodeURIComponent(e[3]+", "+VENUE)+"&details="+encodeURIComponent(details(e))}
+function icsEsc(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n")}
+function vevent(day,e,i){var now=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";return ["BEGIN:VEVENT","UID:clba26-"+day.id+"-"+i+"@clba-agenda","DTSTAMP:"+now,"DTSTART:"+utcStamp(day.date,e[1]),"DTEND:"+utcStamp(day.date,e[2]),"SUMMARY:"+icsEsc("CLBA: "+e[0]),"LOCATION:"+icsEsc(e[3]+", "+VENUE),"DESCRIPTION:"+icsEsc(details(e)),"END:VEVENT"].join("\r\n")}
+function ics(events){return "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//CLBA 2026 agenda//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n"+events.join("\r\n")+"\r\nEND:VCALENDAR\r\n"}
+function saveIcs(name,text){try{var b=new Blob([text],{type:"text/calendar;charset=utf-8"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)}catch(err){}}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40)}
+document.getElementById("c-ics").addEventListener("click",function(){if(!SEL)return;var day=DAYS[SEL[0]],e=day.e[SEL[1]];saveIcs("clba-"+slug(e[0])+".ics",ics([vevent(day,e,SEL[1])]))});
+document.getElementById("addall").addEventListener("click",function(){var all=[];DAYS.forEach(function(day){day.e.forEach(function(e,i){all.push(vevent(day,e,i))})});saveIcs("clba-2026-full-agenda.ics",ics(all))});
 document.getElementById("close").addEventListener("click",closeSheet);
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
 function fromHash(){
